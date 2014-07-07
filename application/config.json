@@ -1,16 +1,8 @@
 {
     "development": {
         "username": "root",
-        "password": "Naveeg28!",
-        "database": "purdue_dev",
-        "host": "127.0.0.1",
-        "port": 3306,
-        "dialect": "mysql"
-    },
-    "production": {
-        "username": "root",
         "password": "boilerup",
-        "database": "purdue_prod",
+        "database": "purdue_dev",
         "host": "purduequalcomm.cxb3cc6lpgr3.us-west-2.rds.amazonaws.com",
         "port": 3306,
         "dialect": "mysql"
