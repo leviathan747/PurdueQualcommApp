@@ -14,7 +14,6 @@
         "lodash-node": "*",
         "cookie-parser": "~1.0.1",
         "body-parser": "~1.0.0",
-        "express-session": "*",
-        "method-override": "*"
+        "express-session": "~1.6.4"
     }
 }

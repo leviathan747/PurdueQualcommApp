@@ -8,7 +8,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var http = require('http');
-var methodOverride = require('method-override');
 
 var pages = require('./routes/index.js');
 
@@ -17,7 +16,6 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
 
 fs.readFile("config.json", 'utf8', function(err, data) {
     if (err) {
@@ -31,10 +29,10 @@ fs.readFile("config.json", 'utf8', function(err, data) {
     }
     catch(e) {
         console.log("readFile Parse Error: ", e);
-        //throw e;
+        process.exit(-1);
     }
     
-    // get config
+    // get config (defaults to development)
     var configName = process.argv[2] || 'development';
 
     // get port number
@@ -44,14 +42,12 @@ fs.readFile("config.json", 'utf8', function(err, data) {
     console.log(configName);
     console.log("Server port: " + defaultPort);
     
-    /*
     db.sequelize(config[configName], function(err) {
         if (err) {
             console.log("Sequelize err: " + err[0]);
             process.exit(-1);
         }
         else {
-            */
             // all environments
             process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             
@@ -66,7 +62,12 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             
             app.use(partials());
             app.use(cookieParser());
-            app.use(session({secret: ''+new Date().getTime()}));
+            app.use(session({
+                secret: ''+new Date().getTime(),
+                cookie: {secure: false},
+                resave: true,
+                saveUninitialized: true
+            }));
             app.use(bodyParser());
 
             app.set('port', process.env.PORT || defaultPort);
@@ -74,10 +75,8 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.set('view engine', 'ejs');
             app.use(bodyParser.json());
             app.use(bodyParser.urlencoded());
-            app.use(methodOverride());
             app.use(express.static('public'));
             app.use(express.static(path.join(__dirname, 'public')));
-            //app.use(express.favicon());
 
             // get requests
             app.get('/', pages.index);
@@ -87,8 +86,6 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))
             });
-            /*
         }
     });
-    */
 });
