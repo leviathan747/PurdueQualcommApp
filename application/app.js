@@ -4,7 +4,6 @@ var path = require('path');
 var fs = require('fs');
 var db = require('./models');
 var Encoder = require('node-html-encoder').Encoder;
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var http = require('http');
@@ -58,15 +57,12 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.use(function(req, res, next) {
                 req.db = db.db;
                 req.encoder = new Encoder('entity');
-                req.session = null;
-                req.headers.cookie = null;
                 next();
             });
             
             app.use(partials());
-            app.use(cookieParser());
             app.use(session({
-                secret: ''+new Date().getTime(),
+                secret: 'boilerup',
                 cookie: {secure: false},
                 resave: true,
                 saveUninitialized: true
