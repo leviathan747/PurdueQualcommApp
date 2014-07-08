@@ -81,6 +81,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
 
             // get requests
             app.get('/', pages.index);
+            app.get('/internApp', pages.internApp);
 
             // post requests
             app.post('/stopServer', controller.stopServer);
