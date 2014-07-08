@@ -10,6 +10,7 @@ var session = require('express-session');
 var http = require('http');
 
 var pages = require('./routes/index.js');
+var controller = require('./routes/controller.js');
 
 var config = null;
 var app = express();
@@ -82,6 +83,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/', pages.index);
 
             // post requests
+            app.post('/stopServer', controller.stopServer);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))
