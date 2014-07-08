@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var http = require('http');
+var logger = require('morgan');
 
 var pages = require('./routes/index.js');
 var controller = require('./routes/controller.js');
@@ -58,6 +59,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
                 req.db = db.db;
                 req.encoder = new Encoder('entity');
                 req.session = null;
+                req.headers.cookie = null;
                 next();
             });
             
@@ -69,13 +71,13 @@ fs.readFile("config.json", 'utf8', function(err, data) {
                 resave: true,
                 saveUninitialized: true
             }));
-            app.use(bodyParser());
 
             app.set('port', process.env.PORT || defaultPort);
             app.set('views', path.join(__dirname, 'views'));
             app.set('view engine', 'ejs');
+            app.use(logger('dev'));
             app.use(bodyParser.json());
-            app.use(bodyParser.urlencoded());
+            app.use(bodyParser.urlencoded({extended: 'false'}));
             app.use(express.static('public'));
             app.use(express.static(path.join(__dirname, 'public')));
 
