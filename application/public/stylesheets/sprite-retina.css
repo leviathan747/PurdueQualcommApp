@@ -93,7 +93,7 @@
 .nav-lines-ico {
   width: 35px;
   height: 35px;
-  background-position: 0px -320px;
+  background-position: 4px -320px;
 }
 
 .logo-small {
@@ -178,6 +178,12 @@
   width: 35px;
   height: 35px;
   background-position: -62px -0px !important;
+}
+
+.nav-lines-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -390px -40px !important;
 }
 
 .nav-leadership-ico.on {
