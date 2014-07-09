@@ -42,7 +42,7 @@ html.device-smartphone,
 .device-oldbb #general {-webkit-transform-style:inherit; -webkit-backface-visibility:inherit; -webkit-perspective:inherit;}
 .ie7 {height:auto;}
 
-#header {height:100px; background:url('../img/bgr-header.png') no-repeat center center #025d80; background-size:1032px 100px; border-bottom:2px solid #CCC; text-align:center;}
+#header {height:100px; background:url('../img/bgr-header.png') no-repeat center center #333; background-size:1032px 100px; border-bottom:2px solid #CCC; text-align:center;}
     #header .logo {display:inline-block; margin-top:20px;}
     #header .header-illustration {position:absolute; top:0; right:0;}
     #header .btn-yes {position:absolute; right:40px; top:120px; z-index:170;}
@@ -69,23 +69,23 @@ html.device-smartphone,
 #navigation {position:absolute; width:133px; padding-bottom:6875px; left:0; margin-bottom:-6700px; border-right:2px solid #CCC; background:#FFF; z-index:100;}
     #navigation ul {padding:0; margin:0; list-style:none;}
     #navigation li {position:relative; padding:0; margin:0; text-align:center;}
-    #navigation li a {position:relative; display:block; padding:68px 0 25px; margin:0 15px; border-bottom:1px solid #CCC; font-size:22px; line-height:19px; letter-spacing:-1px; font-family:'QualcommLight', Helvetica; color:#035d80; text-decoration:none; text-transform:uppercase; z-index:100;}
+    #navigation li a {position:relative; display:block; padding:68px 0 25px; margin:0 15px; border-bottom:1px solid #CCC; font-size:22px; line-height:19px; letter-spacing:-1px; font-family:'QualcommLight', Helvetica; color:#333; text-decoration:none; text-transform:uppercase; z-index:100;}
     #navigation li .on {display:none;}
     #navigation li:last-child a {border-bottom:0;}
     #navigation .nav-ico {position:absolute; top:25px; left:50%; margin-left:-17px;}
     #navigation .nav-arrow {display:none;}
 
     #navigation li.active {background:#e6e6e6;}
-    #navigation li.selected a {border-color:#f5a623 !important;}
+    #navigation li.selected a {border-color:#CFB539 !important;}
 
-    #navigation li.selected {background:#f5a623; border-right:2px solid #c46c19; margin-right:-2px;}
+    #navigation li.selected {background:#CFB539; border-right:2px solid #CFB539; margin-right:-2px;}
     #navigation li.selected a {color:#FFF;}
     #navigation li.selected .nav-ico {display:none;}
     #navigation li.selected .nav-ico.on {display:inline-block;}
     #navigation li.selected .nav-arrow {position:absolute; display:block; top:50%; right:-3px; margin-top:-9px;}
 
-    #navigation #nav-qpolls-badge {position:absolute; display:none; padding:1px 2px; min-width:12px; left:50%; top:50%; margin-left:7px; margin-top:-10px; background:#f5a623; border-radius:50px; color:#FFF; border:1px solid #a05815; text-align:center; font-size:12px; font-family:'QualcommRegular';}
-    #navigation li.selected #nav-qpolls-badge {background:#035d80;}
+    #navigation #nav-qpolls-badge {position:absolute; display:none; padding:1px 2px; min-width:12px; left:50%; top:50%; margin-left:7px; margin-top:-10px; background:#CFB539; border-radius:50px; color:#FFF; border:1px solid #a05815; text-align:center; font-size:12px; font-family:'QualcommRegular';}
+    #navigation li.selected #nav-qpolls-badge {background:#333;}
 
     .device-ipad.device-landscape #navigation li a {padding:61px 0 18px;}
     .device-ipad.device-landscape #navigation .nav-ico {top:18px;}
@@ -95,9 +95,9 @@ html.device-smartphone,
     .device-smartphone #navigation li.selected a {border-color:#f0f1f2 !important;}
     .device-smartphone #navigation .nav-ico {position:absolute; top:15px; left:50%; margin-left:-17px;}
     .device-smartphone #navigation .nav-arrow {display:none !important;}
-    .device-smartphone #navigation li {background:#035d80; border-right:2px solid #024a67;}
+    .device-smartphone #navigation li {background:#333; border-right:2px solid #024a67;}
     .device-smartphone #navigation li.active {background:#035270;}
-    .device-smartphone #navigation li.selected {background:#f5a623; border-right:2px solid #c46c19; margin-right:0;}
+    .device-smartphone #navigation li.selected {background:#CFB539; border-right:2px solid #CFB539; margin-right:0;}
     .device-smartphone #navigation li .nav-ico {display:none;}
     .device-smartphone #navigation li .nav-ico.on {display:inline-block;}
     .device-oldbb #navigation {-webkit-transform-style:inherit; -webkit-backface-visibility:inherit; -webkit-perspective:inherit;}
@@ -111,7 +111,7 @@ html.device-smartphone,
     #container h2 {padding-bottom:4px; padding-right:85px; font-family:'QualcommRegular', Helvetica; font-size:42px; color:#444; letter-spacing:-2px; font-weight:normal;}
     #container p {font-family:'QualcommLight', Helvetica; font-size:17px; color:#444;}
     #container .page-description {padding-right:85px;}
-    #container .content {padding-top:22px;}
+    #container .content {padding-top:22px; height: 500px;}
     #container .sub-header {padding:10px; margin-bottom:10px; font-family:'QualcommLight', Helvetica; font-size:15px; color:#FFF; background:#333; font-weight:normal; text-align:center;}
     #container .sub-header .aligned-center {position:relative; display:block; margin:0 180px; text-align:center; font-size:20px; font-weight:normal;}
     #container .sub-header .aligned-center-double {position:relative; display:inline-block; margin:0 30px; text-align:center; font-size:20px; font-weight:normal; color:#FFF; text-decoration:none;}
@@ -134,13 +134,13 @@ html.device-smartphone,
 /* SPLASH */
 #splash-screen {position:absolute; width:100%; height:100%; top:0; left:0; z-index:2000; -webkit-transition:all 0.7s ease-in-out;
     background: #333; /* Old browsers */
-    background: -moz-radial-gradient(center, ellipse cover, #333 0%, #013b66 100%); /* FF3.6+ */
-    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#333), color-stop(100%,#013b66)); /* Chrome,Safari4+ */
-    background: -webkit-radial-gradient(center, ellipse cover, #333 0%,#013b66 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-radial-gradient(center, ellipse cover, #333 0%,#013b66 100%); /* Opera 12+ */
-    background: -ms-radial-gradient(center, ellipse cover, #333 0%,#013b66 100%); /* IE10+ */
-    background: radial-gradient(ellipse at center, #333 0%,#013b66 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#013b66',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
+    background: -moz-radial-gradient(center, ellipse cover, #333 0%, #CFB539 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#333), color-stop(100%,#CFB539)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #333 0%,#CFB539 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, #333 0%,#CFB539 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, #333 0%,#CFB539 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #333 0%,#CFB539 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#CFB539',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
 
     #splash-screen .bg {width:100%; height:100%; background:url('../img/splash.png') center center no-repeat; background-size:1032px 203px;}
     .device-portrait #splash-screen .bg {background-size:700px 137px;}
@@ -601,7 +601,7 @@ html.device-smartphone,
 #countdown p {
 display: inline-block;
 padding: 5px;
-background: #f5a623;
+background: #CFB539;
 color: #ffffff;
 font-weight:normal;
 font-size:small;

@@ -87,8 +87,8 @@ $(function() {
     Yes.play();
   });
 
-  ContentManager.load();
-  ContentManager.populate();
+  // ContentManager.load();
+  // ContentManager.populate();
 
   Yes.load();
 
