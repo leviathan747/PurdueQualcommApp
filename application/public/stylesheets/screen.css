@@ -171,7 +171,7 @@ html.device-smartphone,
 .device-desktop #modal-video {width:900px; height:450px; top:50%; left:50%; margin:-225px 0 0 -450px;}
 .device-desktop #modal-video .video-js,
 .device-desktop #modal-video video {width:900px; height:450px;}
-#modal-screenlocker {display:none; position:fixed; width:100%; height:100%; top:0; left:0; z-index:240; background-color:rgb(2, 58, 81); opacity:0.7; filter:alpha(opacity=70);}
+#modal-screenlocker {display:none; position:fixed; width:100%; height:100%; top:0; left:0; z-index:240; background-color:rgb(207, 181, 57); opacity:0.7; filter:alpha(opacity=70);}
 
 /*.video-js {width:100% !important; height:100% !important;}
 .device-smartphone .video-js,
@@ -413,9 +413,9 @@ html.device-smartphone,
     .ie7 .events-title {word-wrap:break-word;}
 
 /* LOADER */
-#loader {position:fixed; display:none; width:100%; height:100%; top:0; left:0; background-position:center center; background-image:url('../img/loader.gif'); background-repeat:no-repeat; background-color:rgba(2, 58, 81, 0.75); -webkit-background-size:90px 90px; background-size:90px 90px; z-index:1000;}
-.ie7 #loader {background-color:rgb(2, 58, 81); filter:alpha(opacity=70)}
-.ie8 #loader {background-color:rgb(2, 58, 81); opacity:0.8;}
+#loader {position:fixed; display:none; width:100%; height:100%; top:0; left:0; background-position:center center; background-image:url('../img/loader.gif'); background-repeat:no-repeat; background-color:rgba(207, 181, 57, 0.75); -webkit-background-size:90px 90px; background-size:90px 90px; z-index:1000;}
+.ie7 #loader {background-color:rgb(207, 181, 57); filter:alpha(opacity=70)}
+.ie8 #loader {background-color:rgb(207, 181, 57); opacity:0.8;}
 
 /*
     Transitions from jQtouch (with small modifications): http://www.jqtouch.com/
