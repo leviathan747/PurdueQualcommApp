@@ -1,617 +1,617 @@
 ;var ContentManager;
 
 (function() {
-	'use strict';
+  'use strict';
 
-	/*
-	 * ContentManager
-	 */
+  /*
+   * ContentManager
+   */
 
-	ContentManager = {
-		load: function() {
-			this.data = internData;
-			this.firstAccess = true;
-		},
+  ContentManager = {
+    load: function() {
+      this.data = internData;
+      this.firstAccess = true;
+    },
 
-		populateNews: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var htmlFull = [];
-			var total = 0;
+  populateNews: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var htmlFull = [];
+    var total = 0;
 
-			for (var i = 0; i < this.data.news.length; i++) {
-				if (this.data.news[i].type == 'normal')
-					total++;
-			}
-
-			var current = 0;
+    for (var i = 0; i < this.data.news.length; i++) {
+      if (this.data.news[i].type == 'normal')
+        total++;
+    }
 
-			for (var i = 0; i < this.data.news.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
-				var item = this.data.news[i];
+    var current = 0;
 
-				if (item.type == 'full') {
-					html = htmlFull;
-				}
+    for (var i = 0; i < this.data.news.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
+      var item = this.data.news[i];
 
-				html.push('<li class="clearfix">');
-				html.push('	<a href="' + item.link + '">');
+      if (item.type == 'full') {
+        html = htmlFull;
+      }
 
-				if (item.link) 	html.push('	<a class="box-item" href="' + item.link + '" onclick="' + item.tracking + '">');
-				else 			html.push('	<div class="box-item">');
+      html.push('<li class="clearfix">');
+      html.push('  <a href="' + item.link + '">');
 
-				if (item.type == 'full') {
-					html.push('		<span class="badge-appstore"></span>');
-				}
+      if (item.link)   html.push('  <a class="box-item" href="' + item.link + '" onclick="' + item.tracking + '">');
+      else       html.push('  <div class="box-item">');
 
-				html.push('		<div class="news-detail">');
-				html.push('			<strong class="featured-title">' + item.title + '</strong>');
-				html.push('			<strong class="featured-subtitle">' + item.subtitle + '</strong>');
-				html.push('			<p class="featured-description">' + item.description + '</p>');
+      if (item.type == 'full') {
+        html.push('    <span class="badge-appstore"></span>');
+      }
 
-				if (item.mobileOnly) {
-					html.push('			<p class="featured-mobileonly">Available for mobile devices only.</p>');
-				}
+      html.push('    <div class="news-detail">');
+      html.push('      <strong class="featured-title">' + item.title + '</strong>');
+      html.push('      <strong class="featured-subtitle">' + item.subtitle + '</strong>');
+      html.push('      <p class="featured-description">' + item.description + '</p>');
 
-				html.push('		</div>');
+      if (item.mobileOnly) {
+        html.push('      <p class="featured-mobileonly">Available for mobile devices only.</p>');
+      }
 
-				if (item.link) 	html.push('	</a>');
-				else 			html.push('	</div>');
+      html.push('    </div>');
 
-				html.push('</li>');
+      if (item.link)   html.push('  </a>');
+      else       html.push('  </div>');
 
-				current++;
-			}
-			
-			$('#page-news-col-left').html(htmlLeft.join(''));
-			$('#page-news-col-right').html(htmlRight.join(''));
-			$('#page-news-full').html(htmlFull.join(''));
-		},
+      html.push('</li>');
 
+      current++;
+    }
 
-		populateprogram: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var htmlFull = [];
-			var total = 0;
+    $('#page-news-col-left').html(htmlLeft.join(''));
+    $('#page-news-col-right').html(htmlRight.join(''));
+    $('#page-news-full').html(htmlFull.join(''));
+  },
 
-			for (var i = 0; i < this.data.program.length; i++) {
-				if (this.data.program[i].type == 'normal')
-					total++;
-			}
 
-			var current = 0;
+  populateprogram: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var htmlFull = [];
+    var total = 0;
 
-			for (var i = 0; i < this.data.program.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
-				var item = this.data.program[i];
+    for (var i = 0; i < this.data.program.length; i++) {
+      if (this.data.program[i].type == 'normal')
+        total++;
+    }
 
-				if (item.type == 'full') {
-					html = htmlFull;
-				}
+    var current = 0;
 
-				html.push('<li class="clearfix">');
+    for (var i = 0; i < this.data.program.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
+      var item = this.data.program[i];
 
-				if (item.type == 'full') {
-					html.push('		<span class="badge-appstore"></span>');
-				}
-
-				html.push('		<img src="' + item.icon + '" class="app-ico">');
-				html.push('		<div class="featured-detail">');
-				html.push('			<strong class="featured-title">' + item.title + '</strong>');
-				html.push('			<strong class="featured-subtitle">' + item.subtitle + '</strong>');
-				html.push('			<p class="featured-description">' + item.description + '</p>');
-
-				if (item.mobileOnly) {
-					html.push('			<p class="featured-mobileonly">Available for mobile devices only.</p>');
-				}
-
-				html.push('		</div>');
-
-				html.push('</li>');
-
-				current++;
-			}
-			
-			$('#page-program-col-left').html(htmlLeft.join(''));
-			$('#page-program-col-right').html(htmlRight.join(''));
-			$('#page-program-full').html(htmlFull.join(''));
-		},
-
-		populateSpecificHighlight: function(highlight, highlightId) {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var htmlGalery = [];
-			var itemsGalery = [];
-			var total = 2;
-
-			for (var i = 0; i < highlight.items.length; i++) {
-				if (highlight.items[i].galery) continue;
-
-				total += highlight.items[i].items.length;
-			}
-
-			var current = 0;
-
-			for (var i = 0; i < highlight.items.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
-
-				if (highlight.items[i].galery) {
-					for (var j = 0; j < highlight.items[i].items.length; j++) {
-						itemsGalery.push(highlight.items[i].items[j]);
-					}
-
-					continue;
-				}
-
-				html.push('<li class="title-separator">' + highlight.items[i].type + '</li>');
-
-				for (var j = 0; j < highlight.items[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = highlight.items[i].items[j];
-
-					if (item) {
-						if (html == htmlRight && htmlRight.length == 0) {
-							html.push('<li class="title-separator title-separator-secondary">' + highlight.items[i].type + '</li>');
-						}
-
-						var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
-
-						html.push('<li>');
-
-						if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '">');
-						else 			html.push('	<div class="box-item clearfix">');
-
-						html.push('		<img class="highlight-thumb" src="' + item.photo + '">');
-						html.push('		<div class="highlight-ico">');
-						html.push('			<span class="ico ' + item.icon + '"></span>');
-						html.push('		</div>');
-						html.push('		<div class="highlight-detail">');
-						html.push('			<strong class="highlight-title">' + item.title + '</strong>');
-						html.push('			<strong class="highlight-name">' + item.name + '</strong>');
-						html.push('			<p class="highlight-description">' + item.description + '</p>');
-						html.push('		</div>');
-
-						if (item.link) 	html.push('	</a>');
-						else 			html.push('	</div>');
-
-						html.push('</li>');
-
-						current++;
-					}
-				}
-			}
+      if (item.type == 'full') {
+        html = htmlFull;
+      }
 
-			for (var j = 0; j < itemsGalery.length; j++) {
-				var html = htmlGalery;
-				var item = itemsGalery[j];
+      html.push('<li class="clearfix">');
 
-				if (item) {
-					html.push('<li>');
-					html.push('	<div>');
-					html.push('		<a class="box-item galery-link clearfix ' + typeClass + '" href="' + item.photo + '">');
-					html.push('			<img class="highlight-thumb" src="' + item.thumb + '">');
-					html.push('		</a>');
-					html.push('	</div>');
-					html.push('</li>');
-					current++;
-				}
-			}
+      if (item.type == 'full') {
+        html.push('    <span class="badge-appstore"></span>');
+      }
 
-			if (itemsGalery.length > 0) {
-				$('#page-' + highlightId + '-galery-title').show();
-			} else {
-				$('#page-' + highlightId + '-galery-title').hide();
-			}
-			
-			$('#page-' + highlightId + '-col-left').html(htmlLeft.join(''));
-			$('#page-' + highlightId + '-col-right').html(htmlRight.join(''));
-			$('#page-' + highlightId + '-galery').html(htmlGalery.join(''));
+      html.push('    <img src="' + item.icon + '" class="app-ico">');
+      html.push('    <div class="featured-detail">');
+      html.push('      <strong class="featured-title">' + item.title + '</strong>');
+      html.push('      <strong class="featured-subtitle">' + item.subtitle + '</strong>');
+      html.push('      <p class="featured-description">' + item.description + '</p>');
 
-			bindVideos('#page-' + highlightId + '');
+      if (item.mobileOnly) {
+        html.push('      <p class="featured-mobileonly">Available for mobile devices only.</p>');
+      }
 
-			$('#page-' + highlightId + '-titles .selected').removeClass('selected');
-			$('#page-' + highlightId + '-titles [data-rel=' + highlight.year + ']').addClass('selected');
+      html.push('    </div>');
+
+      html.push('</li>');
 
-			$('.galery-link').magnificPopup({ 
-				type: 'image',
-				gallery: {
-					enabled: true,
-					tCounter: ''
-				}
-			});
-		},
+      current++;
+    }
 
+    $('#page-program-col-left').html(htmlLeft.join(''));
+    $('#page-program-col-right').html(htmlRight.join(''));
+    $('#page-program-full').html(htmlFull.join(''));
+  },
 
+  populateSpecificHighlight: function(highlight, highlightId) {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var htmlGalery = [];
+    var itemsGalery = [];
+    var total = 2;
 
-		populateFeatured: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var htmlFull = [];
-			var total = 0;
+    for (var i = 0; i < highlight.items.length; i++) {
+      if (highlight.items[i].galery) continue;
 
-			for (var i = 0; i < this.data.featured.length; i++) {
-				if (this.data.featured[i].type == 'normal')
-					total++;
-			}
+      total += highlight.items[i].items.length;
+    }
 
-			var current = 0;
+    var current = 0;
 
-			for (var i = 0; i < this.data.featured.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
-				var item = this.data.featured[i];
+    for (var i = 0; i < highlight.items.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
 
-				if (item.type == 'full') {
-					html = htmlFull;
-				}
+      if (highlight.items[i].galery) {
+        for (var j = 0; j < highlight.items[i].items.length; j++) {
+          itemsGalery.push(highlight.items[i].items[j]);
+        }
 
-				html.push('<li class="clearfix">');
-				html.push('	<a href="' + item.link + '">');
+        continue;
+      }
 
-				if (item.link) 	html.push('	<a class="box-item" href="' + item.link + '" onclick="' + item.tracking + '">');
-				else 			html.push('	<div class="box-item">');
+      html.push('<li class="title-separator">' + highlight.items[i].type + '</li>');
 
-				if (item.type == 'full') {
-					html.push('		<span class="badge-appstore"></span>');
-				}
+      for (var j = 0; j < highlight.items[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = highlight.items[i].items[j];
 
-				html.push('		<img src="' + item.icon + '" class="app-ico">');
-				html.push('		<div class="featured-detail">');
-				html.push('			<strong class="featured-title">' + item.title + '</strong>');
-				html.push('			<strong class="featured-subtitle">' + item.subtitle + '</strong>');
-				html.push('			<p class="featured-description">' + item.description + '</p>');
+        if (item) {
+          if (html == htmlRight && htmlRight.length == 0) {
+            html.push('<li class="title-separator title-separator-secondary">' + highlight.items[i].type + '</li>');
+          }
 
-				if (item.mobileOnly) {
-					html.push('			<p class="featured-mobileonly">Available for mobile devices only.</p>');
-				}
+          var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-				html.push('		</div>');
+          html.push('<li>');
 
-				if (item.link) 	html.push('	</a>');
-				else 			html.push('	</div>');
+          if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '">');
+          else       html.push('  <div class="box-item clearfix">');
 
-				html.push('</li>');
+          html.push('    <img class="highlight-thumb" src="' + item.photo + '">');
+          html.push('    <div class="highlight-ico">');
+          html.push('      <span class="ico ' + item.icon + '"></span>');
+          html.push('    </div>');
+          html.push('    <div class="highlight-detail">');
+          html.push('      <strong class="highlight-title">' + item.title + '</strong>');
+          html.push('      <strong class="highlight-name">' + item.name + '</strong>');
+          html.push('      <p class="highlight-description">' + item.description + '</p>');
+          html.push('    </div>');
 
-				current++;
-			}
-			
-			$('#page-featured-col-left').html(htmlLeft.join(''));
-			$('#page-featured-col-right').html(htmlRight.join(''));
-			$('#page-featured-full').html(htmlFull.join(''));
-		},
+          if (item.link)   html.push('  </a>');
+          else       html.push('  </div>');
 
+          html.push('</li>');
 
+          current++;
+        }
+      }
+    }
 
-		populateresources: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var total = 2	
+    for (var j = 0; j < itemsGalery.length; j++) {
+      var html = htmlGalery;
+      var item = itemsGalery[j];
 
+      if (item) {
+        html.push('<li>');
+        html.push('  <div>');
+        html.push('    <a class="box-item galery-link clearfix ' + typeClass + '" href="' + item.photo + '">');
+        html.push('      <img class="highlight-thumb" src="' + item.thumb + '">');
+        html.push('    </a>');
+        html.push('  </div>');
+        html.push('</li>');
+        current++;
+      }
+    }
 
-			for (var i = 0; i < this.data.resources.length; i++) {
-				total += this.data.resources[i].items.length;
-			}
+    if (itemsGalery.length > 0) {
+      $('#page-' + highlightId + '-galery-title').show();
+    } else {
+      $('#page-' + highlightId + '-galery-title').hide();
+    }
 
-			var current = 0;
+    $('#page-' + highlightId + '-col-left').html(htmlLeft.join(''));
+    $('#page-' + highlightId + '-col-right').html(htmlRight.join(''));
+    $('#page-' + highlightId + '-galery').html(htmlGalery.join(''));
 
-			for (var i = 0; i < this.data.resources.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
+    bindVideos('#page-' + highlightId + '');
 
-				html.push('<li class="title-separator">' + this.data.resources[i].type + '</li>');
+    $('#page-' + highlightId + '-titles .selected').removeClass('selected');
+    $('#page-' + highlightId + '-titles [data-rel=' + highlight.year + ']').addClass('selected');
 
-				for (var j = 0; j < this.data.resources[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = this.data.resources[i].items[j];
+    $('.galery-link').magnificPopup({ 
+      type: 'image',
+      gallery: {
+        enabled: true,
+      tCounter: ''
+      }
+    });
+  },
 
-					if (html == htmlRight && htmlRight.length == 0) {
-						html.push('<li class="title-separator title-separator-secondary">' + this.data.resources[i].type + '</li>');
-					}
 
-					var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-					html.push('<li>');
-					
-					item.tracking
+  populateFeatured: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var htmlFull = [];
+    var total = 0;
 
-					if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
-					else 			html.push('	<div class="box-item clearfix">');
+    for (var i = 0; i < this.data.featured.length; i++) {
+      if (this.data.featured[i].type == 'normal')
+        total++;
+    }
 
-					html.push('		<img class="resources-thumb" src="' + item.photo + '">');
-					html.push('		<div class="resources-detail">');
-					html.push('			<strong class="resources-title">' + item.title + '</strong>');
-					html.push('			<p class="resources-description">' + item.description + '</p>');
-					html.push('		</div>');
+    var current = 0;
 
-					if (item.link) 	html.push('	</a>');
-					else 			html.push('	</div>');
+    for (var i = 0; i < this.data.featured.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
+      var item = this.data.featured[i];
 
-					html.push('</li>');
+      if (item.type == 'full') {
+        html = htmlFull;
+      }
 
-					current++;
-				}
-			}
-			
-			$('#page-resources-col-left').html(htmlLeft.join(''));
-			$('#page-resources-col-right').html(htmlRight.join(''));
+      html.push('<li class="clearfix">');
+      html.push('  <a href="' + item.link + '">');
 
-			bindVideos('#page-resources');
-		},
+      if (item.link)   html.push('  <a class="box-item" href="' + item.link + '" onclick="' + item.tracking + '">');
+      else       html.push('  <div class="box-item">');
 
+      if (item.type == 'full') {
+        html.push('    <span class="badge-appstore"></span>');
+      }
 
-		populatecampusteam: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var total = -3
+      html.push('    <img src="' + item.icon + '" class="app-ico">');
+      html.push('    <div class="featured-detail">');
+      html.push('      <strong class="featured-title">' + item.title + '</strong>');
+      html.push('      <strong class="featured-subtitle">' + item.subtitle + '</strong>');
+      html.push('      <p class="featured-description">' + item.description + '</p>');
 
-			for (var i = 0; i < this.data.campusteam.length; i++) {
-				total += this.data.campusteam[i].items.length;
-			}
+      if (item.mobileOnly) {
+        html.push('      <p class="featured-mobileonly">Available for mobile devices only.</p>');
+      }
 
-			var current = 0;
+      html.push('    </div>');
 
-			for (var i = 0; i < this.data.campusteam.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
+      if (item.link)   html.push('  </a>');
+      else       html.push('  </div>');
 
-				html.push('<li class="title-separator">' + this.data.campusteam[i].type + '</li>');
+      html.push('</li>');
 
-				for (var j = 0; j < this.data.campusteam[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = this.data.campusteam[i].items[j];
+      current++;
+    }
 
-					if (html == htmlRight && htmlRight.length == 0) {
-						html.push('<li class="title-separator title-separator-secondary">' + this.data.campusteam[i].type + '</li>');
-					}
+    $('#page-featured-col-left').html(htmlLeft.join(''));
+    $('#page-featured-col-right').html(htmlRight.join(''));
+    $('#page-featured-full').html(htmlFull.join(''));
+  },
 
-					var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-					html.push('<li>');
-					
-					if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '">');
-					else 			html.push('	<div class="box-item clearfix">');
 
-					html.push('		<img class="campusteam-thumb" src="' + item.photo + '">');
-					html.push('		<div class="campusteam-detail">');
-					html.push('			<strong class="campusteam-title">' + item.title + '</strong>');
-					html.push('			<strong class="campusteam-subtitle">' + item.subtitle + '</strong>');
-					html.push('			<p class="campusteam-description">' + item.description + '</p>');
-					html.push('		</div>');
+  populateresources: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var total = 2  
 
-					if (item.link) 	html.push('	</a>');
-					else 			html.push('	</div>');
 
-					html.push('</li>');
+      for (var i = 0; i < this.data.resources.length; i++) {
+        total += this.data.resources[i].items.length;
+      }
 
-					current++;
-				}
-			}
-			
-			$('#page-campusteam-col-left').html(htmlLeft.join(''));
-			$('#page-campusteam-col-right').html(htmlRight.join(''));
+    var current = 0;
 
-			bindVideos('#page-campusteam');
-		},
+    for (var i = 0; i < this.data.resources.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
 
+      html.push('<li class="title-separator">' + this.data.resources[i].type + '</li>');
 
-		populatespotlight: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var total = 0
+      for (var j = 0; j < this.data.resources[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = this.data.resources[i].items[j];
 
-			for (var i = 0; i < this.data.spotlight.length; i++) {
-				total += this.data.spotlight[i].items.length;
-			}
+        if (html == htmlRight && htmlRight.length == 0) {
+          html.push('<li class="title-separator title-separator-secondary">' + this.data.resources[i].type + '</li>');
+        }
 
-			var current = 0;
+        var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-			for (var i = 0; i < this.data.spotlight.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
+        html.push('<li>');
 
-				html.push('<li class="title-separator">' + this.data.spotlight[i].type + '</li>');
+        item.tracking
 
-				for (var j = 0; j < this.data.spotlight[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = this.data.spotlight[i].items[j];
+          if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
+          else       html.push('  <div class="box-item clearfix">');
 
-					if (html == htmlRight && htmlRight.length == 0) {
-						html.push('<li class="title-separator title-separator-secondary">' + this.data.spotlight[i].type + '</li>');
-					}
+        html.push('    <img class="resources-thumb" src="' + item.photo + '">');
+        html.push('    <div class="resources-detail">');
+        html.push('      <strong class="resources-title">' + item.title + '</strong>');
+        html.push('      <p class="resources-description">' + item.description + '</p>');
+        html.push('    </div>');
 
-					var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
+        if (item.link)   html.push('  </a>');
+        else       html.push('  </div>');
 
-					html.push('<li>');
-					
-					if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '">');
-					else 			html.push('	<div class="box-item clearfix">');
+        html.push('</li>');
 
-					html.push('		<img class="spotlight-thumb" src="' + item.photo + '">');
-					html.push('		<div class="spotlight-detail">');
-					html.push('			<strong class="spotlight-title">' + item.title + '</strong>');
-					html.push('			<strong class="spotlight-subtitle">' + item.subtitle + '</strong>');
-					html.push('			<p class="spotlight-description">' + item.description + '</p>');
-					html.push('		</div>');
+        current++;
+      }
+    }
 
-					if (item.link) 	html.push('	</a>');
-					else 			html.push('	</div>');
+    $('#page-resources-col-left').html(htmlLeft.join(''));
+    $('#page-resources-col-right').html(htmlRight.join(''));
 
-					html.push('</li>');
+    bindVideos('#page-resources');
+  },
 
-					current++;
-				}
-			}
-			
-			$('#page-spotlight-col-left').html(htmlLeft.join(''));
-			$('#page-spotlight-col-right').html(htmlRight.join(''));
 
-			bindVideos('#page-spotlight');
-		},
+  populatecampusteam: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var total = -3
 
-		populateevents: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var total = 0
+      for (var i = 0; i < this.data.campusteam.length; i++) {
+        total += this.data.campusteam[i].items.length;
+      }
 
-			for (var i = 0; i < this.data.events.length; i++) {
-				total += this.data.events[i].items.length;
-			}
+    var current = 0;
 
-			var current = 0;
+    for (var i = 0; i < this.data.campusteam.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
 
-			for (var i = 0; i < this.data.events.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
+      html.push('<li class="title-separator">' + this.data.campusteam[i].type + '</li>');
 
-				html.push('<li class="title-separator">' + this.data.events[i].type + '</li>');
+      for (var j = 0; j < this.data.campusteam[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = this.data.campusteam[i].items[j];
 
-				for (var j = 0; j < this.data.events[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = this.data.events[i].items[j];
+        if (html == htmlRight && htmlRight.length == 0) {
+          html.push('<li class="title-separator title-separator-secondary">' + this.data.campusteam[i].type + '</li>');
+        }
 
-					if (html == htmlRight && htmlRight.length == 0) {
-						html.push('<li class="title-separator title-separator-secondary">' + this.data.events[i].type + '</li>');
-					}
+        var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-					var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
+        html.push('<li>');
 
-					html.push('<li>');
-					
-					if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
-					else 			html.push('	<div class="box-item clearfix">');
+        if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '">');
+        else       html.push('  <div class="box-item clearfix">');
 
-					html.push('		<img class="events-thumb" src="' + item.photo + '">');
-					html.push('		<div class="events-detail">');
-					html.push('			<strong class="events-title">' + item.title + '</strong>');
-					html.push('			<strong class="events-subtitle">' + item.subtitle + '</strong>');
-					html.push('			<p class="events-description">' + item.description + '</p>');
-					html.push('		</div>');
+        html.push('    <img class="campusteam-thumb" src="' + item.photo + '">');
+        html.push('    <div class="campusteam-detail">');
+        html.push('      <strong class="campusteam-title">' + item.title + '</strong>');
+        html.push('      <strong class="campusteam-subtitle">' + item.subtitle + '</strong>');
+        html.push('      <p class="campusteam-description">' + item.description + '</p>');
+        html.push('    </div>');
 
-					if (item.link) 	html.push('	</a>');
-					else 			html.push('	</div>');
+        if (item.link)   html.push('  </a>');
+        else       html.push('  </div>');
 
-					html.push('</li>');
+        html.push('</li>');
 
-					current++;
-				}
-			}
-			
-			$('#page-events-col-left').html(htmlLeft.join(''));
-			$('#page-events-col-right').html(htmlRight.join(''));
+        current++;
+      }
+    }
 
-			bindVideos('#page-events');
-		},
+    $('#page-campusteam-col-left').html(htmlLeft.join(''));
+    $('#page-campusteam-col-right').html(htmlRight.join(''));
 
+    bindVideos('#page-campusteam');
+  },
 
 
-		populatenetworks: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var total = 0
+  populatespotlight: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var total = 0
 
-			for (var i = 0; i < this.data.networks.length; i++) {
-				total += this.data.networks[i].items.length;
-			}
+      for (var i = 0; i < this.data.spotlight.length; i++) {
+        total += this.data.spotlight[i].items.length;
+      }
 
-			var current = 0;
+    var current = 0;
 
-			for (var i = 0; i < this.data.networks.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
+    for (var i = 0; i < this.data.spotlight.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
 
-				for (var j = 0; j < this.data.networks[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = this.data.networks[i].items[j];
+      html.push('<li class="title-separator">' + this.data.spotlight[i].type + '</li>');
 
-					if (html == htmlRight && htmlRight.length == 0) {
-					}
+      for (var j = 0; j < this.data.spotlight[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = this.data.spotlight[i].items[j];
 
-					var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
+        if (html == htmlRight && htmlRight.length == 0) {
+          html.push('<li class="title-separator title-separator-secondary">' + this.data.spotlight[i].type + '</li>');
+        }
 
-					html.push('<li>');
-					
-					if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
-					else 			html.push('	<div class="box-item clearfix">');
+        var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-					html.push('		<img class="networks-thumb" src="' + item.photo + '">');
-					html.push('		<div class="networks-detail">');
-					html.push('			<strong class="networks-title">' + item.title + '</strong>');
-					html.push('			<strong class="networks-subtitle">' + item.subtitle + '</strong>');
-					html.push('			<p class="networks-description">' + item.description + '</p>');
-					html.push('		</div>');
+        html.push('<li>');
 
-					if (item.link) 	html.push('	</a>');
-					else 			html.push('	</div>');
+        if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '">');
+        else       html.push('  <div class="box-item clearfix">');
 
-					html.push('</li>');
+        html.push('    <img class="spotlight-thumb" src="' + item.photo + '">');
+        html.push('    <div class="spotlight-detail">');
+        html.push('      <strong class="spotlight-title">' + item.title + '</strong>');
+        html.push('      <strong class="spotlight-subtitle">' + item.subtitle + '</strong>');
+        html.push('      <p class="spotlight-description">' + item.description + '</p>');
+        html.push('    </div>');
 
-					current++;
-				}
-			}
-			
-			$('#page-networks-col-left').html(htmlLeft.join(''));
-			$('#page-networks-col-right').html(htmlRight.join(''));
+        if (item.link)   html.push('  </a>');
+        else       html.push('  </div>');
 
-			bindVideos('#page-networks');
-		},
+        html.push('</li>');
 
+        current++;
+      }
+    }
 
-		populatephotos: function() {
-			var htmlLeft = [];
-			var htmlRight = [];
-			var total = 0
+    $('#page-spotlight-col-left').html(htmlLeft.join(''));
+    $('#page-spotlight-col-right').html(htmlRight.join(''));
 
-			for (var i = 0; i < this.data.photos.length; i++) {
-				total += this.data.photos[i].items.length;
-			}
+    bindVideos('#page-spotlight');
+  },
 
-			var current = 0;
+  populateevents: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var total = 0
 
-			for (var i = 0; i < this.data.photos.length; i++) {
-				var html = current < total / 2 ? htmlLeft : htmlRight;
+      for (var i = 0; i < this.data.events.length; i++) {
+        total += this.data.events[i].items.length;
+      }
 
-				for (var j = 0; j < this.data.photos[i].items.length; j++) {
-					var html = current < total / 2 ? htmlLeft : htmlRight;
-					var item = this.data.photos[i].items[j];
+    var current = 0;
 
-					if (html == htmlRight && htmlRight.length == 0) {
-					}
+    for (var i = 0; i < this.data.events.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
 
-					var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
+      html.push('<li class="title-separator">' + this.data.events[i].type + '</li>');
 
-					html.push('<li>');
-					
-					if (item.link) 	html.push('	<a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
-					else 			html.push('	<div class="box-item clearfix">');
+      for (var j = 0; j < this.data.events[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = this.data.events[i].items[j];
 
-					html.push('		<img class="networks-thumb" src="' + item.photo + '">');
-					html.push('		<div class="networks-detail">');
-					html.push('			<strong class="networks-title">' + item.title + '</strong>');
-					html.push('			<strong class="networks-subtitle">' + item.subtitle + '</strong>');
-					html.push('			<p class="networks-description">' + item.description + '</p>');
-					html.push('		</div>');
+        if (html == htmlRight && htmlRight.length == 0) {
+          html.push('<li class="title-separator title-separator-secondary">' + this.data.events[i].type + '</li>');
+        }
 
-					if (item.link) 	html.push('	</a>');
-					else 			html.push('	</div>');
+        var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
 
-					html.push('</li>');
+        html.push('<li>');
 
-					current++;
-				}
-			}
-			
-			$('#page-photos-col-left').html(htmlLeft.join(''));
-			$('#page-photos-col-right').html(htmlRight.join(''));
+        if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
+        else       html.push('  <div class="box-item clearfix">');
 
-			bindVideos('#page-photos');
-		},
+        html.push('    <img class="events-thumb" src="' + item.photo + '">');
+        html.push('    <div class="events-detail">');
+        html.push('      <strong class="events-title">' + item.title + '</strong>');
+        html.push('      <strong class="events-subtitle">' + item.subtitle + '</strong>');
+        html.push('      <p class="events-description">' + item.description + '</p>');
+        html.push('    </div>');
 
+        if (item.link)   html.push('  </a>');
+        else       html.push('  </div>');
 
-		populate: function() {
-			this.populateNews();
-			this.populateprogram();
-			this.populateresources();
-			this.populatecampusteam();
-			this.populatespotlight();
-			this.populateevents();
-			this.populatenetworks();
-			this.populatephotos();
-			this.populateFeatured();
-		},
-	}
+        html.push('</li>');
+
+        current++;
+      }
+    }
+
+    $('#page-events-col-left').html(htmlLeft.join(''));
+    $('#page-events-col-right').html(htmlRight.join(''));
+
+    bindVideos('#page-events');
+  },
+
+
+
+  populatenetworks: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var total = 0
+
+      for (var i = 0; i < this.data.networks.length; i++) {
+        total += this.data.networks[i].items.length;
+      }
+
+    var current = 0;
+
+    for (var i = 0; i < this.data.networks.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
+
+      for (var j = 0; j < this.data.networks[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = this.data.networks[i].items[j];
+
+        if (html == htmlRight && htmlRight.length == 0) {
+        }
+
+        var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
+
+        html.push('<li>');
+
+        if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
+        else       html.push('  <div class="box-item clearfix">');
+
+        html.push('    <img class="networks-thumb" src="' + item.photo + '">');
+        html.push('    <div class="networks-detail">');
+        html.push('      <strong class="networks-title">' + item.title + '</strong>');
+        html.push('      <strong class="networks-subtitle">' + item.subtitle + '</strong>');
+        html.push('      <p class="networks-description">' + item.description + '</p>');
+        html.push('    </div>');
+
+        if (item.link)   html.push('  </a>');
+        else       html.push('  </div>');
+
+        html.push('</li>');
+
+        current++;
+      }
+    }
+
+    $('#page-networks-col-left').html(htmlLeft.join(''));
+    $('#page-networks-col-right').html(htmlRight.join(''));
+
+    bindVideos('#page-networks');
+  },
+
+
+  populatephotos: function() {
+    var htmlLeft = [];
+    var htmlRight = [];
+    var total = 0
+
+      for (var i = 0; i < this.data.photos.length; i++) {
+        total += this.data.photos[i].items.length;
+      }
+
+    var current = 0;
+
+    for (var i = 0; i < this.data.photos.length; i++) {
+      var html = current < total / 2 ? htmlLeft : htmlRight;
+
+      for (var j = 0; j < this.data.photos[i].items.length; j++) {
+        var html = current < total / 2 ? htmlLeft : htmlRight;
+        var item = this.data.photos[i].items[j];
+
+        if (html == htmlRight && htmlRight.length == 0) {
+        }
+
+        var typeClass = item.link && item.link.indexOf('.mp4') != -1 ? 'video-link' : '';
+
+        html.push('<li>');
+
+        if (item.link)   html.push('  <a class="box-item clearfix ' + typeClass + '" href="' + item.link + '" onclick="' + item.tracking + '">');
+        else       html.push('  <div class="box-item clearfix">');
+
+        html.push('    <img class="networks-thumb" src="' + item.photo + '">');
+        html.push('    <div class="networks-detail">');
+        html.push('      <strong class="networks-title">' + item.title + '</strong>');
+        html.push('      <strong class="networks-subtitle">' + item.subtitle + '</strong>');
+        html.push('      <p class="networks-description">' + item.description + '</p>');
+        html.push('    </div>');
+
+        if (item.link)   html.push('  </a>');
+        else       html.push('  </div>');
+
+        html.push('</li>');
+
+        current++;
+      }
+    }
+
+    $('#page-photos-col-left').html(htmlLeft.join(''));
+    $('#page-photos-col-right').html(htmlRight.join(''));
+
+    bindVideos('#page-photos');
+  },
+
+
+  populate: function() {
+    this.populateNews();
+    this.populateprogram();
+    this.populateresources();
+    this.populatecampusteam();
+    this.populatespotlight();
+    this.populateevents();
+    this.populatenetworks();
+    this.populatephotos();
+    this.populateFeatured();
+  },
+  }
 })();
