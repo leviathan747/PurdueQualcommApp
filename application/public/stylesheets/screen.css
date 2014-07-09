@@ -32,7 +32,7 @@ input {appearance:none; -moz-appearance:none; -webkit-appearance:none;}
 /* GENERAL */
 html, body {height:100%; background:#f0f1f2;}
 html.device-smartphone,
-.device-smartphone body {background:#024a67;}
+.device-smartphone body {background:black;}
 
 .device-desktop {overflow-y:scroll;}
 
@@ -50,7 +50,7 @@ html.device-smartphone,
     #header .btn-nav,
     #header .logo-small {display:none;}
 
-    .device-smartphone #header {padding:10px; height:30px; background:url('../img/bgr-header-small.png') no-repeat center center #025d80; background-size:320px 50px;}
+    .device-smartphone #header {padding:10px; height:30px; background:url('../img/bgr-header-small.png') no-repeat center center black; background-size:320px 50px;}
     .device-smartphone #header .btn-yes {display:none;}
     .device-smartphone #header .btn-yes-small {position:absolute; display:block; top:28px; right:10px; z-index:170;}
     .device-smartphone #header .btn-nav {position:absolute; display:block; top:5px; left:5px; z-index:180;}
@@ -91,12 +91,12 @@ html.device-smartphone,
     .device-ipad.device-landscape #navigation .nav-ico {top:18px;}
 
     .device-smartphone #navigation {display:none; width:108px; z-index:50; padding-bottom:0; margin-bottom:0; background:none; -webkit-transform-style:flat; -webkit-backface-visibility:hidden; -webkit-perspective:800;}
-    .device-smartphone #navigation li a {padding:55px 15px 20px; margin:0; font-size:15px; line-height:14px; color:#FFF; border-bottom:1px solid #297593;}
+    .device-smartphone #navigation li a {padding:55px 15px 20px; margin:0; font-size:15px; line-height:14px; color:#FFF; border-bottom:1px solid black;}
     .device-smartphone #navigation li.selected a {border-color:#f0f1f2 !important;}
     .device-smartphone #navigation .nav-ico {position:absolute; top:15px; left:50%; margin-left:-17px;}
     .device-smartphone #navigation .nav-arrow {display:none !important;}
-    .device-smartphone #navigation li {background:#333; border-right:2px solid #024a67;}
-    .device-smartphone #navigation li.active {background:#035270;}
+    .device-smartphone #navigation li {background:#333; border-right:2px solid black;}
+    .device-smartphone #navigation li.active {background:black;}
     .device-smartphone #navigation li.selected {background:#CFB539; border-right:2px solid #CFB539; margin-right:0;}
     .device-smartphone #navigation li .nav-ico {display:none;}
     .device-smartphone #navigation li .nav-ico.on {display:inline-block;}
@@ -171,7 +171,7 @@ html.device-smartphone,
 .device-desktop #modal-video {width:900px; height:450px; top:50%; left:50%; margin:-225px 0 0 -450px;}
 .device-desktop #modal-video .video-js,
 .device-desktop #modal-video video {width:900px; height:450px;}
-#modal-screenlocker {display:none; position:fixed; width:100%; height:100%; top:0; left:0; z-index:240; background-color:rgb(2, 58, 81); opacity:0.7; filter:alpha(opacity=70);}
+#modal-screenlocker {display:none; position:fixed; width:100%; height:100%; top:0; left:0; z-index:240; background-color:rgb(207, 181, 57); opacity:0.7; filter:alpha(opacity=70);}
 
 /*.video-js {width:100% !important; height:100% !important;}
 .device-smartphone .video-js,
@@ -413,9 +413,9 @@ html.device-smartphone,
     .ie7 .events-title {word-wrap:break-word;}
 
 /* LOADER */
-#loader {position:fixed; display:none; width:100%; height:100%; top:0; left:0; background-position:center center; background-image:url('../img/loader.gif'); background-repeat:no-repeat; background-color:rgba(2, 58, 81, 0.75); -webkit-background-size:90px 90px; background-size:90px 90px; z-index:1000;}
-.ie7 #loader {background-color:rgb(2, 58, 81); filter:alpha(opacity=70)}
-.ie8 #loader {background-color:rgb(2, 58, 81); opacity:0.8;}
+#loader {position:fixed; display:none; width:100%; height:100%; top:0; left:0; background-position:center center; background-image:url('../img/loader.gif'); background-repeat:no-repeat; background-color:rgba(207, 181, 57, 0.75); -webkit-background-size:90px 90px; background-size:90px 90px; z-index:1000;}
+.ie7 #loader {background-color:rgb(207, 181, 57); filter:alpha(opacity=70)}
+.ie8 #loader {background-color:rgb(207, 181, 57); opacity:0.8;}
 
 /*
     Transitions from jQtouch (with small modifications): http://www.jqtouch.com/
