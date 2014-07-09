@@ -1,0 +1,631 @@
+/* RESET */
+html, body {margin:0; /*height:100%; overflow:hidden;*/ -webkit-text-size-adjust:none; -webkit-user-select:none;}
+body, form, fieldset, label, legend, input, select, textarea, option, img, p, h1, h2, h3, h4, h5, h6, table, tr, td, th, tbody, thead, tfoot, caption, ul, dl, ol, li, dd, dt {margin:0; padding:0;}
+article, aside, details, figcaption, figure, footer, header, hgroup, nav, section {display:block; margin:0; padding:0;}
+body, form, fieldset, img, legend {border:0;}
+ul, ol {padding-left:30px;}
+nav ul, nav ol {list-style:none; list-style-image:none; margin:0; padding:0;}
+table {border-collapse:collapse; border-spacing:0;}
+a {cursor:pointer; -webkit-tap-highlight-color: rgba(0,0,0,0); -moz-user-select:-moz-none; outline:none !important;}
+p {padding-bottom:12px;}
+a img {border:0;}
+* {-webkit-tap-highlight-color:transparent;}
+input {appearance:none; -moz-appearance:none; -webkit-appearance:none;}
+
+/* UTILS */
+.break {display:block; clear:both;}
+.ir { display: block; border: 0; text-indent: -999em; overflow: hidden; background-color: transparent; background-repeat: no-repeat; text-align: left; direction: ltr; *line-height: 0; }
+.ir br { display: none; }
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { *zoom: 1; }
+.left {float:left;}
+.right {float:right;}
+.ta-center {text-align:center;}
+.ta-left {text-align:left !important;}
+.relative {position:relative;}
+.vh {visibility:hidden;}
+
+
+/* GENERAL */
+html, body {height:100%; background:#f0f1f2;}
+html.device-smartphone,
+.device-smartphone body {background:#f0f1f2;}
+
+.device-desktop {overflow-y:scroll;}
+
+#general {min-width:500px; height:100%; background:#FFF; display:none; -webkit-transform-style:flat; -webkit-backface-visibility:hidden; -webkit-perspective:800;}
+.device-smartphone #general {position:relative; z-index:100;}
+.device-smartphone #general {min-width:300px;}
+.device-oldbb #general {-webkit-transform-style:inherit; -webkit-backface-visibility:inherit; -webkit-perspective:inherit;}
+.ie7 {height:auto;}
+
+#header {height:100px; background:url('../img/bgr-header.png') no-repeat center center #333; background-size:1032px 100px; border-bottom:2px solid #CCC; text-align:center;}
+    #header .logo {display:inline-block; margin-top:20px;}
+    #header .header-illustration {position:absolute; top:0; right:0;}
+    #header .btn-yes {position:absolute; right:40px; top:120px; z-index:170;}
+    #header .btn-yes-small {display:none;}
+    #header .btn-nav,
+    #header .logo-small {display:none;}
+
+    .device-smartphone #header {padding:10px; height:53px; background:url('../img/bgr-header-small.png') no-repeat center center #333; background-size:320px 50px;}
+    .device-smartphone #header .btn-yes {display:none;}
+    .device-smartphone #header .btn-yes-small {position:absolute; display:block; top:28px; right:10px; z-index:170;}
+    .device-smartphone #header .btn-nav {position:absolute; display:block; top:5px; left:5px; z-index:180;}
+    .device-smartphone #header .logo {display:none;}
+    .device-smartphone #header .logo-small {display:inline-block;}
+    .device-oldbb-6 #header {height:40px; padding-top:0 !important;}
+
+    .ie7 #header .logo {display:block;}
+    .ie7 #header .btn-yes {display:block;}
+    /*.ie8 #header,
+    .ie9 #header,
+    .ie10 #header {position:static;}*/
+
+#content {position:relative; min-height:100%; overflow:hidden;}
+
+#navigation {position:absolute; width:133px; padding-bottom:6875px; left:0; margin-bottom:-6700px; border-right:2px solid #CCC; background:#FFF; z-index:100;}
+    #navigation ul {padding:0; margin:0; list-style:none;}
+    #navigation li {position:relative; padding:0; margin:0; text-align:center;}
+    #navigation li a {position:relative; display:block; padding:68px 0 25px; margin:0 15px; border-bottom:1px solid #CCC; font-size:22px; line-height:19px; letter-spacing:-1px; font-family:'QualcommLight', Helvetica; color:#333; text-decoration:none; text-transform:uppercase; z-index:100;}
+    #navigation li .on {display:none;}
+    #navigation li:last-child a {border-bottom:0;}
+    #navigation .nav-ico {position:absolute; top:25px; left:50%; margin-left:-17px;}
+    #navigation .nav-arrow {display:none;}
+
+    #navigation li.active {background:#e6e6e6;}
+    #navigation li.selected a {border-color:#CFB539 !important;}
+
+    #navigation li.selected {background:#CFB539; border-right:2px solid #CFB539; margin-right:-2px;}
+    #navigation li.selected a {color:#FFF;}
+    #navigation li.selected .nav-ico {display:none;}
+    #navigation li.selected .nav-ico.on {display:inline-block;}
+    #navigation li.selected .nav-arrow {position:absolute; display:block; top:50%; right:-3px; margin-top:-9px;}
+
+    #navigation #nav-qpolls-badge {position:absolute; display:none; padding:1px 2px; min-width:12px; left:50%; top:50%; margin-left:7px; margin-top:-10px; background:#CFB539; border-radius:50px; color:#FFF; border:1px solid #a05815; text-align:center; font-size:12px; font-family:'QualcommRegular';}
+    #navigation li.selected #nav-qpolls-badge {background:#333;}
+
+    .device-ipad.device-landscape #navigation li a {padding:61px 0 18px;}
+    .device-ipad.device-landscape #navigation .nav-ico {top:18px;}
+
+    .device-smartphone #navigation {display:none; width:108px; z-index:50; padding-bottom:0; margin-bottom:0; background:none; -webkit-transform-style:flat; -webkit-backface-visibility:hidden; -webkit-perspective:800;}
+    .device-smartphone #navigation li a {padding:55px 15px 20px; margin:0; font-size:15px; line-height:14px; color:#FFF; border-bottom:1px solid #CFB539;}
+    .device-smartphone #navigation li.selected a {border-color:#f0f1f2 !important;}
+    .device-smartphone #navigation .nav-ico {position:absolute; top:15px; left:50%; margin-left:-17px;}
+    .device-smartphone #navigation .nav-arrow {display:none !important;}
+    .device-smartphone #navigation li {background:#333; border-right:2px solid #CFB539;}
+    .device-smartphone #navigation li.active {background:#CFB539;}
+    .device-smartphone #navigation li.selected {background:#CFB539; border-right:2px solid #CFB539; margin-right:0;}
+    .device-smartphone #navigation li .nav-ico {display:none;}
+    .device-smartphone #navigation li .nav-ico.on {display:inline-block;}
+    .device-oldbb #navigation {-webkit-transform-style:inherit; -webkit-backface-visibility:inherit; -webkit-perspective:inherit;}
+
+    .ie7 #navigation li a {padding-top:45px;}
+    .ie7 #content {min-height:600px;}
+
+
+
+#container {position:relative; margin-left:135px; padding:35px 40px; padding-bottom:1000px; margin-bottom:-1000px; background:#f0f1f2; z-index:150;}
+    #container h2 {padding-bottom:4px; padding-right:85px; font-family:'QualcommRegular', Helvetica; font-size:42px; color:#444; letter-spacing:-2px; font-weight:normal;}
+    #container p {font-family:'QualcommLight', Helvetica; font-size:17px; color:#444;}
+    #container .page-description {padding-right:85px;}
+    #container .content {padding-top:22px; height: 500px;}
+    #container .sub-header {padding:10px; margin-bottom:10px; font-family:'QualcommLight', Helvetica; font-size:15px; color:#FFF; background:#333; font-weight:normal; text-align:center;}
+    #container .sub-header .aligned-center {position:relative; display:block; margin:0 180px; text-align:center; font-size:20px; font-weight:normal;}
+    #container .sub-header .aligned-center-double {position:relative; display:inline-block; margin:0 30px; text-align:center; font-size:20px; font-weight:normal; color:#FFF; text-decoration:none;}
+    #container .sub-header .aligned-right {float:right; font-size:20px; font-weight:normal;}
+    #container .sub-header .disabled {opacity:0.5; filter:alpha(opacity=50);}
+    #container .sub-header-lpad {padding:7px 10px;}
+    #container .sub-header .selected .year-arrow {position:absolute; display:block !important; bottom:-9px; left:50%; margin-left:-12px;}
+
+.device-smartphone #container {margin-left:0; padding-top:30px; padding-left:10px; padding-right:10px;}
+    .device-smartphone #container h2 {font-size:20px; padding-right:0; letter-spacing:0;}
+    .device-smartphone #container p {font-size:14px;}
+    .device-smartphone #container .page-description {padding-right:0;}
+    .device-smartphone #container .sub-header {margin-left:-10px; margin-right:-10px; font-size:14px;}
+    .device-smartphone #container .sub-header .aligned-center,
+    .ie7 #container .sub-header .aligned-center {text-align:left; margin-left:0;}
+    .device-smartphone #container .sub-header .aligned-center,
+    .device-smartphone #container .sub-header .aligned-right {font-size:14px;}
+
+
+/* SPLASH */
+#splash-screen {position:absolute; width:100%; height:100%; top:0; left:0; z-index:2000; -webkit-transition:all 0.7s ease-in-out;
+    background: #333; /* Old browsers */
+    background: -moz-radial-gradient(center, ellipse cover, #333 0%, #CFB539 100%); /* FF3.6+ */
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#333), color-stop(100%,#CFB539)); /* Chrome,Safari4+ */
+    background: -webkit-radial-gradient(center, ellipse cover, #333 0%,#CFB539 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-radial-gradient(center, ellipse cover, #333 0%,#CFB539 100%); /* Opera 12+ */
+    background: -ms-radial-gradient(center, ellipse cover, #333 0%,#CFB539 100%); /* IE10+ */
+    background: radial-gradient(ellipse at center, #333 0%,#CFB539 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#333', endColorstr='#CFB539',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */}
+
+    #splash-screen .bg {width:100%; height:100%; background:url('../img/splash.png') center center no-repeat; background-size:1032px 203px;}
+    .device-portrait #splash-screen .bg {background-size:700px 137px;}
+    .ie8 #splash-screen .bg,
+    .ie7 #splash-screen .bg,
+    .device-smartphone #splash-screen .bg {background:url('../img/splash-small.png') center center no-repeat !important; background-size:320px 83px !important;}
+
+    #splash-screen.hide {-webkit-transform:scale(1.2); opacity:0; filter:alpha(opacity=0);}
+
+    #splash-screen.hidden {display:none;}
+
+/* DEFAULT LIST */
+.device-landscape .default-list {width:48.8%;}
+.device-landscape .default-list:first-child {margin-right:2.4%;}
+.device-portrait .default-list,
+.device-smartphone .default-list,
+.device-landscape .default-list-full,
+.agenda-list {width:100% !important; margin-right:0 !important;}
+.default-list li.active {background:#e0e0e0;}
+
+.ie7 .default-list:first-child {margin-right:0 !important;}
+.ie7 .default-list-right {float:right !important;}
+
+/*  VIDEO */
+#modal-video {display:none; position:absolute; width:600px; height:300px; top:50%; left:50%; margin:-150px 0 0 -300px; background:#FFF; z-index:250;}
+#modal-video .video-js,
+#modal-video video {width:600px; height:300px;}
+.device-desktop #modal-video {width:900px; height:450px; top:50%; left:50%; margin:-225px 0 0 -450px;}
+.device-desktop #modal-video .video-js,
+.device-desktop #modal-video video {width:900px; height:450px;}
+#modal-screenlocker {display:none; position:fixed; width:100%; height:100%; top:0; left:0; z-index:240; background-color:rgb(207, 181, 57); opacity:0.7; filter:alpha(opacity=70);}
+
+/*.video-js {width:100% !important; height:100% !important;}
+.device-smartphone .video-js,
+.device-portrait .video-js {width:100% !important; height:auto !important; min-height:200px;}
+*/
+
+/* AGENDA */
+.agenda-list {position:relative; padding:0; margin:0 0 13px 0; list-style:none;}
+    .agenda-list li {position:relative; background:#FFF;}
+    .agenda-list .agenda-item {padding:10px 0 10px 0; margin:0 10px; border-bottom:1px solid #e5e5e5;}
+    .agenda-list .agenda-item.last-item {border-bottom:0;}
+    .agenda-list .agenda-time {display:none; width:80px; padding:20px 0; margin-right:17px; border-right:1px solid #e6e6e6; color:#333; font-family:'QualcommRegular'; font-size:23px; float:left; text-align:center;}
+    .agenda-list .agenda-thumb {display:block; width:70px; margin-right:13px; margin-left:3px; border-radius:70px; float:left;}
+    .agenda-list .agenda-detail {margin-left:88px;}
+    .agenda-list .agenda-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .agenda-list .agenda-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal;}
+    .agenda-list .agenda-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+
+    .device-smartphone .agenda-list .agenda-time {width:61px; font-size:18px; margin-right:14px; padding:15px 0;}
+    .device-smartphone .agenda-list .agenda-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .agenda-list .agenda-detail {margin-left:65px;}
+    .device-smartphone .agenda-list .agenda-title {font-size:18px;}
+    .device-smartphone .agenda-list .agenda-name,
+    .device-smartphone .agenda-list .agenda-description {font-size:14px !important;}
+
+    .ie7 .agenda-title {word-wrap:break-word;}
+
+/* HIGHLIGHTS */
+.highlight-list {position:relative; padding:0; margin:0; list-style:none;}
+    .highlight-list li {position:relative; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .highlight-list .box-item {display:block; padding:10px 0 10px 0; text-decoration:none;}
+    .highlight-list li.title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; text-transform:uppercase;}
+    .highlight-list .highlight-thumb {display:block; width:70px; margin-right:13px; margin-left:13px; float:left;}
+    .highlight-list .highlight-detail {margin-left:95px; margin-right:10px;}
+    .highlight-list .highlight-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .highlight-list .highlight-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .highlight-list .highlight-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+    .highlight-list .highlight-ico {display:block; width:65px; padding:15px 0; margin-left:15px; border-left:1px solid #e6e6e6; color:#333; float:right; text-align:center;}
+    .highlight-list .highlight-ico .ico {display:inline-block;}
+    .highlight-list .highlight-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+
+    .device-smartphone .highlight-list li.title-separator-secondary,
+    .device-portrait .highlight-list li.title-separator-secondary {display:none;}
+
+    .device-smartphone .highlight-list .highlight-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .highlight-list .highlight-detail {margin-left:75px; margin-right:75px;}
+    .device-smartphone .highlight-list .highlight-ico {width:51px; padding:8px 0 4px;}
+    .device-smartphone .highlight-list .highlight-title {font-size:18px;}
+    .device-smartphone .highlight-list .highlight-name,
+    .device-smartphone .highlight-list .highlight-subtitle,
+    .device-smartphone .highlight-list .highlight-description {font-size:14px !important;}
+
+    .ie7 .highlight-list .highlight-ico {position:relative; height:40px;}
+    .ie7 .highlight-list .highlight-ico span {display:inline-block; position:absolute; right:15px; zoom:1;}
+
+    .ie7 .highlight-title {word-wrap:break-word;}
+
+/* GALERY LIST */
+.galery-list-title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; float:none !important;}
+.galery-list-title-separator span {display:block; margin-top:5px;}
+.galery-list {position:relative; width:auto !important; padding:8px; margin:0 0 10px 0; border-bottom:2px solid #d8d9d9; background:#FFF; list-style:none;}
+    .galery-list li {display:block; width:70px; height:70px; padding:8px; float:left;}
+    .galery-list .box-item {display:block; width:70px; height:70px;}
+    .galery-list .highlight-thumb {display:block; width:70px;}
+
+/* FEATURED */
+.featured-list {position:relative; padding:0; margin:0; list-style:none;}
+    .featured-list li {position:relative; padding:10px 0 10px 0; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .featured-list .box-item {text-decoration:none;}
+    .featured-list .app-ico {width:86px; margin-left:13px; float:left;}
+    .featured-list .featured-detail {margin-left:110px; padding-right:10px;}
+    .featured-list .news-detail {margin-left:15px; padding-right:10px;}
+    .featured-list .featured-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal;}
+    .featured-list .featured-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .featured-list .featured-description {display:block; font-family:'QualcommLight'; font-size:14px !important;}
+    .featured-list .featured-mobileonly {display:block; margin-bottom:0; font-family:'QualcommLight'; font-size:12px !important;}
+    .featured-list .badge-appstore {position:absolute; top:-4px; right:-4px;}
+
+    .device-smartphone .featured-list .app-ico {width:52px;}
+    .device-smartphone .featured-list .featured-detail {margin-left:76px;}
+    .device-smartphone .featured-list .news-detail {margin-left:15px;}
+    .device-smartphone .featured-list .featured-title {font-size:18px; margin-right:40px;}
+    .device-smartphone .featured-list .featured-subtitle,
+    .device-smartphone .featured-list .featured-description {font-size:14px !important;}
+
+
+/* CAMPUSTEAM */
+.campusteam-list {position:relative; padding:0; margin:0; list-style:none;}
+    .campusteam-list li {position:relative; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .campusteam-list .box-item {display:block; padding:10px 0 10px 0; text-decoration:none;}
+    .campusteam-list li.title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; text-transform:uppercase;}
+    .campusteam-list .campusteam-thumb {display:block; width:70px; margin-right:13px; margin-left:13px; float:left;}
+    .campusteam-list .campusteam-detail {margin-left:95px; margin-right:10px;}
+    .campusteam-list .campusteam-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .campusteam-list .campusteam-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .campusteam-list .campusteam-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+    .campusteam-list .campusteam-ico {display:block; width:65px; padding:15px 0; margin-left:15px; border-left:1px solid #e6e6e6; color:#333; float:right; text-align:center;}
+    .campusteam-list .campusteam-ico .ico {display:inline-block;}
+    .campusteam-list .campusteam-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+
+    .device-smartphone .campusteam-list li.title-separator-secondary,
+    .device-portrait .campusteam-list li.title-separator-secondary {display:none;}
+
+    .device-smartphone .campusteam-list .campusteam-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .campusteam-list .campusteam-detail {margin-left:75px; margin-right:15px;}
+    .device-smartphone .campusteam-list .campusteam-ico {width:51px; padding:8px 0 4px;}
+    .device-smartphone .campusteam-list .campusteam-title {font-size:18px;}
+    .device-smartphone .campusteam-list .campusteam-name,
+    .device-smartphone .campusteam-list .campusteam-subtitle,
+    .device-smartphone .campusteam-list .campusteam-description {font-size:14px !important;}
+
+    .ie7 .campusteam-list .campusteam-ico {position:relative; height:40px;}
+    .ie7 .campusteam-list .campusteam-ico span {display:inline-block; position:absolute; right:15px; zoom:1;}
+
+    .ie7 .campusteam-title {word-wrap:break-word;}
+
+
+/* INTERN SPOTLIGHT */
+.spotlight-list {position:relative; padding:0; margin:0; list-style:none;}
+    .spotlight-list li {position:relative; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .spotlight-list .box-item {display:block; padding:10px 0 10px 0; text-decoration:none;}
+    .spotlight-list li.title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; text-transform:uppercase;}
+    .spotlight-list .spotlight-thumb {display:block; width:70px; margin-right:13px; margin-left:13px; float:left;}
+    .spotlight-list .spotlight-detail {margin-left:95px; margin-right:10px;}
+    .spotlight-list .spotlight-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .spotlight-list .spotlight-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .spotlight-list .spotlight-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+    .spotlight-list .spotlight-ico {display:block; width:65px; padding:15px 0; margin-left:15px; border-left:1px solid #e6e6e6; color:#333; float:right; text-align:center;}
+    .spotlight-list .spotlight-ico .ico {display:inline-block;}
+    .spotlight-list .spotlight-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+
+    .device-smartphone .spotlight-list li.title-separator-secondary,
+    .device-portrait .spotlight-list li.title-separator-secondary {display:none;}
+
+    .device-smartphone .spotlight-list .spotlight-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .spotlight-list .spotlight-detail {margin-left:75px; margin-right:15px;}
+    .device-smartphone .spotlight-list .spotlight-ico {width:51px; padding:8px 0 4px;}
+    .device-smartphone .spotlight-list .spotlight-title {font-size:18px;}
+    .device-smartphone .spotlight-list .spotlight-name,
+    .device-smartphone .spotlight-list .spotlight-subtitle,
+    .device-smartphone .spotlight-list .spotlight-description {font-size:14px !important;}
+
+    .ie7 .spotlight-list .spotlight-ico {position:relative; height:40px;}
+    .ie7 .spotlight-list .spotlight-ico span {display:inline-block; position:absolute; right:15px; zoom:1;}
+
+    .ie7 .spotlight-title {word-wrap:break-word;}
+
+
+/* RESOURCES */
+.resources-list {position:relative; padding:0; margin:0; list-style:none;}
+    .resources-list li {position:relative; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .resources-list .box-item {display:block; padding:10px 0 10px 0; text-decoration:none;}
+    .resources-list li.title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; text-transform:uppercase;}
+    .resources-list .resources-thumb {display:block; width:70px; margin-right:13px; margin-left:13px; float:left;}
+    .resources-list .resources-detail {margin-left:95px; margin-right:10px;}
+    .resources-list .resources-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .resources-list .resources-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .resources-list .resources-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+    .resources-list .resources-ico {display:block; width:65px; padding:15px 0; margin-left:15px; border-left:1px solid #e6e6e6; color:#333; float:right; text-align:center;}
+    .resources-list .resources-ico .ico {display:inline-block;}
+    .resources-list .resources-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+
+    .device-smartphone .resources-list li.title-separator-secondary,
+    .device-portrait .resources-list li.title-separator-secondary {display:none;}
+
+    .device-smartphone .resources-list .resources-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .resources-list .resources-detail {margin-left:75px; margin-right:15px;}
+    .device-smartphone .resources-list .resources-ico {width:51px; padding:8px 0 4px;}
+    .device-smartphone .resources-list .resources-title {font-size:18px;}
+    .device-smartphone .resources-list .resources-name,
+    .device-smartphone .resources-list .resources-subtitle,
+    .device-smartphone .resources-list .resources-description {font-size:14px !important;}
+
+    .ie7 .resources-list .resources-ico {position:relative; height:40px;}
+    .ie7 .resources-list .resources-ico span {display:inline-block; position:absolute; right:15px; zoom:1;}
+
+    .ie7 .resources-title {word-wrap:break-word;}
+
+
+/* NETWORKS */
+.networks-list {position:relative; padding:0; margin:0; list-style:none;}
+    .networks-list li {position:relative; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .networks-list .box-item {display:block; padding:10px 0 10px 0; text-decoration:none;}
+    .networks-list li.title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; text-transform:uppercase;}
+    .networks-list .networks-thumb {display:block; width:70px; margin-right:13px; margin-left:13px; float:left;}
+    .networks-list .networks-detail {margin-left:95px; margin-right:10px;}
+    .networks-list .networks-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .networks-list .networks-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .networks-list .networks-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+    .networks-list .networks-ico {display:block; width:65px; padding:15px 0; margin-left:15px; border-left:1px solid #e6e6e6; color:#333; float:right; text-align:center;}
+    .networks-list .networks-ico .ico {display:inline-block;}
+    .networks-list .networks-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+
+    .device-smartphone .networks-list li.title-separator-secondary,
+    .device-portrait .networks-list li.title-separator-secondary {display:none;}
+
+    .device-smartphone .networks-list .networks-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .networks-list .networks-detail {margin-left:75px; margin-right:15px;}
+    .device-smartphone .networks-list .networks-ico {width:51px; padding:8px 0 4px;}
+    .device-smartphone .networks-list .networks-title {font-size:18px;}
+    .device-smartphone .networks-list .networks-name,
+    .device-smartphone .networks-list .networks-subtitle,
+    .device-smartphone .networks-list .networks-description {font-size:14px !important;}
+
+    .ie7 .networks-list .networks-ico {position:relative; height:40px;}
+    .ie7 .networks-list .networks-ico span {display:inline-block; position:absolute; right:15px; zoom:1;}
+
+    .ie7 .networks-title {word-wrap:break-word;}
+
+
+/* EVENTS */
+.events-list {position:relative; padding:0; margin:0; list-style:none;}
+    .events-list li {position:relative; margin-bottom:10px; border-bottom:2px solid #d8d9d9; background:#FFF;}
+    .events-list .box-item {display:block; padding:10px 0 10px 0; text-decoration:none;}
+    .events-list li.title-separator {margin-bottom:0; padding:10px 0 10px 0; background:none !important; border:0; color:#444; font-family:'QualcommRegular'; font-size:15px; text-transform:uppercase;}
+    .events-list .events-thumb {display:block; width:70px; margin-right:13px; margin-left:13px; float:left;}
+    .events-list .events-detail {margin-left:95px; margin-right:10px;}
+    .events-list .events-title {display:block; padding:2px 0 5px; color:#333; font-family:'QualcommRegular'; font-size:25px; line-height:95%; font-weight:normal; letter-spacing:-1px;}
+    .events-list .events-name {display:block; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+    .events-list .events-description {display:block; padding-bottom:0; font-family:'QualcommLight'; font-size:14px !important;}
+    .events-list .events-ico {display:block; width:65px; padding:15px 0; margin-left:15px; border-left:1px solid #e6e6e6; color:#333; float:right; text-align:center;}
+    .events-list .events-ico .ico {display:inline-block;}
+    .events-list .events-subtitle {display:block; margin-bottom:18px; font-family:'QualcommRegular'; font-size:14px; font-weight:normal; color:#444;}
+
+    .device-smartphone .events-list li.title-separator-secondary,
+    .device-portrait .events-list li.title-separator-secondary {display:none;}
+
+    .device-smartphone .events-list .events-thumb {width:51px; margin-right:11px;}
+    .device-smartphone .events-list .events-detail {margin-left:75px; margin-right:15px;}
+    .device-smartphone .events-list .events-ico {width:51px; padding:8px 0 4px;}
+    .device-smartphone .events-list .events-title {font-size:18px;}
+    .device-smartphone .events-list .events-name,
+    .device-smartphone .events-list .events-subtitle,
+    .device-smartphone .events-list .events-description {font-size:14px !important;}
+
+    .ie7 .events-list .events-ico {position:relative; height:40px;}
+    .ie7 .events-list .events-ico span {display:inline-block; position:absolute; right:15px; zoom:1;}
+
+    .ie7 .events-title {word-wrap:break-word;}
+
+/* LOADER */
+#loader {position:fixed; display:none; width:100%; height:100%; top:0; left:0; background-position:center center; background-image:url('../img/loader.gif'); background-repeat:no-repeat; background-color:rgba(207, 181, 57, 0.75); -webkit-background-size:90px 90px; background-size:90px 90px; z-index:1000;}
+.ie7 #loader {background-color:rgb(207, 181, 57); filter:alpha(opacity=70)}
+.ie8 #loader {background-color:rgb(207, 181, 57); opacity:0.8;}
+
+/*
+    Transitions from jQtouch (with small modifications): http://www.jqtouch.com/
+    Built by David Kaneda and maintained by Jonathan Stark.
+*/
+.in,.out{-webkit-animation-timing-function:ease-in-out;-webkit-animation-duration:350ms; -moz-animation-timing-function:ease-in-out;-moz-animation-duration:350ms; animation-timing-function:ease-in-out;animation-duration:350ms;}
+.slide.in{-webkit-transform:translateX(0);-webkit-animation-name:slideinfromright; -moz-transform:translateX(0);-moz-animation-name:slideinfromright;}
+.slide.out{-webkit-transform:translateX(-100%);-webkit-animation-name:slideouttoleft; -moz-transform:translateX(-100%);-moz-animation-name:slideouttoleft;}
+.slide2.in{-webkit-transform:translateX(0);-webkit-animation-name:slideinfromright2; -moz-transform:translateX(0);-moz-animation-name:slideinfromright2;}
+.slide2.out{-webkit-transform:translateX(-50%);-webkit-animation-name:slideouttoleft2; -moz-transform:translateX(-50%);-moz-animation-name:slideouttoleft2;}
+.side.in{-webkit-transform:translateX(108px);-webkit-animation-name:sidein; -moz-transform:translateX(108px);-moz-animation-name:sidein; transform:translateX(108px);animation-name:sidein;}
+.side.out{-webkit-transform:translateX(0);-webkit-animation-name:sideout; -moz-transform:translateX(0);-moz-animation-name:sideout; transform:translateX(0);animation-name:sideout;}
+
+.device-winphone .side.in {margin-left:108px;}
+.device-winphone .side.out {margin-left:0px;}
+
+.slide.in.reverse{-webkit-transform:translateX(0);-webkit-animation-name:slideinfromleft; -moz-transform:translateX(0);-moz-animation-name:slideinfromleft;}
+.slide.out.reverse{-webkit-transform:translateX(100%);-webkit-animation-name:slideouttoright; -moz-transform:translateX(100%);-moz-animation-name:slideouttoright;}
+.slideup.in{-webkit-transform:translateY(0);-webkit-animation-name:slideinfrombottom;z-index:10; -moz-transform:translateY(0);-moz-animation-name:slideinfrombottom;z-index:10;}
+.slideup.out.reverse{-webkit-transform:translateY(100%);z-index:10;-webkit-animation-name:slideouttobottom; -moz-transform:translateY(100%);z-index:10;-moz-animation-name:slideouttobottom;}
+.slidedown.in{-webkit-transform:translateY(0);-webkit-animation-name:slideinfromtop;z-index:10; -moz-transform:translateY(0);-moz-animation-name:slideinfromtop;z-index:10;}
+.slidedown.out.reverse{-webkit-transform:translateY(-100%);z-index:10;-webkit-animation-name:slideouttotop; -moz-transform:translateY(-100%);z-index:10;-moz-animation-name:slideouttotop;}
+.slideup.out,.slidedown.out{-webkit-animation-name:dontmove;z-index:0; -moz-animation-name:dontmove;z-index:0;}
+.slideup.in.reverse,.slidedown.in.reverse{z-index:0;-webkit-animation-name:dontmove; -moz-animation-name:dontmove;}
+
+
+@-webkit-keyframes sidein {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(108px); }
+}
+
+@-webkit-keyframes sideout {
+    from { -webkit-transform: translateX(108px); }
+    to { -webkit-transform: translateX(0); }
+}
+
+@keyframes sidein {
+    from { transform: translateX(0); }
+    to { transform: translateX(108px); }
+}
+
+@keyframes sideout {
+    from { transform: translateX(108px); }
+    to { transform: translateX(0); }
+}
+
+@-webkit-keyframes slideinfromright {
+    from { -webkit-transform: translateX(100%); }
+    to { -webkit-transform: translateX(0); }
+}
+
+@-webkit-keyframes slideinfromright2 {
+    from { -webkit-transform: translateX(-50%); }
+    to { -webkit-transform: translateX(0); }
+}
+
+@-webkit-keyframes slideinfromleft {
+    from { -webkit-transform: translateX(-100%); }
+    to { -webkit-transform: translateX(0); }
+}
+
+@-webkit-keyframes slideouttoleft {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(-100%); }
+}
+
+@-webkit-keyframes slideouttoleft2 {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(-50%); }
+}
+
+@-webkit-keyframes slideouttoright {
+    from { -webkit-transform: translateX(0); }
+    to { -webkit-transform: translateX(100%); }
+}
+
+@-webkit-keyframes slideinfromtop {
+    from { -webkit-transform: translateY(-100%); }
+    to { -webkit-transform: translateY(0); }
+}
+
+@-webkit-keyframes slideinfrombottom {
+    from { -webkit-transform: translateY(100%); }
+    to { -webkit-transform: translateY(0); }
+}
+
+@-webkit-keyframes slideouttobottom {
+    from { -webkit-transform: translateY(0); }
+    to { -webkit-transform: translateY(100%); }
+}
+
+@-webkit-keyframes slideouttotop {
+    from { -webkit-transform: translateY(0); }
+    to { -webkit-transform: translateY(-100%); }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@-webkit-keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+
+
+
+@keyframes sidein {
+    from { transform: translateX(0); }
+    to { transform: translateX(290px); }
+}
+
+@keyframes sideout {
+    from { transform: translateX(290px); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideinfromright {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideinfromright2 {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideinfromleft {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slideouttoleft {
+    from { transform: translateX(0); }
+    to { transform: translateX(-100%); }
+}
+
+@keyframes slideouttoleft2 {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes slideouttoright {
+    from { transform: translateX(0); }
+    to { transform: translateX(100%); }
+}
+
+@keyframes slideinfromtop {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes slideinfrombottom {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+}
+
+@keyframes slideouttobottom {
+    from { transform: translateY(0); }
+    to { transform: translateY(100%); }
+}
+
+@keyframes slideouttotop {
+    from { transform: translateY(0); }
+    to { transform: translateY(-100%); }
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeout {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+.fade.in{opacity:1; z-index:10; -webkit-animation-name:fadein; -moz-animation-name:fadein;}
+.fade.out{z-index:0; -webkit-animation-name:fadeout; -moz-animation-name:fadeout;}
+
+#countdown p {
+display: inline-block;
+padding: 5px;
+background: #CFB539;
+color: #ffffff;
+font-weight:normal;
+font-size:small;
+margin: 0 0 0px;
+}
+
+img.wide {
+  width: 98%;
+  max-width: 400px;
+  height: auto;
+}
+
+iframe.wide {
+  width: 100%;
+  min-height: 50%;
+  position:absolute;
+  top: 1em;
+  left: 1em;
+  right: 1em;
+  bottom: 1em;
+}
+
+img.poster {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+}
