@@ -163,8 +163,8 @@ $(function() {
       eventDate = Date.parse(r.date) / 1e3;
       currentDate = Math.floor(e.now() / 1e3);
       if (eventDate <= currentDate) {
-        n.call(this);
-        clearInterval(interval)
+        //n.call(this);
+        //clearInterval(interval)
       }
       seconds = eventDate - currentDate;
       days = Math.floor(seconds / 86400);
