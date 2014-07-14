@@ -39,7 +39,7 @@ var bindVideos = function(id) {
 
 var bindClickEnhancement = function() {
   if (DeviceHelper.IS_MOBILE) {
-    FastClick.attach(document.body);
+    //FastClick.attach(document.body);
 
     $('body').on({
       touchstart: function(ev) {
@@ -84,13 +84,13 @@ $(function() {
 
   // $('.btn-yes, .btn-yes-small').on('click', Yes.play);
   $('.btn-yes, .btn-yes-small').on('click', function() {
-    Yes.play();
+    //Yes.play();
   });
 
   // ContentManager.load();
   // ContentManager.populate();
 
-  Yes.load();
+  //Yes.load();
 
   var $window = $(window);
   var splashScreen = $('#splash-screen');

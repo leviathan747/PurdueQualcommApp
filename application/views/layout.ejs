@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/sprite-retina.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/video-js.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/magnific-popup.css">
-    <script type="text/javascript" src="javascripts/libs/plugins.js"></script>
+    <!--script type="text/javascript" src="javascripts/libs/plugins.js"></script-->
     <script type="text/javascript" src="javascripts/libs/device-helper.js?v=1"></script>
 
     <script type="text/javascript">
@@ -36,9 +36,65 @@
     </script>
         
 </head>
-<body>
+<body class="portrait">
+  <div id="splash-screen" class="hidden">
+    <div class="bg"></div>
+  </div>
+  <div id="general">
+    <div id="header" class="clearfix">
+      <a href="javascript:;" class="btn-nav"></a>
+      <h1>
+        <span class="logo">Purdue QC App</span>
+        <span class="logo-small">Purdue QC App</span>
+      </h1>
+    </div>
+    <div id="content">
+      <div id="navigation">
+        <ul>
+          <li>
+            <span class="nav-agenda-ico nav-ico"></span>
+            <span class="nav-agenda-ico nav-ico on"></span>
+            <span class="nav-arrow"></span>
+            <a href="/events" title="events">Campus Events</a>
+          </li>
+          <li>
+            <span class="nav-featured-ico nav-ico"></span>
+            <span class="nav-featured-ico nav-ico on"></span>
+            <span class="nav-arrow"></span>
+            <a href="/tech" title="tech">QC Tech</a>
+          </li>
+          <li>
+            <span class="nav-featured-ico nav-ico"></span>
+            <span class="nav-featured-ico nav-ico on"></span>
+            <span class="nav-arrow"></span>
+            <a href="/trivia" title="trivia">QC Trivia</a>
+          </li> 
+          <li>
+            <span class="nav-mail-ico nav-ico"></span>
+            <span class="nav-mail-ico nav-ico on"></span>
+            <span class="nav-arrow"></span>
+            <a href="/connect" title="connect">Connect</a>
+          </li>
+          <li>
+            <span class="nav-lines-ico nav-ico"></span>
+            <span class="nav-lines-ico nav-ico on"></span>
+            <span class="nav-arrow"></span>
+            <a href="/profile" title="profile">Profile</a>
+          </li>
+        </ul>
+      </div>
+      <div id="container">
+        <%- body %>
+      </div>
+    </div>
+  </div>
+  <div id="modal-screenlocker"></div>
 
-    <%- body %>
-    
+  <div id="loader" class="fade"><!-- --></div>
+  <script type="text/javascript" src="javascripts/comp/loader.js"></script>
+  <script type="text/javascript" src="javascripts/comp/navigation.js"></script>
+  <!--script type="text/javascript" src="javascripts/comp/content-manager.js"></script-->
+  <script type="text/javascript" src="javascripts/main.js"></script>
+
 </body>
 </html>

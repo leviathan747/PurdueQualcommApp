@@ -17,7 +17,6 @@
 
 	Navigation.prototype.init = function() {
 		this.bindEvents();
-		this.setRoutes();
 	};
 
 	Navigation.prototype.bindEvents = function() {
@@ -32,96 +31,9 @@
 		});
 	};
 
-	Navigation.prototype.setRoutes = function() {
-		var _this = this;
-
-		Path.map('#!/:main(/:sub)(/:params)').to(function() {
-			var that = this;
-			// Loader.show();
-			// setTimeout(function() {
-				_this.goTo(that.params.main, null, function() {
-					// Loader.hide();
-				});
-			// }, 0); // TODO
-		});
-
-		// Path.root('#!/agenda');
-		Path.root('#!/news');
-		Path.listen();
-	};
-
 	Navigation.prototype.setContainerHeight = function() {
 		// var height = (window.innerHeight > 0) ? window.innerHeight : screen.height;
 		// $('.page-container').height(height - HEADER_HEIGHT);	
-	};
-
-	Navigation.prototype.goTo = function(pageName, beforeShow, afterShow) {
-		beforeShow && beforeShow();
-
-		var page = $('#page-' + pageName);
-		var currentPage = $('.page:visible');
-		var navTimer = 0;
-
-		if (DeviceHelper.IS_MOBILE && !DeviceHelper.IS_TABLET) {
-			$('#general').trigger('click');
-			navTimer = 500;
-		}
-
-		setTimeout(function() {
-			currentPage.hide();
-			page.show();
-
-			$('#navigation .selected').removeClass('selected');
-			$('#navigation li[data-rel=' + pageName + ']').addClass('selected');
-
-			afterShow && afterShow();
-
-			$('html, body').animate({
-				scrollTop: 0
-			}, navTimer);
-		}, navTimer);
-
-		return;
-
-		var general = $('#general');
-		var activePage = $('#general .page.active');
-		var $win = $(window);
-
-		// $('body').append(page);
-
-		beforeShow && beforeShow();
-
-		page.addClass('activating');
-		page.css('min-height', activePage.height());
-		// general.append(page);
-
-		if (DeviceHelper.IS_ANDROID) {
-			page.addClass('active').removeClass('activating').css('min-height', '100%');
-			if (activePage.attr('id') == 'page-home') {
-				activePage.removeClass('active').removeClass('activating');
-			} else {
-				activePage.remove();
-			}
-
-			afterShow && afterShow();
-		} else {
-			if(page.attr('id') == 'page-home')
-				page.addClass('slide2').addClass('in');
-			else
-				page.addClass('slide').addClass('in');
-
-			page.on('animationend webkitAnimationEnd', function() {
-				page.addClass('active').removeClass('activating').css('min-height', '100%');
-
-				if (activePage.attr('id') == 'page-home') {
-					activePage.removeClass('active').removeClass('activating');
-				} else {
-					activePage.remove();
-				}
-
-				afterShow && afterShow();
-			});
-		}
 	};
 
 	Navigation.prototype.showMainNav = function() {
