@@ -27,6 +27,9 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary btn-block">Create Profile</button>
                 </div>
+                <div class="form-group">
+                    <div>Already have an account? <a href="">Log in</a></div>
+                </div>
                 <div class="form-group" id="alerts">
                 </div>
             </form>
@@ -56,55 +59,65 @@
         // validate purdue email
         if ($("#purdueEmail").val().trim() == "") {
             var msg = "Please enter your email address";
-            addError($("#purdueEmailGroup"), msg);
+            addError($("#purdueEmailGroup"));
+            addAlert(msg);
         }
         else if (!email.test($("#purdueEmail").val().trim())) {
             var msg = "Enter a valid Purdue email address";
-            addError($("#purdueEmailGroup"), msg);
+            addError($("#purdueEmailGroup"));
+            addAlert(msg);
         }
 
         // validate username
         if ($("#username").val().trim() == "") {
             var msg = "Please enter a username";
-            addError($("#usernameGroup"), msg);
+            addError($("#usernameGroup"));
+            addAlert(msg);
         }
         else if (!username.test($("#username").val().trim())) {
             var msg = "Invalid characters in username";
-            addError($("#usernameGroup"), msg);
+            addError($("#usernameGroup"));
+            addAlert(msg);
         }
 
         // validate name
         if ($("#name").val().trim() == "") {
             var msg = "Please enter your name";
-            addError($("#nameGroup"), msg);
+            addError($("#nameGroup"));
+            addAlert(msg);
         }
 
         // validate passwords
         if ($("#password1").val().trim().length < pass_len){
             var msg = "Please enter a password";
-            addError($("#password1Group"), msg);
-            addError($("#password2Group"), msg);
+            addError($("#password1Group"));
+            addError($("#password2Group"));
+            addAlert(msg);
         }
         else if ($("#password1").val().trim().length < pass_len){
             var msg = "Password must be at least " + pass_len + " characters";
-            addError($("#password1Group"), msg);
-            addError($("#password2Group"), msg);
+            addError($("#password1Group"));
+            addError($("#password2Group"));
+            addAlert(msg);
         }
         else if ($("#password1").val().trim() != $("#password2").val().trim()) {
             var msg = "Passwords do not match";
-            addError($("#password1Group"), msg);
-            addError($("#password2Group"), msg);
+            addError($("#password1Group"));
+            addError($("#password2Group"));
+            addAlert(msg);
         }
 
 
         // post the registration
     });
 
-    function addError(element, msg) {
+    function addError(element) {
         $(element).addClass("has-error");
         $(element).addClass("has-feedback");
         $(element).append("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+    }
 
+    function addAlert(msg) {
         // check for duplicate
         for (var i = 0; i < errors.length; i++) if (msg == errors[i]) return;
 

@@ -1,0 +1,92 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Log in</h2>
+            <br>
+            <form role="form" id="loginForm">
+                <div class="form-group" id="usernameGroup">
+                    <label class="control-label sr-only" for="username">Username</label>
+                    <input class="form-control" id="username" name="username" placeholder="Username">
+                </div>
+                <div class="form-group" id="passwordGroup">
+                    <label class="control-label sr-only" for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </div>
+                <div class="form-group">
+                    <div>Don't have an account? <a href="">Register</a></div>
+                </div>
+                <div class="form-group" id="alerts">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var username = /^[a-zA-Z0-9_]+$/;
+    var pass_len = 6;
+    var errors = [];
+    
+    $("#loginForm").submit(function(e) {
+        // stop from submitting normally
+        e.preventDefault();
+
+        // VALIDATION
+
+        // remove all alerts
+        $("#alerts").empty();
+        $(".has-error").each(function(i, v) {removeError(v)});
+        errors = [];
+
+        // validate username
+        if ($("#username").val().trim() == "") {
+            var msg = "Please enter your username";
+            addError($("#usernameGroup"));
+            addAlert(msg);
+        }
+        else if (!username.test($("#username").val().trim())) {
+            var msg = "Invalid username";
+            addError($("#usernameGroup"));
+            addAlert(msg);
+        }
+
+        // validate password
+        if ($("#password").val().trim() == ""){
+            var msg = "Please enter your password";
+            addError($("#passwordGroup"));
+            addAlert(msg);
+        }
+        else if ($("#password").val().trim().length < pass_len){
+            var msg = "Invalid password";
+            addError($("#passwordGroup"));
+            addAlert(msg);
+        }
+
+
+        // post the login
+    });
+
+    function addError(element) {
+        $(element).addClass("has-error");
+        $(element).addClass("has-feedback");
+        $(element).append("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+    }
+
+    function addAlert(msg) {
+        // check for duplicate
+        for (var i = 0; i < errors.length; i++) if (msg == errors[i]) return;
+
+        $("#alerts").append("<div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'>" + msg + "</div>");
+        errors.push(msg);
+    }
+
+    function removeError(element) {
+        $(element).removeClass("has-error has-feedback");
+        $(element).find("span").remove();
+    }
+
+</script>
