@@ -1,1 +1,0 @@
-var GROUP_SECRET = 'cbe840d51e0d4e5ba71f02726a06e81e';

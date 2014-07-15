@@ -86,6 +86,8 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/trivia', pages.trivia);
             app.get('/connect', pages.connect);
             app.get('/profile', pages.profile);
+            app.get('/register', pages.register);
+            app.get('/login', pages.login);
 
             // post requests
             app.post('/stopServer', controller.stopServer);
