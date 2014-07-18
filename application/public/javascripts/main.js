@@ -1,4 +1,4 @@
-var bindClickEnhancement = function() {
+function bindClickEnhancement() {
   if (DeviceHelper.IS_MOBILE) {
     FastClick.attach(document.body);
 
@@ -33,31 +33,7 @@ var bindClickEnhancement = function() {
   }
 };
 
-
-/* App start */
-var SPLASHSCREEN_TIMER = 2000;
-var CONTAINER_RENDER_TIMER = 1000;
-
-$(function() {
-  if (DeviceHelper.IS_MOBILE && !DeviceHelper.IS_TABLET) {
-    $('body').prepend($('#navigation'));
-  }
-
-  var $window = $(window);
-  var splashScreen = $('#splash-screen');
-
-  var hideSplashScreen = function() {
-    splashScreen.hide();
-    splashScreen.removeClass('hide');
-  };
-
-  var buildContentNav = function() {
-    $('#general').show();
-    var navigation = new Navigation();
-  }
-
-  bindClickEnhancement();
-
+function checkCompatibility() {
   if (typeof(document.documentMode) != 'undefined') {
     if (document.documentMode == 7) {
       $('html').addClass('ie7');
@@ -79,30 +55,64 @@ $(function() {
       $('html').addClass('ie10');
     }
   }
+}
 
-  if (location.hash.length > 0) {
-    buildContentNav();
-    hideSplashScreen();
 
-    return false;
-  };
+/* App start */
+var SPLASHSCREEN_TIMER = 2000;
+var CONTAINER_RENDER_TIMER = 1000;
 
-  splashScreen.removeClass('hidden');
+var splashScreen;
+var navigation;
 
-  var splashScreenLoader = function() {
-    setTimeout(function() {
-      buildContentNav();
-
-      setTimeout(function() {
-        splashScreen.addClass('hide');
-
-        setTimeout(function() {
-          hideSplashScreen();
-        }, 1000);
-      }, CONTAINER_RENDER_TIMER); // container render
-
-    }, SPLASHSCREEN_TIMER - CONTAINER_RENDER_TIMER);
+$(function() {
+  if (DeviceHelper.IS_MOBILE && !DeviceHelper.IS_TABLET) {
+    $('body').prepend($('#navigation'));
   }
 
-  splashScreenLoader();
+  splashScreen = $('#splash-screen');
+
+  bindClickEnhancement();
+  checkCompatibility();
+
+  if (location.hash.length > 0) {
+      hideNav();
+  }
+  else {
+
+      splashScreen.removeClass('hidden');
+
+      var splashScreenLoader = function() {
+        setTimeout(function() {
+          buildContentNav();
+
+          setTimeout(function() {
+            splashScreen.addClass('hide');
+
+            setTimeout(function() {
+              hideSplashScreen();
+            }, 1000);
+          }, CONTAINER_RENDER_TIMER); // container render
+
+        }, SPLASHSCREEN_TIMER - CONTAINER_RENDER_TIMER);
+      }
+
+      splashScreenLoader();
+  }
 });
+
+function hideNav() {
+    console.log('here');
+    buildContentNav();
+    hideSplashScreen();
+}
+
+function hideSplashScreen() {
+    splashScreen.hide();
+    splashScreen.removeClass('hide');
+};
+
+function buildContentNav() {
+    $('#general').show();
+    navigation = new Navigation();
+}
