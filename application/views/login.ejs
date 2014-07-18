@@ -73,13 +73,14 @@
             addError($("#passwordGroup"));
             addAlert(msg);
         }
-
-        // post login
-        var postData = $(this).serializeArray();
-        var posting = $.post("/login", postData);
-        posting.done(function(data) {
-            $.pjax({url: data, container: "#content"});
-        });
+        else {
+            // post login
+            var postData = $(this).serializeArray();
+            var posting = $.post("/login", postData);
+            posting.done(function(data) {
+                $.pjax({url: data, container: "#content"});
+            });
+        }
     });
 
     function addError(element) {

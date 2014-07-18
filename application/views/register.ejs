@@ -81,14 +81,14 @@
             addError($("#password2Group"));
             addAlert(msg);
         }
-
-
-        // post the registration
-        var postData = $(this).serializeArray();
-        var posting = $.post("/register", postData);
-        posting.done(function(data) {
-            $.pjax({url: data, container: "#content"});
-        });
+        else {
+            // post the registration
+            var postData = $(this).serializeArray();
+            var posting = $.post("/register", postData);
+            posting.done(function(data) {
+                $.pjax({url: data, container: "#content"});
+            });
+        }
     });
 
     function addError(element) {
