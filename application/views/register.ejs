@@ -1,0 +1,113 @@
+<% include navigation.ejs %>
+<div id="container">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Sign up</h2>
+            <br>
+            <form role="form" id="registerForm">
+                <div class="form-group" id="purdueEmailGroup">
+                    <label class="control-label sr-only" for="purdueEmail">Email</label>
+                    <input type="email" class="form-control" id="purdueEmail" name="email" placeholder="Enter Purdue email">
+                </div>
+                <div class="form-group" id="password1Group">
+                    <label class="control-label sr-only" for="password1">Password</label>
+                    <input type="password" class="form-control" id="password1" name="password" placeholder="Enter password">
+                </div>
+                <div class="form-group" id="password2Group">
+                    <label class="control-label sr-only" for="password2">Re-enter password</label>
+                    <input type="password" class="form-control" id="password2" placeholder="Re-enter password">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Create Profile</button>
+                </div>
+                <div class="form-group">
+                    <div>Already have an account? <a href="/login">Log in</a></div>
+                </div>
+                <div class="form-group" id="alerts">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+
+    var email = /^[a-zA-Z0-9_]+@purdue\.edu$/;
+    var pass_len = 0;
+    var errors = [];
+    
+    $("#registerForm").submit(function(e) {
+        // stop from submitting normally
+        e.preventDefault();
+
+        // VALIDATION
+
+        // remove all alerts
+        $("#alerts").empty();
+        $(".has-error").each(function(i, v) {removeError(v)});
+        errors = [];
+
+
+        // validate purdue email
+        if ($("#purdueEmail").val().trim() == "") {
+            var msg = "Please enter your email address";
+            addError($("#purdueEmailGroup"));
+            addAlert(msg);
+        }
+        else if (!email.test($("#purdueEmail").val().trim())) {
+            var msg = "Enter a valid Purdue email address";
+            addError($("#purdueEmailGroup"));
+            addAlert(msg);
+        }
+
+        // validate passwords
+        if ($("#password1").val().trim().length < pass_len){
+            var msg = "Please enter a password";
+            addError($("#password1Group"));
+            addError($("#password2Group"));
+            addAlert(msg);
+        }
+        else if ($("#password1").val().trim().length < pass_len){
+            var msg = "Password must be at least " + pass_len + " characters";
+            addError($("#password1Group"));
+            addError($("#password2Group"));
+            addAlert(msg);
+        }
+        else if ($("#password1").val().trim() != $("#password2").val().trim()) {
+            var msg = "Passwords do not match";
+            addError($("#password1Group"));
+            addError($("#password2Group"));
+            addAlert(msg);
+        }
+
+
+        // post the registration
+        var postData = $(this).serializeArray();
+        var posting = $.post("/register", postData);
+        posting.done(function(data) {
+            $.pjax({url: data, container: "#content"});
+        });
+    });
+
+    function addError(element) {
+        $(element).addClass("has-error");
+        $(element).addClass("has-feedback");
+        $(element).append("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+    }
+
+    function addAlert(msg) {
+        // check for duplicate
+        for (var i = 0; i < errors.length; i++) if (msg == errors[i]) return;
+
+        $("#alerts").append("<div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'>" + msg + "</div>");
+        errors.push(msg);
+    }
+
+    function removeError(element) {
+        $(element).removeClass("has-error has-feedback");
+        $(element).find("span").remove();
+    }
+
+</script>
