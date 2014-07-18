@@ -1,4 +1,9 @@
-<div id="page-trivia" class="page">
-  <h2>Qualcomm Trivia</h2>
-  <p class="page-description">All the triva. All the time.</p>
+<% include navigation.ejs %>
+<% if (user) { %>
+<div id="container">
+    <div id="page-trivia" class="page">
+      <h2>Qualcomm Trivia</h2>
+      <p class="page-description">All the triva. All the time.</p>
+    </div>
 </div>
+<% } %>

@@ -1,0 +1,46 @@
+<div id="navigation">
+      <ul>
+        <li>
+          <span class="nav-agenda-ico nav-ico"></span>
+          <span class="nav-agenda-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/events" id="eventsLink" title="events">Campus Events</a>
+        </li>
+        <li>
+          <span class="nav-featured-ico nav-ico"></span>
+          <span class="nav-featured-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/tech" id="techLink" title="tech">QC Tech</a>
+        </li>
+        <li>
+          <span class="nav-featured-ico nav-ico"></span>
+          <span class="nav-featured-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <% if (user) { %>
+              <a href="/trivia" title="trivia">QC Trivia</a>
+          <% } else { %>
+              <a href="/login" title="trivia">QC Trivia</a>
+          <% } %>
+        </li> 
+        <li>
+          <span class="nav-mail-ico nav-ico"></span>
+          <span class="nav-mail-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <% if (user) { %>
+              <a href="/connect" title="connect">Connect</a>
+          <% } else { %>
+              <a href="/login" title="connect">Connect</a>
+          <% } %>
+        </li>
+        <li>
+          <span class="nav-lines-ico nav-ico"></span>
+          <span class="nav-lines-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <% if (user) { %>
+              <a href="/profile" title="profile">Profile</a>
+          <% } else { %>
+              <a href="/login" title="profile">Profile</a>
+          <% } %>
+        </li>
+      </ul>
+</div>

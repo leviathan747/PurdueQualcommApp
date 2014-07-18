@@ -9,8 +9,9 @@ var session = require('express-session');
 var http = require('http');
 var logger = require('morgan');
 
-var pages = require('./routes/index.js');
-var controller = require('./routes/controller.js');
+var pages = require('./routes/index');
+var controller = require('./routes/controller');
+var register = require('./routes/register');
 
 var config = null;
 var app = express();
@@ -43,14 +44,12 @@ fs.readFile("config.json", 'utf8', function(err, data) {
     console.log(configName);
     console.log("Server port: " + defaultPort);
     
-    /*
     db.sequelize(config[configName], function(err) {
         if (err) {
             console.log("Sequelize err: " + err[0]);
             process.exit(-1);
         }
         else {
-    */
             // all environments
             process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
             
@@ -88,15 +87,16 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/profile', pages.profile);
             app.get('/register', pages.register);
             app.get('/login', pages.login);
+            app.get('/logout', register.logout);
 
             // post requests
+            app.post('/login', register.login);
+            app.post('/register', register.register);
             app.post('/stopServer', controller.stopServer);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))
             });
-    /*
         }
     });
-    */
 });
