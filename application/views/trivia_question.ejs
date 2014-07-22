@@ -23,11 +23,7 @@
                     <button class="btn btn-primary btn-block">Submit</button>
                 </div>
                 <div class="col-xs-6">
-                    <% if (question.id > 1) { %>
-                        <a href="/trivia/<%= question.id - 1 %>" class="btn btn-primary btn-block">Previous</a>
-                    <% } else { %>
-                        <a href="/trivia" class="btn btn-primary btn-block">Previous</a>
-                    <% } %>
+                    <a href="/trivia/<%= question.id - 1 %>" class="btn btn-primary btn-block">Previous</a>
                 </div>
                 <div class="col-xs-6">
                     <a href="/trivia/<%= question.id + 1 %>" class="btn btn-primary btn-block">Next</a>
