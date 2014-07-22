@@ -25,6 +25,9 @@
                     <div>Already have an account? <a href="/login">Log in</a></div>
                 </div>
                 <div class="form-group" id="alerts">
+                    <% if (message) { %>
+                    <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+                    <% } %>
                 </div>
             </form>
         </div>
