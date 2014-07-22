@@ -9,9 +9,11 @@ var session = require('express-session');
 var http = require('http');
 var logger = require('morgan');
 
-var pages = require('./routes/index');
+var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
+var question = require('./routes/question');
+var answer   = require('./routes/answer');
 
 var config = null;
 var app = express();
@@ -88,11 +90,18 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/register', pages.register);
             app.get('/login', pages.login);
             app.get('/logout', register.logout);
+            app.get('/createQuestion', pages.createQuestion);
+            app.get('/getQuestion', pages.getQuestion);
+            app.get('/createAnswer', pages.createAnswer);
+            app.get('/getAnswer', pages.getAnswer);
+
 
             // post requests
             app.post('/login', register.login);
             app.post('/register', register.register);
             app.post('/stopServer', controller.stopServer);
+            app.post('/createQuestion', question.createQuestion);
+            app.post('/createAnswer', answer.createAnswer);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))

@@ -1,0 +1,90 @@
+<% include navigation.ejs %>
+<div id="container">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Create Question</h2>
+            <br>
+            <form role="form" id="questionForm">
+                <div class="form-group" id="questionGroup">
+                    <label class="control-label sr-only" for="question">Question</label>
+                    <input type="text" class="form-control" id="question" name="question" placeholder="Enter Question">
+                </div>
+                <div class="form-group" id="answerAGroup">
+                    <label class="control-label sr-only" for="a">Enter Answer A</label>
+                    <input type="text" class="form-control" id="a" name="a" placeholder="Enter Answer A">
+                </div>
+                <div class="form-group" id="answerBGroup">
+                    <label class="control-label sr-only" for="b">Enter Answer B</label>
+                    <input type="text" class="form-control" id="b" name="b" placeholder="Enter Answer B">
+                </div>
+                <div class="form-group" id="answerCGroup">
+                    <label class="control-label sr-only" for="c">Enter Answer C</label>
+                    <input type="text" class="form-control" id="c" name="c" placeholder="Enter Answer C">
+                </div>
+                <div class="form-group" id="answerDGroup">
+                    <label class="control-label sr-only" for="d">Enter Answer D</label>
+                    <input type="text" class="form-control" id="d" name="d" placeholder="Enter Answer D">
+                </div>
+                <div class="form-group" id="explanationGroup">
+                    <label class="control-label sr-only" for="d">Enter Explanation</label>
+                    <input type="text" class="form-control" id="explanation" name="explanation" placeholder="Enter Explanation">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Create Question</button>
+                </div>
+
+                <div class="form-group" id="alerts">
+                    <% if (message) { %>
+                    <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+                    <% } %>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+
+<script>
+
+    var errors = [];
+    
+    $("#questionForm").submit(function(e) {
+        // stop from submitting normally
+        e.preventDefault();
+
+        // VALIDATION
+
+        // remove all alerts
+        $("#alerts").empty();
+        $(".has-error").each(function(i, v) {removeError(v)});
+        errors = [];
+
+        // post the registration
+        var postData = $(this).serializeArray();
+        var posting = $.post("/createQuestion", postData);
+        posting.done(function(data) {
+            $.pjax({url: data, container: "#content"});
+        });
+    });
+
+    function addError(element) {
+        $(element).addClass("has-error");
+        $(element).addClass("has-feedback");
+        $(element).append("<span class='glyphicon glyphicon-remove form-control-feedback'></span>");
+    }
+
+    function addAlert(msg) {
+        // check for duplicate
+        for (var i = 0; i < errors.length; i++) if (msg == errors[i]) return;
+
+        $("#alerts").append("<div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'>" + msg + "</div>");
+        errors.push(msg);
+    }
+
+    function removeError(element) {
+        $(element).removeClass("has-error has-feedback");
+        $(element).find("span").remove();
+    }
+
+</script>

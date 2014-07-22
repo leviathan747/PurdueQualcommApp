@@ -99,3 +99,51 @@ exports.login = function(req, res){
     res.render('login.ejs', context);
     res.end();
 }
+
+// render the create page
+exports.createQuestion = function(req, res){
+    var context = {
+        user: req.session.user,
+        message: req.session.questionMessage
+    }
+    if (req.query._pjax) context.layout = 'false';
+
+    res.render('createQuestion.ejs', context);
+    res.end();
+}
+
+// render the get page
+exports.getQuestion = function(req, res){
+    var context = {
+        user: req.session.user,
+        message: req.session.questionMessage
+    }
+    if (req.query._pjax) context.layout = 'false';
+
+    res.render('getQuestion.ejs', context);
+    res.end();
+}
+
+// render the create page
+exports.createAnswer = function(req, res){
+    var context = {
+        user: req.session.user,
+        message: req.session.answerMessage
+    }
+    if (req.query._pjax) context.layout = 'false';
+
+    res.render('createAnswer.ejs', context);
+    res.end();
+}
+
+// render the get page
+exports.getAnswer = function(req, res){
+    var context = {
+        user: req.session.user,
+        message: req.session.answerMessage
+    }
+    if (req.query._pjax) context.layout = 'false';
+
+    res.render('getAnswer.ejs', context);
+    res.end();
+}
