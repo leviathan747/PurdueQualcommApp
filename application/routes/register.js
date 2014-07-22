@@ -17,8 +17,7 @@ exports.register = function(req, res) {
     db.User.findOrCreate({email: email, password: password, type: type})
     .success(function(user) {
         req.session.user = user.dataValues;     // set session user
-        res.write('/profile');                  // redirect to profile page
-        res.end();
+        res.redirect('/profile');                  // redirect to profile page
     })
     .error(function(err) {
         console.log(JSON.stringify(err));
@@ -38,18 +37,18 @@ exports.login = function(req, res) {
     .success(function(user) {
         if (!user) {
             req.session.loginMessage = 'User does not exist';
-            res.write('/login');
+            res.redirect('/login');
             res.end();
         }
         // check password
         else if (password != user.dataValues.password) {
             req.session.loginMessage = 'Oops! Wrong password';
-            res.write('/login');
+            res.redirect('/login');
             res.end();
         }
         else {
             req.session.user = user.dataValues; // set session user
-            res.write('/profile');              // redirect to profile page
+            res.redirect('/profile');              // redirect to profile page
             res.end();
         }
     })

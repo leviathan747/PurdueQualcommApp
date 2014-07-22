@@ -1,0 +1,39 @@
+<% include navigation.ejs %>
+<% if (user) { %>
+<div id="container">
+    <div id="page-trivia-question" class="page">
+        <div class="container-fluid">
+            <div class="row text-center">
+                <div class="col-xs-12">
+                    <h2><%= question.question %></h2>
+                </div>
+                <div class="col-xs-12">
+                    A: <%= question.a %>
+                </div>
+                <div class="col-xs-12">
+                    B: <%= question.b %>
+                </div>
+                <div class="col-xs-12">
+                    C: <%= question.c %>
+                </div>
+                <div class="col-xs-12">
+                    D: <%= question.d %>
+                </div>
+                <div class="col-xs-12">
+                    <button class="btn btn-primary btn-block">Submit</button>
+                </div>
+                <div class="col-xs-6">
+                    <% if (question.id > 1) { %>
+                        <a href="/trivia/<%= question.id - 1 %>" class="btn btn-primary btn-block">Previous</a>
+                    <% } else { %>
+                        <a href="/trivia" class="btn btn-primary btn-block">Previous</a>
+                    <% } %>
+                </div>
+                <div class="col-xs-6">
+                    <a href="/trivia/<%= question.id + 1 %>" class="btn btn-primary btn-block">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>

@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <h2>Sign up</h2>
             <br>
-            <form role="form" id="registerForm">
+            <form action="/register" method="post" role="form" id="registerForm">
                 <div class="form-group" id="purdueEmailGroup">
                     <label class="control-label sr-only" for="purdueEmail">Email</label>
                     <input type="email" class="form-control" id="purdueEmail" name="email" placeholder="Enter Purdue email">
@@ -40,7 +40,7 @@
     
     $("#registerForm").submit(function(e) {
         // stop from submitting normally
-        e.preventDefault();
+        //e.preventDefault();
 
         // VALIDATION
 
@@ -82,12 +82,14 @@
             addAlert(msg);
         }
         else {
+            /*
             // post the registration
             var postData = $(this).serializeArray();
             var posting = $.post("/register", postData);
             posting.done(function(data) {
                 $.pjax({url: data, container: "#content"});
             });
+            */
         }
     });
 

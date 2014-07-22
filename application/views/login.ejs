@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <h2>Log in</h2>
             <br>
-            <form role="form" id="loginForm">
+            <form action="/login" method="post" role="form" id="loginForm">
                 <div class="form-group" id="emailGroup">
                     <label class="control-label sr-only" for="email">Email</label>
                     <input class="form-control" id="email" name="email" placeholder="Email">
@@ -41,7 +41,7 @@
     
     $("#loginForm").submit(function(e) {
         // stop from submitting normally
-        e.preventDefault();
+        //e.preventDefault();
 
         // VALIDATION
 
@@ -74,12 +74,14 @@
             addAlert(msg);
         }
         else {
+            /*
             // post login
             var postData = $(this).serializeArray();
             var posting = $.post("/login", postData);
             posting.done(function(data) {
                 $.pjax({url: data, container: "#content"});
             });
+            */
         }
     });
 

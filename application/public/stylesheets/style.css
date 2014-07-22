@@ -1,0 +1,22 @@
+.square {
+    position: relative;
+    width: 100%;
+}
+.square:before {
+    content: "";
+    display: block;
+    padding-top: 100%;
+}
+
+.trivia-tile {
+    background: black;
+    color: gold;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    border-radius: 5px;
+    font-family: Arial;
+    font-size: 24pt;
+}

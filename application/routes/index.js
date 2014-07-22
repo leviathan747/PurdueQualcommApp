@@ -14,7 +14,6 @@ exports.events = function(req, res){
     var context = {
         user: req.session.user
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('events.ejs', context);
     res.end();
@@ -25,7 +24,6 @@ exports.tech = function(req, res){
     var context = {
         user: req.session.user
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('tech.ejs', context);
     res.end();
@@ -34,10 +32,10 @@ exports.tech = function(req, res){
 // render the trivia page
 exports.trivia = function(req, res){
     var context = {
-        user: req.session.user
+        user: req.session.user,
+        questions: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29]
     }
-    if (req.query._pjax) context.layout = 'false';
-    else if (!req.session.user) {
+    if (!req.session.user) {
         res.redirect('/login');
         return;
     }
@@ -46,13 +44,42 @@ exports.trivia = function(req, res){
     res.end();
 }
 
+exports.trivia_question = function(req, res) {
+    // "/trivia/<id>
+    var id = Number(req.params.id);
+    if (!id) {
+        res.redirect("/trivia");
+        return;
+    }
+
+    var question = {
+        id: id,
+        question: "here's the question",
+        a: "answer a",
+        b: "answer b",
+        c: "answer c",
+        d: "answer d"
+    }
+
+    var context = {
+        user: req.session.user,
+        question: question
+    }
+    if (!req.session.user) {
+        res.redirect('/login');
+        return;
+    }
+
+    res.render('trivia_question.ejs', context);
+    res.end();
+}
+
 // render the connect page
 exports.connect = function(req, res){
     var context = {
         user: req.session.user
     }
-    if (req.query._pjax) context.layout = 'false';
-    else if (!req.session.user) {
+    if (!req.session.user) {
         res.redirect('/login');
         return;
     }
@@ -66,8 +93,7 @@ exports.profile = function(req, res){
     var context = {
         user: req.session.user
     }
-    if (req.query._pjax) context.layout = 'false';
-    else if (!req.session.user) {
+    if (!req.session.user) {
         res.redirect('/login');
         return;
     }
@@ -82,7 +108,6 @@ exports.register = function(req, res){
         user: req.session.user,
         message: req.session.registerMessage
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('register.ejs', context);
     res.end();
@@ -94,7 +119,6 @@ exports.login = function(req, res){
         user: req.session.user,
         message: req.session.loginMessage
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('login.ejs', context);
     res.end();
