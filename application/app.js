@@ -19,6 +19,7 @@ var app = express();
 // check if logged in
 function isLoggedIn(req, res, next) {
     if (!req.session.user) {
+        req.session.originalTarget = req.url;
         res.redirect('/login');
     }
     else next();

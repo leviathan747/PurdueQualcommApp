@@ -119,8 +119,10 @@ exports.profile = function(req, res){
 exports.register = function(req, res){
     var context = {
         user: req.session.user,
-        message: req.session.registerMessage
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('register.ejs', context);
     res.end();
@@ -130,8 +132,10 @@ exports.register = function(req, res){
 exports.login = function(req, res){
     var context = {
         user: req.session.user,
-        message: req.session.loginMessage
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('login.ejs', context);
     res.end();
