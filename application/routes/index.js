@@ -36,13 +36,13 @@ exports.trivia = function(req, res){
     triviaUtils.getAllQuestions(function(questions, err) {
         if (err) {
             console.log(err);
-            res.redirect("/trivia");
+            res.redirect("/");
             return;
         }
         triviaUtils.formatQuestions(req.session.user.id, questions, function(formattedQuestions, err) {
             if (err) {
                 console.log(JSON.stringify(err));
-                res.redirect("/trivia");
+                res.redirect("/");
                 return;
             }
 
