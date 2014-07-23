@@ -2,8 +2,19 @@
 <% if (user) { %>
 <div id="container">
     <div id="page-trivia" class="page">
-      <h2>Qualcomm Trivia</h2>
-      <p class="page-description">All the triva. All the time.</p>
+        <div id="questions" class="row" style="padding-right: 15px; padding-left: 15px">
+            <% if (questions) { %>
+                <% for (var i = 0; i < questions.length; i++) { %>
+                    <div id="question_col<%= i %>" class="col-xs-3" style="padding-top: 15px; padding-bottom: 15px">
+                        <div class="square">
+                            <div id="question<%= i %>" class="trivia-tile">
+                                <a href="/trivia/<%= questions[i].id %>"><%= i+1 %></a>
+                            </div>
+                        </div>
+                    </div>
+                <% } %>
+            <% } %>
+        </div>
     </div>
 </div>
 <% } %>

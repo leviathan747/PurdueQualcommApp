@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <h2>Sign up</h2>
             <br>
-            <form role="form" id="registerForm">
+            <form action="/register" method="post" role="form" id="registerForm">
                 <div class="form-group" id="purdueEmailGroup">
                     <label class="control-label sr-only" for="purdueEmail">Email</label>
                     <input type="email" class="form-control" id="purdueEmail" name="email" placeholder="Enter Purdue email">
@@ -25,6 +25,9 @@
                     <div>Already have an account? <a href="/login">Log in</a></div>
                 </div>
                 <div class="form-group" id="alerts">
+                    <% if (message) { %>
+                    <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+                    <% } %>
                 </div>
             </form>
         </div>
@@ -35,14 +38,12 @@
 <script>
 
     var email = /^[a-zA-Z0-9_]+@purdue\.edu$/;
-    var pass_len = 0;
+    var pass_len = 1;
     var errors = [];
     
     $("#registerForm").submit(function(e) {
-        // stop from submitting normally
-        e.preventDefault();
-
         // VALIDATION
+        var valid = true;
 
         // remove all alerts
         $("#alerts").empty();
@@ -55,11 +56,13 @@
             var msg = "Please enter your email address";
             addError($("#purdueEmailGroup"));
             addAlert(msg);
+            valid = false;
         }
         else if (!email.test($("#purdueEmail").val().trim())) {
             var msg = "Enter a valid Purdue email address";
             addError($("#purdueEmailGroup"));
             addAlert(msg);
+            valid = false;
         }
 
         // validate passwords
@@ -68,27 +71,24 @@
             addError($("#password1Group"));
             addError($("#password2Group"));
             addAlert(msg);
+            valid = false;
         }
         else if ($("#password1").val().trim().length < pass_len){
             var msg = "Password must be at least " + pass_len + " characters";
             addError($("#password1Group"));
             addError($("#password2Group"));
             addAlert(msg);
+            valid = false;
         }
         else if ($("#password1").val().trim() != $("#password2").val().trim()) {
             var msg = "Passwords do not match";
             addError($("#password1Group"));
             addError($("#password2Group"));
             addAlert(msg);
+            valid = false;
         }
-        else {
-            // post the registration
-            var postData = $(this).serializeArray();
-            var posting = $.post("/register", postData);
-            posting.done(function(data) {
-                $.pjax({url: data, container: "#content"});
-            });
-        }
+
+        return valid;
     });
 
     function addError(element) {

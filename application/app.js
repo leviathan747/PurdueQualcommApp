@@ -9,12 +9,22 @@ var session = require('express-session');
 var http = require('http');
 var logger = require('morgan');
 
-var pages = require('./routes/index');
+var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
+var question = require('./routes/question');
+var answer   = require('./routes/answer');
 
 var config = null;
 var app = express();
+
+// check if logged in
+function isLoggedIn(req, res, next) {
+    if (!req.session.user) {
+        res.redirect('/login');
+    }
+    else next();
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -82,12 +92,14 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/', pages.index);
             app.get('/events', pages.events);
             app.get('/tech', pages.tech);
-            app.get('/trivia', pages.trivia);
-            app.get('/connect', pages.connect);
-            app.get('/profile', pages.profile);
+            app.get('/trivia', isLoggedIn, pages.trivia);
+            app.get('/trivia/:id', isLoggedIn, question.getQuestion);
+            app.get('/connect', isLoggedIn, pages.connect);
+            app.get('/profile', isLoggedIn, pages.profile);
             app.get('/register', pages.register);
             app.get('/login', pages.login);
             app.get('/logout', register.logout);
+
 
             // post requests
             app.post('/login', register.login);

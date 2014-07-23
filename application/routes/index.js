@@ -14,7 +14,6 @@ exports.events = function(req, res){
     var context = {
         user: req.session.user
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('events.ejs', context);
     res.end();
@@ -25,7 +24,6 @@ exports.tech = function(req, res){
     var context = {
         user: req.session.user
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('tech.ejs', context);
     res.end();
@@ -33,28 +31,25 @@ exports.tech = function(req, res){
 
 // render the trivia page
 exports.trivia = function(req, res){
-    var context = {
-        user: req.session.user
-    }
-    if (req.query._pjax) context.layout = 'false';
-    else if (!req.session.user) {
-        res.redirect('/login');
-        return;
-    }
-
-    res.render('trivia.ejs', context);
-    res.end();
+    db.Question.findAll()
+    .success(function(questions) {
+        var context = {
+            user: req.session.user,
+            questions: questions
+        }
+        res.render('trivia.ejs', context);
+        res.end();
+    })
+    .error(function(err) {
+        console.log(err);
+        res.redirect("/trivia");
+    });
 }
 
 // render the connect page
 exports.connect = function(req, res){
     var context = {
         user: req.session.user
-    }
-    if (req.query._pjax) context.layout = 'false';
-    else if (!req.session.user) {
-        res.redirect('/login');
-        return;
     }
 
     res.render('connect.ejs', context);
@@ -65,11 +60,6 @@ exports.connect = function(req, res){
 exports.profile = function(req, res){
     var context = {
         user: req.session.user
-    }
-    if (req.query._pjax) context.layout = 'false';
-    else if (!req.session.user) {
-        res.redirect('/login');
-        return;
     }
 
     res.render('profile.ejs', context);
@@ -82,7 +72,6 @@ exports.register = function(req, res){
         user: req.session.user,
         message: req.session.registerMessage
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('register.ejs', context);
     res.end();
@@ -94,7 +83,6 @@ exports.login = function(req, res){
         user: req.session.user,
         message: req.session.loginMessage
     }
-    if (req.query._pjax) context.layout = 'false';
 
     res.render('login.ejs', context);
     res.end();
