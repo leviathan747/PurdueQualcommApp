@@ -40,10 +40,8 @@
     var errors = [];
     
     $("#loginForm").submit(function(e) {
-        // stop from submitting normally
-        //e.preventDefault();
-
         // VALIDATION
+        var valid = true;
 
         // remove all alerts
         $("#alerts").empty();
@@ -55,11 +53,13 @@
             var msg = "Please enter your email";
             addError($("#emailGroup"));
             addAlert(msg);
+            valid = false;
         }
         else if (!email.test($("#email").val().trim())) {
             var msg = "Invalid email";
             addError($("#emailGroup"));
             addAlert(msg);
+            valid = false;
         }
 
         // validate password
@@ -67,22 +67,16 @@
             var msg = "Please enter your password";
             addError($("#passwordGroup"));
             addAlert(msg);
+            valid = false;
         }
         else if ($("#password").val().trim().length < pass_len){
             var msg = "Invalid password";
             addError($("#passwordGroup"));
             addAlert(msg);
+            valid = false;
         }
-        else {
-            /*
-            // post login
-            var postData = $(this).serializeArray();
-            var posting = $.post("/login", postData);
-            posting.done(function(data) {
-                $.pjax({url: data, container: "#content"});
-            });
-            */
-        }
+
+        return valid;
     });
 
     function addError(element) {

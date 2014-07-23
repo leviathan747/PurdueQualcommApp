@@ -42,10 +42,8 @@
     var errors = [];
     
     $("#registerForm").submit(function(e) {
-        // stop from submitting normally
-        //e.preventDefault();
-
         // VALIDATION
+        var valid = true;
 
         // remove all alerts
         $("#alerts").empty();
@@ -58,11 +56,13 @@
             var msg = "Please enter your email address";
             addError($("#purdueEmailGroup"));
             addAlert(msg);
+            valid = false;
         }
         else if (!email.test($("#purdueEmail").val().trim())) {
             var msg = "Enter a valid Purdue email address";
             addError($("#purdueEmailGroup"));
             addAlert(msg);
+            valid = false;
         }
 
         // validate passwords
@@ -71,29 +71,24 @@
             addError($("#password1Group"));
             addError($("#password2Group"));
             addAlert(msg);
+            valid = false;
         }
         else if ($("#password1").val().trim().length < pass_len){
             var msg = "Password must be at least " + pass_len + " characters";
             addError($("#password1Group"));
             addError($("#password2Group"));
             addAlert(msg);
+            valid = false;
         }
         else if ($("#password1").val().trim() != $("#password2").val().trim()) {
             var msg = "Passwords do not match";
             addError($("#password1Group"));
             addError($("#password2Group"));
             addAlert(msg);
+            valid = false;
         }
-        else {
-            /*
-            // post the registration
-            var postData = $(this).serializeArray();
-            var posting = $.post("/register", postData);
-            posting.done(function(data) {
-                $.pjax({url: data, container: "#content"});
-            });
-            */
-        }
+
+        return valid;
     });
 
     function addError(element) {
