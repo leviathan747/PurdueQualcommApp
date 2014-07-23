@@ -69,7 +69,6 @@ $(function() {
     $('body').prepend($('#navigation'));
   }
 
-
   bindClickEnhancement();
   checkCompatibility();
 
@@ -77,10 +76,7 @@ $(function() {
       hideNav();
   }
   else {
-
-
-          buildContentNav();
-
+      buildContentNav();
   }
 });
 
@@ -89,9 +85,6 @@ function hideNav() {
     buildContentNav();
     hideSplashScreen();
 }
-
-function hideSplashScreen() {
-};
 
 function buildContentNav() {
     $('#general').show();
