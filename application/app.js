@@ -12,8 +12,6 @@ var logger = require('morgan');
 var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
-var question = require('./routes/question');
-var answer   = require('./routes/answer');
 
 var config = null;
 var app = express();
@@ -93,7 +91,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/events', pages.events);
             app.get('/tech', pages.tech);
             app.get('/trivia', isLoggedIn, pages.trivia);
-            app.get('/trivia/:id', isLoggedIn, question.getQuestion);
+            app.get('/trivia/:id', isLoggedIn, pages.triviaQuestion);
             app.get('/connect', isLoggedIn, pages.connect);
             app.get('/profile', isLoggedIn, pages.profile);
             app.get('/register', pages.register);
@@ -105,6 +103,8 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.post('/login', register.login);
             app.post('/register', register.register);
             app.post('/stopServer', controller.stopServer);
+
+            app.post('/answerQuestion', isLoggedIn, controller.answerQuestion);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))

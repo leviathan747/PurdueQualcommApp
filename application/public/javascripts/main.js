@@ -62,7 +62,6 @@ function checkCompatibility() {
 var SPLASHSCREEN_TIMER = 2000;
 var CONTAINER_RENDER_TIMER = 1000;
 
-var splashScreen;
 var navigation;
 
 $(function() {
@@ -70,7 +69,6 @@ $(function() {
     $('body').prepend($('#navigation'));
   }
 
-  splashScreen = $('#splash-screen');
 
   bindClickEnhancement();
   checkCompatibility();
@@ -80,24 +78,9 @@ $(function() {
   }
   else {
 
-      splashScreen.removeClass('hidden');
 
-      var splashScreenLoader = function() {
-        setTimeout(function() {
           buildContentNav();
 
-          setTimeout(function() {
-            splashScreen.addClass('hide');
-
-            setTimeout(function() {
-              hideSplashScreen();
-            }, 1000);
-          }, CONTAINER_RENDER_TIMER); // container render
-
-        }, SPLASHSCREEN_TIMER - CONTAINER_RENDER_TIMER);
-      }
-
-      splashScreenLoader();
   }
 });
 
@@ -108,8 +91,6 @@ function hideNav() {
 }
 
 function hideSplashScreen() {
-    splashScreen.hide();
-    splashScreen.removeClass('hide');
 };
 
 function buildContentNav() {

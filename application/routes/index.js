@@ -1,7 +1,9 @@
 var db = require('../models').db;
+var triviaUtils = require('./triviaUtils');
 
 // render the index page
 exports.index = function(req, res){
+    
     var context = {
         user: req.session.user
     }
@@ -31,18 +33,65 @@ exports.tech = function(req, res){
 
 // render the trivia page
 exports.trivia = function(req, res){
-    db.Question.findAll()
-    .success(function(questions) {
-        var context = {
-            user: req.session.user,
-            questions: questions
+    triviaUtils.getAllQuestions(function(questions, err) {
+        if (err) {
+            console.log(err);
+            res.redirect("/trivia");
+            return;
         }
-        res.render('trivia.ejs', context);
-        res.end();
-    })
-    .error(function(err) {
-        console.log(err);
+        triviaUtils.formatQuestions(req.session.user.id, questions, function(formattedQuestions, err) {
+            if (err) {
+                console.log(JSON.stringify(err));
+                res.redirect("/trivia");
+                return;
+            }
+
+            var context = {
+                user: req.session.user,
+                questions: formattedQuestions
+            }
+            res.render('trivia.ejs', context);
+            res.end();
+        });
+    });
+}
+
+// render a trivia question page
+exports.triviaQuestion = function(req, res){
+    // "/trivia/<id>
+
+    var id = Number(req.params.id);
+    if (!id) {
         res.redirect("/trivia");
+        return;
+    }
+
+    // find question
+    triviaUtils.getQuestion(id, function(q, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.redirect("/trivia");
+            return;
+        }
+        if (!q) {                       // question does not exist
+            res.redirect("/trivia");
+            return;
+        }
+        else {
+            triviaUtils.formatQuestion(req.session.user.id, q, function(formattedQuestion, err) {
+                if (err) {
+                    console.log(JSON.stringify(err));
+                    res.redirect("/trivia");
+                    return;
+                }
+                var context = {
+                    user: req.session.user,
+                    question: formattedQuestion
+                }
+                res.render('trivia_question.ejs', context);
+                res.end();
+            });
+        }
     });
 }
 
