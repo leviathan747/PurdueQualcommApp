@@ -1,6 +1,16 @@
+html, body {
+  height: 100%;
+}
+
 .header {
   height: 100px;
-  background-color: red;
+  background: #cfb539;
+  background: -moz-radial-gradient(center, ellipse cover,  #cfb539 0%, #333333 62%);
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,#cfb539), color-stop(62%,#333333));
+  background: -webkit-radial-gradient(center, ellipse cover,  #cfb539 0%,#333333 62%);
+  background: -o-radial-gradient(center, ellipse cover,  #cfb539 0%,#333333 62%);
+  background: -ms-radial-gradient(center, ellipse cover,  #cfb539 0%,#333333 62%);
+  background: radial-gradient(ellipse at center,  #cfb539 0%,#333333 62%);
 }
 
 .navbar-toggle {
@@ -28,6 +38,7 @@
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+  height: 100%;
 }
 
 #wrapper.toggled {
@@ -42,7 +53,7 @@
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: #000;
+  background: #FFF;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -56,6 +67,8 @@
 #page-content-wrapper {
   width: 100%;
   padding: 15px;
+  background-color: #f0f1f2;
+  height: 100%;
 }
 
 #wrapper.toggled #page-content-wrapper {
