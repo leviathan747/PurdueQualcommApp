@@ -62,15 +62,12 @@ function checkCompatibility() {
 var SPLASHSCREEN_TIMER = 2000;
 var CONTAINER_RENDER_TIMER = 1000;
 
-var splashScreen;
 var navigation;
 
 $(function() {
   if (DeviceHelper.IS_MOBILE && !DeviceHelper.IS_TABLET) {
     $('body').prepend($('#navigation'));
   }
-
-  splashScreen = $('#splash-screen');
 
   bindClickEnhancement();
   checkCompatibility();
@@ -79,25 +76,7 @@ $(function() {
       hideNav();
   }
   else {
-
-      splashScreen.removeClass('hidden');
-
-      var splashScreenLoader = function() {
-        setTimeout(function() {
-          buildContentNav();
-
-          setTimeout(function() {
-            splashScreen.addClass('hide');
-
-            setTimeout(function() {
-              hideSplashScreen();
-            }, 1000);
-          }, CONTAINER_RENDER_TIMER); // container render
-
-        }, SPLASHSCREEN_TIMER - CONTAINER_RENDER_TIMER);
-      }
-
-      splashScreenLoader();
+      buildContentNav();
   }
 });
 
@@ -106,11 +85,6 @@ function hideNav() {
     buildContentNav();
     hideSplashScreen();
 }
-
-function hideSplashScreen() {
-    splashScreen.hide();
-    splashScreen.removeClass('hide');
-};
 
 function buildContentNav() {
     $('#general').show();
