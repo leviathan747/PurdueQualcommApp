@@ -1,3 +1,19 @@
+.header {
+  height: 100px;
+  background-color: red;
+}
+
+.navbar-toggle {
+  float: left;
+  margin-left: 15px;
+}
+
+@media(max-width:768px) {
+  .header {
+    height: 50px;
+  }
+}
+
 /*!
  * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
  * Code licensed under the Apache License v2.0.
