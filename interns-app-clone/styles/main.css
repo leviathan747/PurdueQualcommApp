@@ -1,9 +1,47 @@
+@font-face {
+    font-family: 'QualcommBold';
+    src: url('../fonts/qualcommweb-bold-webfont.eot');
+    src: url('../fonts/qualcommweb-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/qualcommweb-bold-webfont.woff') format('woff'),
+         url('../fonts/qualcommweb-bold-webfont.ttf') format('truetype'),
+         url('../fonts/qualcommweb-bold-webfont.svg#QualcommBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'QualcommLight';
+    src: url('../fonts/qualcommweb-light-webfont.eot');
+    src: url('../fonts/qualcommweb-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/qualcommweb-light-webfont.woff') format('woff'),
+         url('../fonts/qualcommweb-light-webfont.ttf') format('truetype'),
+         url('../fonts/qualcommweb-light-webfont.svg#QualcommLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'QualcommRegular';
+    src: url('../fonts/qualcommweb-regular-webfont.eot');
+    src: url('../fonts/qualcommweb-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/qualcommweb-regular-webfont.woff') format('woff'),
+         url('../fonts/qualcommweb-regular-webfont.ttf') format('truetype'),
+         url('../fonts/qualcommweb-regular-webfont.svg#QualcommRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
+  font-family: 'QualcommLight';
   height: 100%;
 }
 
+h1, h2 {
+  font-family: 'QualcommRegular';
+}
+
 .header {
-  height: 100px;
+  height: 15%;
   background-image: url('../images/header-bg.png');
   background-size: 100%;
   text-align: center;
@@ -19,33 +57,13 @@ html, body {
   margin-left: 15px;
 }
 
-@media(max-width:768px) {
-  .header {
-    height: 50px;
-  }
-
-  .header-logo {
-    width: 150px;
-    padding: 5px 0;
-    margin-left: -70px;
-  }
-}
-
-/*!
- * Start Bootstrap - Simple Sidebar HTML Template (http://startbootstrap.com)
- * Code licensed under the Apache License v2.0.
- * For details, see http://www.apache.org/licenses/LICENSE-2.0.
- */
-
-/* Toggle Styles */
-
 #wrapper {
+  height: 85%;
   padding-left: 0;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
-  height: 100%;
 }
 
 #wrapper.toggled {
@@ -72,10 +90,10 @@ html, body {
 }
 
 #page-content-wrapper {
+  height: 100%;
   width: 100%;
   padding: 15px;
   background-color: #f0f1f2;
-  height: 100%;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -86,20 +104,27 @@ html, body {
 /* Sidebar Styles */
 
 .sidebar-nav {
-  /* position: absolute; */
+  position: absolute; /* so the content doesn't move on slide */
   /* top: 0; */
-  width: 50px;
+  /* width: 50px; */
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .sidebar-nav-link {
-  /* text-indent: 20px; */
-  /* line-height: 40px; */
+  line-height: 19px;
+  letter-spacing: -1px;
   text-align: center;
   padding-bottom: 25px;
-  background-color: red;
+  padding: 68px 0 25px;
+  margin: 0 15px;
+  font-size: 22px;
+  border-bottom: 1px solid #CCC;
+}
+
+#sidebar-wrapper .sidebar-nax-link:last-child {
+  border-bottom: 0px;
 }
 
 .sidebar-nav-link a {
@@ -159,5 +184,21 @@ html, body {
   #wrapper.toggled #page-content-wrapper {
     position: relative;
     margin-right: 0;
+  }
+}
+
+@media(max-width:768px) {
+  .header {
+    height: 7%;
+  }
+
+  #wrapper {
+    height: 93%;
+  }
+
+  .header-logo {
+    width: 150px;
+    padding: 5px 0;
+    margin-left: -70px;
   }
 }
