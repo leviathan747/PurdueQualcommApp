@@ -101,7 +101,7 @@ var getAnswer = function(user, question, callback) {
 
 // delete answer
 // TODO
-var answeranswer = function(req, res) {
+var deleteAnswer = function(req, res) {
 }
 
 // check an answer for correctness. returns true if correct, false otherwise
@@ -176,7 +176,7 @@ module.exports = {
     deleteQuestion: deleteQuestion,
     createAnswer: createAnswer,
     getAnswer: getAnswer,
-    answeranswer: answeranswer,
+    deleteAnswer: deleteAnswer,
     checkAnswer: checkAnswer,
     formatQuestion: formatQuestion,
     formatQuestions: formatQuestions

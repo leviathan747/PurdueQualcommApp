@@ -1,14 +1,49 @@
 var db = require('../models').db;
 var bcrypt = require('bcrypt');
+
+var validInput = function(input) {
+    var errorMessage = '';
+
+    // check all elements for length; potentially more checks later.
+    for(var element in input) {
+        if(input.hasOwnProperty(element)) {
+            // if email check the format
+            if (element === 'email') {
+                var email = /^[a-zA-Z0-9_]+@purdue\.edu$/;
+                if(!email.test(input[element])) {
+                    errorMessage += element + ': Please enter a valid Purdue email address!\n';
+                }
+            }
+
+            if(!input[element] || input[element].length < 1){
+                // if input[element] is not defined or email is empty string
+                // it would have been checked above
+                if(element !== 'email'){
+                    errorMessage += element + ': Can not be empty!\n';
+                }
+            }
+        }
+    }
+    return errorMessage;
+}
 // register in and update the user session variable
 // note: we are not using redirects, but writing the url back
 // to the client. that way it can request the page without
 // re-rendering the layout
 exports.register = function(req, res) {
-    var email = req.body.email.trim();
-    var password = req.body.password.trim();
+    // check that input is defined; Possible if an empty post request is 
+    // sent to server. 
+    var email = req.body.email && req.body.email.trim();
+    var password = req.body.password && req.body.password.trim();
     var type = 'student';                       // hard coded as 'student' for now
     
+    var errorMessage = validInput({email: email, password: password, type:type});
+    if(errorMessage !== '') {
+        req.session.registerMessage = errorMessage;
+        res.redirect('/register');
+        res.end();
+        return;
+    }
     // TODO validation
 
     // find user; If no user exists create it
@@ -45,9 +80,16 @@ exports.register = function(req, res) {
 // to the client. that way it can request the page without
 // re-rendering the layout
 exports.login = function(req, res) {
-    var email = req.body.email.trim();
-    var password = req.body.password.trim();
+    var email = req.body.email && req.body.email.trim();
+    var password = req.body.password && req.body.password.trim();
 
+    var errorMessage = validInput({email: email, password: password});
+    if(errorMessage !== '') {
+        req.session.loginMessage = errorMessage;
+        res.redirect('/login');
+        res.end();
+        return;
+    }
     // find user
     db.User.find({where: {email: email}})
     .success(function(user) {
