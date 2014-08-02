@@ -5,8 +5,12 @@ var triviaUtils = require('./triviaUtils');
 exports.index = function(req, res){
     
     var context = {
-        user: req.session.user
+        user: req.session.user,
+        message: req.session.message
     }
+
+    req.session.message = null;
+
     res.render('events.ejs', context);
     res.end();
 }
@@ -14,8 +18,11 @@ exports.index = function(req, res){
 // render the events page
 exports.events = function(req, res){
     var context = {
-        user: req.session.user
+        user: req.session.user,
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('events.ejs', context);
     res.end();

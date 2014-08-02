@@ -29,8 +29,20 @@ exports.createPost = function(req, res) {
     return;
   }
 
+  // validation
   title = title.trim();
   text = text.trim();
+
+  if (title.length > 255) {
+    req.session.message = "The title is too long";
+    res.redirect("/events");
+    return;
+  }
+  if (text.length > 1024) {
+    req.session.message = "The post is too long";
+    res.redirect("/events");
+    return;
+  }
 
   db.Post.create({
     author: author,
