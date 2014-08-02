@@ -108,6 +108,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.post('/register', register.register);
             app.post('/stopServer', controller.stopServer);
 
+            app.post('/createPost', posts.createPost);
             app.post('/answerQuestion', isLoggedIn, controller.answerQuestion);
 
             http.createServer(app).listen(app.get('port'), function(){
