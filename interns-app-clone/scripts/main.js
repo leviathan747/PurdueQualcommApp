@@ -1,4 +1,5 @@
-$("#menu-toggle").click(function(e) {
+$("#sidebar-toggle").click(function(e) {
   e.preventDefault();
-  $("#wrapper").toggleClass("toggled");
+  $('.sidebar').toggleClass('sidebar-toggled');
+  $('.content').toggleClass('sidebar-toggled');
 });
