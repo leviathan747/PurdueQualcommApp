@@ -3,5 +3,38 @@
     <div id="page-events" class="page">
       <h2>Campus Events</h2>
       <p class="page-description">What and where is going on!</p>
+      <div class="container-fluid">
+        <div class="row">
+          <div id="news_feed" class="col-xs-12">
+            <a onclick="refreshPosts()">Refresh feed</a>
+            <br>
+          </div>
+        </div>
+      </div>
     </div>
 </div>
+
+<script>
+
+function refreshPosts() {
+  // empty old
+  $("#news_feed .panel").remove();
+
+  var posts;
+  $.get("/getPosts", null, function(p) {
+    posts = p;
+    for (var i = 0; i < posts.length; i++) {
+      var post = new EJS({url: "/templates/post.ejs"});
+      $("#news_feed").append(post.render({
+        author: posts[i].author,
+        timestamp: posts[i].created_at,
+        title: posts[i].title,
+        text: posts[i].text
+      }));
+    }
+  }, "json");
+}
+
+refreshPosts();
+
+</script>

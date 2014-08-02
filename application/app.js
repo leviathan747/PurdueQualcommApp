@@ -12,6 +12,7 @@ var logger = require('morgan');
 var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
+var posts = require('./routes/posts');
 
 var config = null;
 var app = express();
@@ -98,6 +99,8 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/register', pages.register);
             app.get('/login', pages.login);
             app.get('/logout', register.logout);
+
+            app.get('/getPosts', posts.getPosts);
 
 
             // post requests
