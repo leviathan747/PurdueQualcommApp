@@ -101,6 +101,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/logout', register.logout);
 
             app.get('/getPosts', posts.getPosts);
+            app.get('/deletePosts', posts.deletePosts);
 
 
             // post requests
@@ -109,6 +110,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.post('/stopServer', controller.stopServer);
 
             app.post('/createPost', posts.createPost);
+            app.post('/updatePost', posts.updatePost);
             app.post('/answerQuestion', isLoggedIn, controller.answerQuestion);
 
             http.createServer(app).listen(app.get('port'), function(){

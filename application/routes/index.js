@@ -1,31 +1,32 @@
 var db = require('../models').db;
 var triviaUtils = require('./triviaUtils');
+var postUtils = require('./posts');
 
 // render the index page
 exports.index = function(req, res){
-    
-    var context = {
-        user: req.session.user,
-        message: req.session.message
-    }
-
-    req.session.message = null;
-
-    res.render('events.ejs', context);
-    res.end();
+    res.redirect('/events');
 }
 
 // render the events page
 exports.events = function(req, res){
-    var context = {
-        user: req.session.user,
-        message: req.session.message
-    }
+    postUtils.getPosts(function(posts, err) {
+      if (err) {
+        res.write(JSON.stringify(err));
+        res.end();
+        return;
+      }
 
-    req.session.message = null;
+      var context = {
+          user: req.session.user,
+          message: req.session.message,
+          posts: posts
+      }
 
-    res.render('events.ejs', context);
-    res.end();
+      req.session.message = null;
+
+      res.render('events.ejs', context);
+      res.end();
+    });
 }
 
 // render the tech page
