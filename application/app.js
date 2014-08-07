@@ -12,8 +12,7 @@ var logger = require('morgan');
 var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
-var question = require('./routes/question');
-var answer   = require('./routes/answer');
+var posts = require('./routes/posts');
 
 var config = null;
 var app = express();
@@ -21,6 +20,7 @@ var app = express();
 // check if logged in
 function isLoggedIn(req, res, next) {
     if (!req.session.user) {
+        req.session.originalTarget = req.url;
         res.redirect('/login');
     }
     else next();
@@ -93,18 +93,25 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/events', pages.events);
             app.get('/tech', pages.tech);
             app.get('/trivia', isLoggedIn, pages.trivia);
-            app.get('/trivia/:id', isLoggedIn, question.getQuestion);
+            app.get('/trivia/:id', isLoggedIn, pages.triviaQuestion);
             app.get('/connect', isLoggedIn, pages.connect);
             app.get('/profile', isLoggedIn, pages.profile);
             app.get('/register', pages.register);
             app.get('/login', pages.login);
             app.get('/logout', register.logout);
 
+            app.get('/getPosts', posts.getPosts);
+            app.get('/deletePosts', posts.deletePosts);
+
 
             // post requests
             app.post('/login', register.login);
             app.post('/register', register.register);
             app.post('/stopServer', controller.stopServer);
+
+            app.post('/createPost', posts.createPost);
+            app.post('/updatePost', posts.updatePost);
+            app.post('/answerQuestion', isLoggedIn, controller.answerQuestion);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))

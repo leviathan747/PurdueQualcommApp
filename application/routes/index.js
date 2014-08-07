@@ -1,22 +1,32 @@
 var db = require('../models').db;
+var triviaUtils = require('./triviaUtils');
+var postUtils = require('./posts');
 
 // render the index page
 exports.index = function(req, res){
-    var context = {
-        user: req.session.user
-    }
-    res.render('events.ejs', context);
-    res.end();
+    res.redirect('/events');
 }
 
 // render the events page
 exports.events = function(req, res){
-    var context = {
-        user: req.session.user
-    }
+    postUtils.getPosts(function(posts, err) {
+      if (err) {
+        res.write(JSON.stringify(err));
+        res.end();
+        return;
+      }
 
-    res.render('events.ejs', context);
-    res.end();
+      var context = {
+          user: req.session.user,
+          message: req.session.message,
+          posts: posts
+      }
+
+      req.session.message = null;
+
+      res.render('events.ejs', context);
+      res.end();
+    });
 }
 
 // render the tech page
@@ -31,18 +41,65 @@ exports.tech = function(req, res){
 
 // render the trivia page
 exports.trivia = function(req, res){
-    db.Question.findAll()
-    .success(function(questions) {
-        var context = {
-            user: req.session.user,
-            questions: questions
+    triviaUtils.getAllQuestions(function(questions, err) {
+        if (err) {
+            console.log(err);
+            res.redirect("/");
+            return;
         }
-        res.render('trivia.ejs', context);
-        res.end();
-    })
-    .error(function(err) {
-        console.log(err);
+        triviaUtils.formatQuestions(req.session.user.id, questions, function(formattedQuestions, err) {
+            if (err) {
+                console.log(JSON.stringify(err));
+                res.redirect("/");
+                return;
+            }
+
+            var context = {
+                user: req.session.user,
+                questions: formattedQuestions
+            }
+            res.render('trivia.ejs', context);
+            res.end();
+        });
+    });
+}
+
+// render a trivia question page
+exports.triviaQuestion = function(req, res){
+    // "/trivia/<id>
+
+    var id = Number(req.params.id);
+    if (!id) {
         res.redirect("/trivia");
+        return;
+    }
+
+    // find question
+    triviaUtils.getQuestion(id, function(q, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.redirect("/trivia");
+            return;
+        }
+        if (!q) {                       // question does not exist
+            res.redirect("/trivia");
+            return;
+        }
+        else {
+            triviaUtils.formatQuestion(req.session.user.id, q, function(formattedQuestion, err) {
+                if (err) {
+                    console.log(JSON.stringify(err));
+                    res.redirect("/trivia");
+                    return;
+                }
+                var context = {
+                    user: req.session.user,
+                    question: formattedQuestion
+                }
+                res.render('trivia_question.ejs', context);
+                res.end();
+            });
+        }
     });
 }
 
@@ -70,8 +127,10 @@ exports.profile = function(req, res){
 exports.register = function(req, res){
     var context = {
         user: req.session.user,
-        message: req.session.registerMessage
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('register.ejs', context);
     res.end();
@@ -81,8 +140,10 @@ exports.register = function(req, res){
 exports.login = function(req, res){
     var context = {
         user: req.session.user,
-        message: req.session.loginMessage
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('login.ejs', context);
     res.end();
