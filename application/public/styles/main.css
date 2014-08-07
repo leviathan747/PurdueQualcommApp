@@ -1,0 +1,184 @@
+@font-face {
+    font-family: 'QualcommBold';
+    src: url('../fonts/qualcommweb-bold-webfont.eot');
+    src: url('../fonts/qualcommweb-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/qualcommweb-bold-webfont.woff') format('woff'),
+         url('../fonts/qualcommweb-bold-webfont.ttf') format('truetype'),
+         url('../fonts/qualcommweb-bold-webfont.svg#QualcommBold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'QualcommLight';
+    src: url('../fonts/qualcommweb-light-webfont.eot');
+    src: url('../fonts/qualcommweb-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/qualcommweb-light-webfont.woff') format('woff'),
+         url('../fonts/qualcommweb-light-webfont.ttf') format('truetype'),
+         url('../fonts/qualcommweb-light-webfont.svg#QualcommLight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'QualcommRegular';
+    src: url('../fonts/qualcommweb-regular-webfont.eot');
+    src: url('../fonts/qualcommweb-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/qualcommweb-regular-webfont.woff') format('woff'),
+         url('../fonts/qualcommweb-regular-webfont.ttf') format('truetype'),
+         url('../fonts/qualcommweb-regular-webfont.svg#QualcommRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f0f1f2;
+  font-family: 'QualcommLight';
+}
+
+h1, h2 {
+  font-family: 'QualcommRegular';
+}
+
+.header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 100px;
+  z-index: 1;
+  background-image: url('../images/header-bg.png');
+  background-size: 100%;
+  text-align: center;
+}
+
+.header-logo {
+  width: 300px;
+  padding: 10px 0;
+}
+
+.sidebar {
+  background-color: #FFF;
+  position: fixed;
+  top: 100px;
+  bottom: 0;
+  left: 0;
+  width: 135px;
+}
+
+.content {
+  margin-top: 100px;
+  margin-left: 135px;
+}
+
+.navbar-toggle {
+  float: left;
+  margin-left: 15px;
+}
+
+.sidebar, .content {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.sidebar-nav {
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav-link {
+  line-height: 19px;
+  letter-spacing: -1px;
+  text-align: center;
+  padding: 8px 0;
+  margin: 0 15px;
+  font-size: 22px;
+  border-bottom: 1px solid #CCC;
+}
+
+.sidebar-nav-link:last-child {
+  border-bottom: 0px;
+}
+
+.sidebar-nav-link a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  text-transform: uppercase;
+}
+
+.circle {
+  width: 35px;
+  height: 35px;
+  padding-top: 7px;
+  display: inline-block;
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+  -moz-box-shadow: 0px 0px 2px #000;
+  -webkit-box-shadow: 0px 0px 2px #000;
+  box-shadow: 0px 0px 2px #000;
+  margin-bottom: 10px;
+}
+
+.fa-question, .fa-mobile {
+  font-size: 1.3em;
+  padding-top: 4px;
+}
+
+@media(max-width:768px) {
+  .header {
+    height: 50px;
+  }
+
+  .header-logo {
+    width: 150px;
+    padding: 5px 0;
+    margin-left: -70px;
+  }
+
+  .sidebar {
+    top: 50px;
+    width: 90px;
+    margin-left: -90px;
+  }
+
+  .content {
+    margin-top: 50px;
+    margin-left: 0;
+  }
+
+  .sidebar.sidebar-toggled {
+    margin-left: 0;
+  }
+
+  .content.sidebar-toggled {
+    margin-left: 90px;
+  }
+
+  .sidebar-nav-link {
+    line-height: 14px;
+    padding: 7px 0 0;
+    margin: 0 15px;
+    font-size: 16px;
+  }
+
+  .circle {
+    width: 25px;
+    height: 25px;
+    padding-top: 3px;
+    margin-bottom: 3px;
+  }
+
+  .fa-question, .fa-mobile {
+    font-size: 1.3em;
+    padding-top: 1.5px;
+  }
+}

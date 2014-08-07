@@ -1,43 +1,64 @@
-<div id="navigation">
-      <ul>
-        <li>
-          <span class="nav-agenda-ico nav-ico"></span>
-          <span class="nav-agenda-ico nav-ico on"></span>
-          <span class="nav-arrow"></span>
-          <a href="/events" id="eventsLink" title="events" onclick="navigation.goTo('page-events')">Campus Events</a>
-        </li>
-        <li>
-          <span class="nav-featured-ico nav-ico"></span>
-          <span class="nav-featured-ico nav-ico on"></span>
-          <span class="nav-arrow"></span>
-          <a href="/tech" id="techLink" title="tech" onclick="navigation.goTo('page-tech')">QC Tech</a>
-        </li>
-        <% if (user) { %>
-        <li>
-          <span class="nav-featured-ico nav-ico"></span>
-          <span class="nav-featured-ico nav-ico on"></span>
-          <span class="nav-arrow"></span>
-          <a href="/trivia" title="trivia" onclick="navigation.goTo('page-trivia')">QC Trivia</a>
-        </li> 
-        <li>
-          <span class="nav-mail-ico nav-ico"></span>
-          <span class="nav-mail-ico nav-ico on"></span>
-          <span class="nav-arrow"></span>
-          <a href="/connect" title="connect" onclick="navigation.goTo('page-connect')">Connect</a>
-        </li>
-        <li>
-          <span class="nav-lines-ico nav-ico"></span>
-          <span class="nav-lines-ico nav-ico on"></span>
-          <span class="nav-arrow"></span>
-          <a href="/profile" title="profile" onclick="navigation.goTo('page-profile')">Profile</a>
-        </li>
-        <% } else { %>
-        <li>
-          <span class="nav-lines-ico nav-ico"></span>
-          <span class="nav-lines-ico nav-ico on"></span>
-          <span class="nav-arrow"></span>
-          <a href="/login" title="login" onclick="navigation.goTo('page-login')">Login</a>
-        </li>
-        <% } %>
-      </ul>
+<div class="header navbar-default">
+  <img class="header-logo" src="images/logo.png">
+  <button type="button" id="sidebar-toggle" class="navbar-toggle">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+</div>
+
+<div class="sidebar">
+  <ul class="sidebar-nav">
+    <li class="sidebar-nav-link">
+      <a href="events">
+        <span class="fa fa-calendar circle"></span>
+        <p>Campus Events</p>
+      </a>
+    </li>
+    <li class="sidebar-nav-link">
+      <a href="tech">
+        <span class="fa fa-mobile circle"></span>
+        <p>QC Tech</p>
+      </a>
+    </li>
+
+    <% if (user) { %>
+
+      <li class="sidebar-nav-link">
+        <a href="trivia">
+          <span class="fa fa-question circle"></span>
+          <p>QC Trivia</p>
+        </a>
+      </li>
+      <li class="sidebar-nav-link">
+        <a href="#">
+          <span class="fa fa-envelope circle"></span>
+          <p>Connect</p>
+        </a>
+      </li>
+      <li class="sidebar-nav-link">
+        <a href="#">
+          <span class="fa fa-user circle"></span>
+          <p>Profile</p>
+        </a>
+      </li>
+      <li class="sidebar-nav-link">
+        <a href="#">
+          <span class="fa fa-sign-out circle"></span>
+          <p>Logout</p>
+        </a>
+      </li>
+
+    <% } else { %>
+
+      <li class="sidebar-nav-link">
+        <a href="login">
+          <span class="fa fa-sign-in circle"></span>
+          <p>Login</p>
+        </a>
+      </li>
+
+    <% } %>
+  </ul>
 </div>
