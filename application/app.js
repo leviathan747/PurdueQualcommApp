@@ -67,6 +67,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             // Do this first or they will not show up in the req.
             app.use(function(req, res, next) {
                 req.db = db.db;
+                req.configName = configName;
                 req.encoder = new Encoder('entity');
                 next();
             });
