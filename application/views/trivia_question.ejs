@@ -1,0 +1,65 @@
+<% include navigation.ejs %>
+<% if (user) { %>
+<div id="container">
+    <div id="page-trivia-question" class="page">
+        <div class="container-fluid">
+            <div class="row text-center">
+                <% if (question.answered && question.correct) { %>
+                <div class="col-xs-12">
+                    <h3 style="color: green">Correct!</h3>
+                </div>
+                <% } else if (question.answered && !question.correct) { %>
+                <div class="col-xs-12">
+                    <h3 style="color: red">Incorrect!</h3>
+                </div>
+                <% } %>
+                <div class="col-xs-12">
+                    <h3><%= question.question %></h3>
+                </div>
+            </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-xs-8 col-xs-offset-2">
+                    <form action="/answerQuestion" method="post" role="form" id="questionForm">
+                        <div class="form-group hidden" id="options">
+                            <!-- hidden input so the question id submits with the form -->
+                            <input type="text" name="question" value="<%= question.id %>">
+                        </div>
+                        <div class="form-group" id="options">
+                            <div class="btn-group-vertical btn-block" data-toggle="buttons">
+                                <label class="btn btn-default">
+                                    <input type="radio" name="a" id="a"><%= question.a %>
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="b" id="b"><%= question.b %>
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="c" id="c"><%= question.c %>
+                                </label>
+                                <label class="btn btn-default">
+                                    <input type="radio" name="d" id="d"><%= question.d %>
+                                </label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block">Submit</button>
+                    </form>
+                    <% if (question.answered) { %>
+                    <script>
+                        $("#questionForm *").attr("disabled", "disabled");
+                    </script>
+                    <% } %>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xs-6">
+                    <a href="/trivia/<%= question.id - 1 %>" class="btn btn-primary btn-block">Previous</a>
+                </div>
+                <div class="col-xs-6">
+                    <a href="/trivia/<%= question.id + 1 %>" class="btn btn-primary btn-block">Next</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<% } %>

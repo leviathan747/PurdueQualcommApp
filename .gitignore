@@ -1,0 +1,4 @@
+*.log
+config.json
+*.swp
+application/node_modules/bcrypt

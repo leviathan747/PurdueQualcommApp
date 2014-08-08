@@ -1,0 +1,43 @@
+<div id="navigation">
+      <ul>
+        <li>
+          <span class="nav-agenda-ico nav-ico"></span>
+          <span class="nav-agenda-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/events" id="eventsLink" title="events" onclick="navigation.goTo('page-events')">Campus Events</a>
+        </li>
+        <li>
+          <span class="nav-featured-ico nav-ico"></span>
+          <span class="nav-featured-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/tech" id="techLink" title="tech" onclick="navigation.goTo('page-tech')">QC Tech</a>
+        </li>
+        <% if (user) { %>
+        <li>
+          <span class="nav-featured-ico nav-ico"></span>
+          <span class="nav-featured-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/trivia" title="trivia" onclick="navigation.goTo('page-trivia')">QC Trivia</a>
+        </li> 
+        <li>
+          <span class="nav-mail-ico nav-ico"></span>
+          <span class="nav-mail-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/connect" title="connect" onclick="navigation.goTo('page-connect')">Connect</a>
+        </li>
+        <li>
+          <span class="nav-lines-ico nav-ico"></span>
+          <span class="nav-lines-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/profile" title="profile" onclick="navigation.goTo('page-profile')">Profile</a>
+        </li>
+        <% } else { %>
+        <li>
+          <span class="nav-lines-ico nav-ico"></span>
+          <span class="nav-lines-ico nav-ico on"></span>
+          <span class="nav-arrow"></span>
+          <a href="/login" title="login" onclick="navigation.goTo('page-login')">Login</a>
+        </li>
+        <% } %>
+      </ul>
+</div>

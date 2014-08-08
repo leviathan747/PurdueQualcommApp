@@ -1,0 +1,253 @@
+.nav-lines-ico, .year-arrow, .nav-arrow, .badge-new, .nav-featured-ico, .nav-leadership-ico, .nav-leadership-ico, .nav-agenda-ico, .ico-video, .ico-slide, .ico-file, .nav-qpolls-ico, .nav-highlights-ico, .nav-qpolls-ico, .nav-mail-ico, .nav-featured-ico, .nav-mail-ico, .nav-highlights-ico, .nav-agenda-ico, .ico-mail, .ico-photo, .logo-small, .btn-nav, .btn-nav, .btn-false-small, .btn-true-small, .btn-true, .btn-false, .btn-true, .btn-false, .btn-answer, .btn-answer, .btn-yes-small, .btn-yes-small, .logo, .badge-appstore, .btn-yes, .btn-yes, .header-illustration, .pie-center {
+  background-image: url('sprite-retina.png');
+  background-repeat: no-repeat;
+  display: block;
+  text-indent: -9999px;
+  background-size: 500px 357px;
+}
+
+.year-arrow {
+  width: 20px;
+  height: 8px;
+  background-position: -0px -0px;
+}
+
+.nav-arrow {
+  width: 9px;
+  height: 18px;
+  background-position: -22px -0px;
+}
+
+.badge-new {
+  width: 27px;
+  height: 26px;
+  background-position: -33px -0px;
+}
+
+.nav-leadership-ico {
+  width: 35px;
+  height: 35px;
+  background-position: -99px -0px;
+}
+
+.nav-agenda-ico {
+  width: 35px;
+  height: 35px;
+  background-position: -173px -0px;
+}
+
+.ico-video {
+  width: 35px;
+  height: 35px;
+  background-position: -210px -0px;
+}
+
+.ico-slide {
+  width: 35px;
+  height: 35px;
+  background-position: -247px -0px;
+}
+
+.ico-file {
+  width: 35px;
+  height: 35px;
+  background-position: -284px -0px;
+}
+
+.nav-qpolls-ico {
+  width: 35px;
+  height: 35px;
+  background-position: -321px -0px;
+}
+
+.nav-highlights-ico {
+  width: 35px;
+  height: 35px;
+  background-position: -358px -0px;
+}
+
+.nav-mail-ico {
+  width: 35px;
+  height: 35px;
+  background-position: -432px -0px;
+}
+
+.nav-featured-ico {
+  width: 35px;
+  height: 35px;
+  background-position: -0px -37px;
+}
+
+.ico-mail {
+  width: 35px;
+  height: 35px;
+  background-position: -148px -37px;
+}
+
+.ico-photo {
+  width: 35px;
+  height: 35px;
+  background-position: -185px -37px;
+}
+
+.nav-lines-ico {
+  width: 35px;
+  height: 35px;
+  background-position: 4px -320px;
+}
+
+.logo-small {
+  width: 164px;
+  height: 37px;
+  background-position: -222px -37px;
+}
+
+.btn-nav {
+  width: 40px;
+  height: 40px;
+  background-position: -388px -37px;
+}
+
+.btn-false-small {
+  width: 40px;
+  height: 40px;
+  background-position: -0px -79px;
+}
+
+.btn-true-small {
+  width: 40px;
+  height: 40px;
+  background-position: -42px -79px;
+}
+
+.btn-true {
+  width: 50px;
+  height: 50px;
+  background-position: -84px -79px;
+}
+
+.btn-false {
+  width: 50px;
+  height: 50px;
+  background-position: -136px -79px;
+}
+
+.btn-answer {
+  width: 50px;
+  height: 50px;
+  background-position: -292px -79px;
+}
+
+.btn-yes-small {
+  width: 55px;
+  height: 56px;
+  background-position: -396px -79px;
+}
+
+.logo {
+  width: 311px;
+  height: 69px;
+  background-position: -57px -137px;
+}
+
+.badge-appstore {
+  width: 82px;
+  height: 83px;
+  background-position: -370px -137px;
+}
+
+.btn-yes {
+  width: 89px;
+  height: 89px;
+  background-position: -0px -222px;
+}
+
+.header-illustration {
+  width: 180px;
+  height: 100px;
+  background-position: -182px -222px;
+}
+
+.pie-center {
+  width: 128px;
+  height: 128px;
+  background-position: -364px -222px;
+}
+
+.nav-featured-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -62px -0px !important;
+}
+
+.nav-lines-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -390px -40px !important;
+}
+
+.nav-leadership-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -136px -0px !important;
+}
+
+.nav-qpolls-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -395px -0px !important;
+}
+
+.nav-mail-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -37px -37px !important;
+}
+
+.nav-highlights-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -74px -37px !important;
+}
+
+.nav-agenda-ico.on {
+  width: 35px;
+  height: 35px;
+  background-position: -111px -37px !important;
+}
+
+.btn-nav.active, .btn-nav.selected {
+  width: 40px;
+  height: 40px;
+  background-position: -430px -37px !important;
+}
+
+.btn-true.active, .btn-true.selected {
+  width: 50px;
+  height: 50px;
+  background-position: -188px -79px !important;
+}
+
+.btn-false.active, .btn-false.selected {
+  width: 50px;
+  height: 50px;
+  background-position: -240px -79px !important;
+}
+
+.btn-answer.active, .btn-answer.selected {
+  width: 50px;
+  height: 50px;
+  background-position: -344px -79px !important;
+}
+
+.btn-yes-small.active {
+  width: 55px;
+  height: 56px;
+  background-position: -0px -137px !important;
+}
+
+.btn-yes.active {
+  width: 89px;
+  height: 89px;
+  background-position: -91px -222px !important;
+}
