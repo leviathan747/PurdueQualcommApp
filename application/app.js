@@ -12,6 +12,7 @@ var logger = require('morgan');
 var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
+var posts = require('./routes/posts');
 
 var config = null;
 var app = express();
@@ -19,6 +20,7 @@ var app = express();
 // check if logged in
 function isLoggedIn(req, res, next) {
     if (!req.session.user) {
+        req.session.originalTarget = req.url;
         res.redirect('/login');
     }
     else next();
@@ -65,6 +67,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             // Do this first or they will not show up in the req.
             app.use(function(req, res, next) {
                 req.db = db.db;
+                req.configName = configName;
                 req.encoder = new Encoder('entity');
                 next();
             });
@@ -98,12 +101,17 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/login', pages.login);
             app.get('/logout', register.logout);
 
+            app.get('/getPosts', posts.getPosts);
+            app.get('/deletePosts', posts.deletePosts);
+
 
             // post requests
             app.post('/login', register.login);
             app.post('/register', register.register);
             app.post('/stopServer', controller.stopServer);
 
+            app.post('/createPost', posts.createPost);
+            app.post('/updatePost', posts.updatePost);
             app.post('/answerQuestion', isLoggedIn, controller.answerQuestion);
 
             http.createServer(app).listen(app.get('port'), function(){

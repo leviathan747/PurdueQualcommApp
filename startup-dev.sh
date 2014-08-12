@@ -10,4 +10,4 @@ fi
 cd $(dirname $0)
 sudo -u ubuntu git pull origin master
 cd application
-node app.js development 80
+node app.js development 8080

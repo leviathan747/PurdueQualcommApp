@@ -1,24 +1,32 @@
 var db = require('../models').db;
 var triviaUtils = require('./triviaUtils');
+var postUtils = require('./posts');
 
 // render the index page
 exports.index = function(req, res){
-    
-    var context = {
-        user: req.session.user
-    }
-    res.render('events.ejs', context);
-    res.end();
+    res.redirect('/events');
 }
 
 // render the events page
 exports.events = function(req, res){
-    var context = {
-        user: req.session.user
-    }
+    postUtils.getPosts(function(posts, err) {
+      if (err) {
+        res.write(JSON.stringify(err));
+        res.end();
+        return;
+      }
 
-    res.render('events.ejs', context);
-    res.end();
+      var context = {
+          user: req.session.user,
+          message: req.session.message,
+          posts: posts
+      }
+
+      req.session.message = null;
+
+      res.render('events.ejs', context);
+      res.end();
+    });
 }
 
 // render the tech page
@@ -36,13 +44,13 @@ exports.trivia = function(req, res){
     triviaUtils.getAllQuestions(function(questions, err) {
         if (err) {
             console.log(err);
-            res.redirect("/trivia");
+            res.redirect("/");
             return;
         }
         triviaUtils.formatQuestions(req.session.user.id, questions, function(formattedQuestions, err) {
             if (err) {
                 console.log(JSON.stringify(err));
-                res.redirect("/trivia");
+                res.redirect("/");
                 return;
             }
 
@@ -119,8 +127,10 @@ exports.profile = function(req, res){
 exports.register = function(req, res){
     var context = {
         user: req.session.user,
-        message: req.session.registerMessage
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('register.ejs', context);
     res.end();
@@ -130,8 +140,10 @@ exports.register = function(req, res){
 exports.login = function(req, res){
     var context = {
         user: req.session.user,
-        message: req.session.loginMessage
+        message: req.session.message
     }
+
+    req.session.message = null;
 
     res.render('login.ejs', context);
     res.end();

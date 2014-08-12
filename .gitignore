@@ -1,4 +1,5 @@
 *.log
 config.json
 *.swp
+.DS_Store
 application/node_modules/bcrypt

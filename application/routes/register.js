@@ -27,17 +27,17 @@ var validInput = function(input) {
     return errorMessage;
 }
 // register in and update the user session variable
-// note: we are not using redirects, but writing the url back
-// to the client. that way it can request the page without
-// re-rendering the layout
 exports.register = function(req, res) {
     // check that input is defined; Possible if an empty post request is 
     // sent to server. 
     var email = req.body.email && req.body.email.trim();
     var password = req.body.password && req.body.password.trim();
+    var first = req.body.firstName && req.body.firstName.trim();
+    var last = req.body.lastName && req.body.lastName.trim();
+    var name = first + " " + last;
     var type = 'student';                       // hard coded as 'student' for now
     
-    var errorMessage = validInput({email: email, password: password, type:type});
+    var errorMessage = validInput({email: email, password: password, name: name, type:type});
     if(errorMessage !== '') {
         req.session.registerMessage = errorMessage;
         res.redirect('/register');
@@ -53,10 +53,12 @@ exports.register = function(req, res) {
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(password, salt, function(err, hash) {
                     // Store hash in your password DB.
-                    db.User.create({email: email, password: hash, type: type})
+                    db.User.create({email: email, name:name, password: hash, type: type})
                     .success(function(user) {
-                        req.session.user = user.dataValues; // set session user
-                        res.redirect('/profile');           // redirect to profile page
+                        req.session.user = user.dataValues;                                         // set session user
+                        if (req.session.originalTarget) res.redirect(req.session.originalTarget);   // redirect to where they wanted to go
+                        else res.redirect('/profile');                                              // redirect to profile page
+                        req.session.originalTarget = null;
                         res.end();
                     }).error(function(err){
                         console.log(JSON.stringify(err));
@@ -65,7 +67,7 @@ exports.register = function(req, res) {
             });
             
         } else {
-           req.session.registerMessage = 'Oops! User already exists!';
+           req.session.message = 'Oops! User already exists!';
            res.redirect('/register');
            res.end();
         }
@@ -76,9 +78,6 @@ exports.register = function(req, res) {
 }
 
 // log in and update the user session variable
-// note: we are not using redirects, but writing the url back
-// to the client. that way it can request the page without
-// re-rendering the layout
 exports.login = function(req, res) {
     var email = req.body.email && req.body.email.trim();
     var password = req.body.password && req.body.password.trim();
@@ -94,21 +93,24 @@ exports.login = function(req, res) {
     db.User.find({where: {email: email}})
     .success(function(user) {
         if (!user) {
-            req.session.loginMessage = 'User does not exist';
+            req.session.message = 'User does not exist';
             res.redirect('/login');
             res.end();
         }
         else {
+
             // check password
             bcrypt.compare(password, user.dataValues.password, function(err, resp) {
                 if(resp != true) {
-                    req.session.loginMessage = 'Oops! Wrong password';
+                    req.session.message = 'Oops! Wrong password';
                     res.redirect('/login');
                     res.end();
                 } 
                 else {
-                    req.session.user = user.dataValues; // set session user
-                    res.redirect('/profile');           // redirect to profile page
+                    req.session.user = user.dataValues;                                         // set session user
+                    if (req.session.originalTarget) res.redirect(req.session.originalTarget);   // redirect to where they wanted to go
+                    else res.redirect('/profile');                                              // redirect to profile page
+                    req.session.originalTarget = null;
                     res.end();
                 }
             });  

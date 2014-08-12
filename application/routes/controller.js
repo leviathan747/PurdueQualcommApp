@@ -2,7 +2,11 @@ var triviaUtils = require('./triviaUtils');
 
 // update the server and restart
 exports.stopServer = function(req, res){
-    if (req.body.ref == "refs/heads/master") {
+    if (req.body.ref == "refs/heads/master" && req.configName == "development") {
+        console.log("Received stop server signal. Exiting...");
+        process.exit();
+    }
+    if (req.body.ref == "refs/heads/production" && req.configName == "production") {
         console.log("Received stop server signal. Exiting...");
         process.exit();
     }
