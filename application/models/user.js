@@ -1,5 +1,3 @@
-var db = require('../models').db;
-
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define('User',
     {
@@ -14,7 +12,5 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true,
     });
 
-    User.hasMany(db.Answer);
-  
     return User;
 }

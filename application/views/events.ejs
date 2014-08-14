@@ -73,10 +73,10 @@
 
 <script>
   // fill form for edit
-  function editPost(id, title, text) {
+  function editPost(id) {
     $("#editId").val(id);
-    $("#editTitleInput").val(title);
-    $("#editTextInput").val(text);
+    $("#editTitleInput").val($("#title" + id).text().trim());
+    $("#editTextInput").val($("#text" + id).text().trim());
     $("#editForm").removeClass("hidden");
     $("#createForm").addClass("hidden");
   }
