@@ -1,104 +1,92 @@
-<% include navigation.ejs %>
-<div id="container">
-  <div id="page-events" class="page">
-    <h2>Campus Events</h2>
-    <p class="page-description">What and where is going on!</p>
-    <div class="container-fluid">
-      <div class="row">
-        <div id="news_feed" class="col-xs-12">
-          <a href="/events">Refresh feed</a>
-          <br>
-          <% for (var i = 0; i < posts.length; i++) { %>
-            <div class="panel panel-primary">
-              <h3 id="title<%=posts[i].id%>"><b><em><%=posts[i].title%></em></b></h3>
-              <p id="text<%=posts[i].id%>"><%=posts[i].text%></p>
-              <% var date = new Date(posts[i].created_at); %>
-              <p>Posted by <%=posts[i].author.email%> on <%=date.toDateString()%> at <%=date.toLocaleTimeString().slice(0, -3)%>.</p>
-              <% if (user && user.type == "admin") { %>
-                <p><a onclick="editPost(<%=posts[i].id%>)">edit post</a> | 
-                <a href="/deletePosts?ids=<%=posts[i].id%>">delete post</a></p>
-              <% } %>
-            </div>
-          <% } %>
-        </div>
-        <% if (user && user.type == "admin") { %>
-        <div id="editForm" class="col-xs-12 hidden">
-          <div class="panel panel-primary">
-            <h2>Edit Post</h2>
-            <br>
-            <form action="/updatePost" method="post" role="form">
-              <div class="form-group hidden">
-                <label class="control-label" for="editId">Id</label>
-                <input class="form-control" id="editId" name="id">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="editTitleInput">Title</label>
-                <input class="form-control" id="editTitleInput" name="title" placeholder="Post title">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="editTextInput">Post Body</label>
-                <textarea class="form-control" id="editTextInput" name="text" placeholder="Type your post..." rows="3"></textarea>
-              </div>
-              <div class="btn-group">
-                <button type="submit" class="btn btn-primary">Update Post</button>
-                <button type="button" id="cancelEdit" class="btn btn-default">Cancel</button>
-              </div>
-              <div class="form-group" id="alerts">
-                <% if (message) { %>
-                <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
-                <% } %>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div id="createForm" class="col-xs-12">
-          <div class="panel panel-primary">
-            <h2>Create Post</h2>
-            <br>
-            <form action="/createPost" method="post" role="form">
-              <div class="form-group">
-                <label class="control-label" for="titleInput">Title</label>
-                <input class="form-control" id="titleInput" name="title" placeholder="Post title">
-              </div>
-              <div class="form-group">
-                <label class="control-label" for="textInput">Post Body</label>
-                <textarea class="form-control" id="textInput" name="text" placeholder="Type your post..." rows="3"></textarea>
-              </div>
-              <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block">Create Post</button>
-              </div>
-              <div class="form-group" id="alerts">
-                <% if (message) { %>
-                <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
-                <% } %>
-              </div>
-            </form>
-          </div>
-        </div>
+<h2>Campus Events</h2>
+<p class="page-description">What and where is going on!</p>
+<div id="news_feed" class="col-xs-12">
+  <a href="/events">Refresh feed</a>
+  <br>
+  <% for (var i = 0; i < posts.length; i++) { %>
+    <div class="panel panel-primary">
+      <h3><b><em><%=posts[i].title%></em></b></h3>
+      <p><%=posts[i].text%></p>
+      <p>Posted by <%=posts[i].author%> on <%=new Date(posts[i].created_at).toDateString()%>.</p>
+      <% if (user && user.type == "admin") { %>
+        <p><a onclick="editPost(<%=posts[i].id%>, '<%=posts[i].title%>', '<%=posts[i].text%>')">edit post</a> | 
+        <a href="/deletePosts?ids=<%=posts[i].id%>">delete post</a></p>
+      <% } %>
+    </div>
+  <% } %>
+</div>
+<% if (user && user.type == "admin") { %>
+<div id="editForm" class="col-xs-12 hidden">
+  <div class="panel panel-primary">
+    <h2>Edit Post</h2>
+    <br>
+    <form action="/updatePost" method="post" role="form">
+      <div class="form-group hidden">
+        <label class="control-label" for="editId">Id</label>
+        <input class="form-control" id="editId" name="id">
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="editTitleInput">Title</label>
+        <input class="form-control" id="editTitleInput" name="title" placeholder="Post title">
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="editTextInput">Post Body</label>
+        <textarea class="form-control" id="editTextInput" name="text" placeholder="Type your post..." rows="3"></textarea>
+      </div>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-primary">Update Post</button>
+        <button type="button" id="cancelEdit" class="btn btn-default">Cancel</button>
+      </div>
+      <div class="form-group" id="alerts">
+        <% if (message) { %>
+        <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
         <% } %>
       </div>
-    </div>
+    </form>
   </div>
 </div>
+<div id="createForm" class="col-xs-12">
+  <div class="panel panel-primary">
+    <h2>Create Post</h2>
+    <br>
+    <form action="/createPost" method="post" role="form">
+      <div class="form-group">
+        <label class="control-label" for="titleInput">Title</label>
+        <input class="form-control" id="titleInput" name="title" placeholder="Post title">
+      </div>
+      <div class="form-group">
+        <label class="control-label" for="textInput">Post Body</label>
+        <textarea class="form-control" id="textInput" name="text" placeholder="Type your post..." rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-primary btn-block">Create Post</button>
+      </div>
+      <div class="form-group" id="alerts">
+        <% if (message) { %>
+        <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+        <% } %>
+      </div>
+    </form>
+  </div>
+</div>
+<% } %>
 
 <script>
+  // fill form for edit
+  function editPost(id) {
+    $("#editId").val(id);
+    $("#editTitleInput").val($("#title" + id).text().trim());
+    $("#editTextInput").val($("#text" + id).text().trim());
+    $("#editForm").removeClass("hidden");
+    $("#createForm").addClass("hidden");
+  }
 
-// fill form for edit
-function editPost(id) {
-  $("#editId").val(id);
-  $("#editTitleInput").val($("#title" + id).text().trim());
-  $("#editTextInput").val($("#text" + id).text().trim());
-  $("#editForm").removeClass("hidden");
-  $("#createForm").addClass("hidden");
-}
-
-// cancel edit
-$("#cancelEdit").click(function(e) {
-  $("#editId").val("");
-  $("#editTitleInput").val("");
-  $("#editTextInput").val("");
-  $("#editForm").addClass("hidden");
-  $("#createForm").removeClass("hidden");
-});
-
+  // cancel edit
+  $("#cancelEdit").click(function(e) {
+    $("#editId").val("");
+    $("#editTitleInput").val("");
+    $("#editTextInput").val("");
+    $("#editForm").addClass("hidden");
+    $("#createForm").removeClass("hidden");
+  });
 </script>
