@@ -8,6 +8,6 @@ if [[ ! "$NODE_VERSION" =~ ^v0\.10 ]]; then
   exit 1
 fi
 cd $(dirname $0)
-sudo -u ubuntu git pull origin master
+sudo -u ubuntu git pull origin production
 cd application
-node app.js development 8080
+node app.js development 80
