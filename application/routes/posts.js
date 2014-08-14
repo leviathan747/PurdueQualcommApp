@@ -2,7 +2,7 @@ var db = require('../models').db;
 
 // get all posts
 exports.getPosts = function(callback) {
-  db.Post.findAll()
+  db.Post.findAll({include: [{model: db.User, as: "Author"}], order: "`created_at` DESC"})
   .success(function(posts) {
     callback(posts, null);
   })
@@ -42,13 +42,20 @@ exports.createPost = function(req, res) {
     return;
   }
 
+  // create post
   db.Post.create({
-    author: author,
     title: title,
     text: text
   })
-  .success(function() {
-    res.redirect("/events");
+  .success(function(post) {
+    post.setAuthor(req.session.user)
+   .success(function() {
+      res.redirect("/events");
+    })
+    .error(function(err) {
+      console.log(JSON.stringify(err));
+      res.redirect("/events");
+    });
   })
   .error(function(err) {
     console.log(JSON.stringify(err));
