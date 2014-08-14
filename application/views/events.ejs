@@ -10,11 +10,11 @@
           <br>
           <% for (var i = 0; i < posts.length; i++) { %>
             <div class="panel panel-primary">
-              <h3><b><em><%=posts[i].title%></em></b></h3>
-              <p><%=posts[i].text%></p>
+              <h3 id="title<%=posts[i].id%>"><b><em><%=posts[i].title%></em></b></h3>
+              <p id="text<%=posts[i].id%>"><%=posts[i].text%></p>
               <p>Posted by <%=posts[i].author%> on <%=new Date(posts[i].created_at).toDateString()%>.</p>
               <% if (user && user.type == "admin") { %>
-                <p><a onclick="editPost(<%=posts[i].id%>, '<%=posts[i].title%>', '<%=posts[i].text%>')">edit post</a> | 
+                <p><a onclick="editPost(<%=posts[i].id%>)">edit post</a> | 
                 <a href="/deletePosts?ids=<%=posts[i].id%>">delete post</a></p>
               <% } %>
             </div>
@@ -83,10 +83,10 @@
 <script>
 
 // fill form for edit
-function editPost(id, title, text) {
+function editPost(id) {
   $("#editId").val(id);
-  $("#editTitleInput").val(title);
-  $("#editTextInput").val(text);
+  $("#editTitleInput").val($("#title" + id).text().trim());
+  $("#editTextInput").val($("#text" + id).text().trim());
   $("#editForm").removeClass("hidden");
   $("#createForm").addClass("hidden");
 }
