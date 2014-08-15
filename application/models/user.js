@@ -6,13 +6,12 @@ module.exports = function(sequelize, DataTypes) {
     	name: DataTypes.STRING,
     	password: DataTypes.STRING,
     	type: DataTypes.STRING,
-        points: {DataTypes.INTEGER, defaultValue: 0}
+        points: { type: DataTypes.INTEGER, defaultValue: 0}
     }, 
     {   
         timestamps: false,
         underscored: true,
     });
 
-    User.hasMany(db.Answer);
     return User;
 }
