@@ -6,6 +6,16 @@ module.exports = function(sequelize, DataTypes) {
 	    answer: DataTypes.STRING
     }, 
     {
+    	hooks: {
+    		afterCreate: function (answer, callback) {
+                console.log("hi");
+    		},
+    		afterDestroy: function(answer, callback) {
+    		    console.log("bye");	
+    		}
+    	}
+    },
+    {
         timestamps: false,
         underscored: true,
     });
