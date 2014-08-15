@@ -1,5 +1,3 @@
-var db = require('../models').db;
-
 module.exports = function(sequelize, DataTypes) {
     var Question = sequelize.define('Question',
     {
@@ -18,7 +16,5 @@ module.exports = function(sequelize, DataTypes) {
         underscored: true,
     });
 
-    Question.hasMany(db.Answer);
-  
     return Question;
 }
