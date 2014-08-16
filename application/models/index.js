@@ -34,17 +34,16 @@ var sequelize = function(config, callback) {
                         if (question.answer == answer.answer) {
                             User.increment({'points': question.points})
                                 .success(function(user){
-                                    console.log('successful increment');
+                                    console.log('successful increment for ' + User.name);
                                 });
                         }
                     })
                     .error(function(err) {
-                        console.log("Error calculating points for user ");
+                        console.log(err);
                     });
             })
             .error(function(err){
-                /* TODO Not sure what to do with callback */
-                console.log('Failed to find User; please call appropriate callback');
+                console.log(err);
             });
     });
 
@@ -56,21 +55,20 @@ var sequelize = function(config, callback) {
                         // find question then check answer
                         db.Question.find({where: {id: answer.question_id}})
                             .success(function(question) {
-                                // if answer is correct add to total score
+                                // if answer is correct decrement to total score
                                 if (question.answer == answer.answer) {
-                                    User.decrement({'points': question.points*2})
+                                    User.decrement({'points': question.points})
                                         .success(function(user){
-                                            console.log('successful decrement');
+                                            console.log('successful decrement for ' + User.name);
                                         });
                                 }
                             })
                             .error(function(err) {
-                                console.log("Error calculating points for user ");
+                                console.log(err);
                             });
                     })
                     .error(function(err){
-                        /* TODO Not sure what to do with callback */
-                        console.log('Failed to find User; please call appropriate callback');
+                        console.log(err);
                     });
     });
 
