@@ -35,7 +35,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             console.log("Could not find any config file.");
         process.exit(-1);
     }
-    
+
     try {
         config = JSON.parse(data);
     }
@@ -43,17 +43,17 @@ fs.readFile("config.json", 'utf8', function(err, data) {
         console.log("readFile Parse Error: ", e);
         process.exit(-1);
     }
-    
+
     // get config (defaults to development)
     var configName = process.argv[2] || 'development';
 
     // get port number
     var defaultPort = 4000;
     var defaultPort = process.argv[3] || defaultPort;
-    
+
     console.log(configName);
     console.log("Server port: " + defaultPort);
-    
+
     db.sequelize(config[configName], function(err) {
         if (err) {
             console.log("Sequelize err: " + err[0]);
@@ -62,7 +62,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
         else {
             // all environments
             process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-            
+
             // Set up globals in the req object.
             // Do this first or they will not show up in the req.
             app.use(function(req, res, next) {
@@ -71,7 +71,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
                 req.encoder = new Encoder('entity');
                 next();
             });
-            
+
             app.use(partials());
             app.use(session({
                 secret: 'boilerup',
@@ -90,29 +90,30 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.use(express.static(path.join(__dirname, 'public')));
 
             // get requests
-            app.get('/', pages.index);
-            app.get('/events', pages.events);
-            app.get('/tech', pages.tech);
-            app.get('/trivia', isLoggedIn, pages.trivia);
-            app.get('/trivia/:id', isLoggedIn, pages.triviaQuestion);
-            app.get('/connect', isLoggedIn, pages.connect);
-            app.get('/profile', isLoggedIn, pages.profile);
-            app.get('/register', pages.register);
-            app.get('/login', pages.login);
-            app.get('/logout', register.logout);
+            app.get('/'                , pages.index);
+            app.get('/events'          , pages.events);
+            app.get('/tech'            , pages.tech);
+            app.get('/trivia'          , isLoggedIn              , pages.trivia);
+            app.get('/trivia/:id'      , isLoggedIn              , pages.triviaQuestion);
+            app.get('/connect'         , isLoggedIn              , pages.connect);
+            app.get('/profile'         , isLoggedIn              , pages.profile);
+            app.get('/register'        , pages.register);
+            app.get('/login'           , pages.login);
+            app.get('/logout'          , register.logout);
+            app.get('/validateEmail'   , isLoggedIn              , register.validate_email);
 
-            app.get('/getPosts', posts.getPosts);
-            app.get('/deletePosts', posts.deletePosts);
+            app.get('/getPosts'        , posts.getPosts);
+            app.get('/deletePosts'     , posts.deletePosts);
 
 
             // post requests
-            app.post('/login', register.login);
-            app.post('/register', register.register);
-            app.post('/stopServer', controller.stopServer);
+            app.post('/login'          , register.login);
+            app.post('/register'       , register.register);
+            app.post('/stopServer'     , controller.stopServer);
 
-            app.post('/createPost', posts.createPost);
-            app.post('/updatePost', posts.updatePost);
-            app.post('/answerQuestion', isLoggedIn, controller.answerQuestion);
+            app.post('/createPost'     , posts.createPost);
+            app.post('/updatePost'     , posts.updatePost);
+            app.post('/answerQuestion' , isLoggedIn              , controller.answerQuestion);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))
