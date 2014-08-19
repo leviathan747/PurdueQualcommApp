@@ -23,6 +23,7 @@ exports.register = function(req, res) {
                         } else {
                           res.redirect('/profile');                  // redirect to profile page
                         }
+                        user.generateEmailToken();
                         req.session.originalTarget = null;
                         res.end();
                     })
@@ -31,7 +32,6 @@ exports.register = function(req, res) {
                     });
                 });
             });
-            user.generateEmailToken();
         } else {
           req.session.message = 'Oops! User already exists!';
           res.redirect('/register');
@@ -44,12 +44,21 @@ exports.register = function(req, res) {
 }
 
 exports.validate_email = function(req, res){
-    var unique_token = req.body.token.trim();
+    var unique_token = req.query.token.trim();
     var user         = req.session.user;
-    console.log(unique_token);
+    console.log("argument: "              + unique_token);
+    console.log("stored email_token: "    + user.email_token);
+    console.log( user);
     if (unique_token === user.email_token){
-        user.email_verified = true;
+        user.dataValues.email_verified = true;
+        user.save();
+        console.log("VERIFIED");
+    } else {
+        console.log("NOT VERIFIED");
     }
+    req.session.message = 'Successfully validated email';
+    res.redirect('/');
+    res.end();
 }
 
 // log in and update the user session variable

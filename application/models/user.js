@@ -13,8 +13,15 @@ module.exports = function(sequelize, DataTypes) {
                 email_token:     DataTypes.STRING
             },
             {
-                timestamps:   false,
-                underscored:  true,
+                timestamps:       false,
+                underscored:      true,
+                instanceMethods:  {
+                    generateEmailToken: function(){
+                        this.dataValues.email_token = require('crypto').randomBytes(48).toString('base64');
+                        console.log(this.email_token);
+                        this.save();
+                    }
+                }
             }
           );
 
