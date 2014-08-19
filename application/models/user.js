@@ -17,8 +17,7 @@ module.exports = function(sequelize, DataTypes) {
                 underscored:      true,
                 instanceMethods:  {
                     generateEmailToken: function(){
-                        this.dataValues.email_token = require('crypto').randomBytes(48).toString('base64');
-                        console.log(this.email_token);
+                        this.dataValues.email_token = require('crypto').randomBytes(48).toString('hex');
                         this.save();
                     }
                 }
