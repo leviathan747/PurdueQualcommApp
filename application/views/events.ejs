@@ -8,7 +8,7 @@
       <h3 id="title<%=posts[i].id%>"><b><em><%=posts[i].title%></em></b></h3>
       <p id="text<%=posts[i].id%>"><%=posts[i].text%></p>
       <% var date = new Date(posts[i].created_at); %>
-      <p>Posted by <%=posts[i].author.email%> on <%=date.toDateString()%> at <%=date.toLocaleTimeString().slice(0, -3)%>.</p>
+      <p>Posted by <%=posts[i].author.name%> on <%=date.toDateString()%> at <%=date.toLocaleTimeString().slice(0, -3)%>.</p>
       <% if (user && user.type == "admin") { %>
         <p><a onclick="editPost(<%=posts[i].id%>)">edit post</a> | 
         <a href="/deletePosts?ids=<%=posts[i].id%>">delete post</a></p>

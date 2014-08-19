@@ -6,6 +6,14 @@
             <h2>Sign up</h2>
             <br>
             <form action="/register" method="post" role="form" id="registerForm">
+                <div class="form-group" id="firstNameGroup">
+                    <label class="control-label sr-only" for="name">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter First Name">
+                </div>
+                <div class="form-group" id="lastNameGroup">
+                    <label class="control-label sr-only" for="name">last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter last Name">
+                </div>
                 <div class="form-group" id="purdueEmailGroup">
                     <label class="control-label sr-only" for="purdueEmail">Email</label>
                     <input type="email" class="form-control" id="purdueEmail" name="email" placeholder="Enter Purdue email">
@@ -50,6 +58,21 @@
         $(".has-error").each(function(i, v) {removeError(v)});
         errors = [];
 
+        // validate first name 
+        if ($("#firstName").val().trim() == "") {
+            var msg = "Please enter your first name";
+            addError($("#firstName"));
+            addAlert(msg);
+            valid = false;
+        }
+
+        // validate last name 
+        if ($("#lastName").val().trim() == "") {
+            var msg = "Please enter your last name";
+            addError($("#lastName"));
+            addAlert(msg);
+            valid = false;
+        }
 
         // validate purdue email
         if ($("#purdueEmail").val().trim() == "") {

@@ -2,7 +2,8 @@
 <% if (user) { %>
 <div id="container">
     <div id="page-profile" class="page">
-      <h2>Welcome, <%= user.email %></h2>
+      <h2>Welcome, <%= user.name %></h2>
+      <p class="page-description">Points: <%= points %></p>
       <p class="page-description">Edit your profile and stuff.</p>
     </div>
 </div>

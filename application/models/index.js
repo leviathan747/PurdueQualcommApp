@@ -3,7 +3,7 @@ var path = require('path');
 var Sequelize = require('sequelize');
 var mysequelize = null;
 var db = {};
- 
+
 var sequelize = function(config, callback) {
     if (mysequelize == null)
         mysequelize = new Sequelize(config.database, config.username, config.password, { dialect: config.dialect, port: config.port, host: config.host });
@@ -17,9 +17,17 @@ var sequelize = function(config, callback) {
 
     // associations
     db.Question.hasMany(db.Answer);
+    db.Answer.belongsTo(db.Question);
+
     db.User.hasMany(db.Answer);
+    db.Answer.belongsTo(db.User);
 
     db.Post.belongsTo(db.User, {as: "Author"});
+
+    // Hooks
+    var trivia = require('../routes/triviaUtils');
+    db.Answer.afterCreate(trivia.addPoints);
+    db.Answer.afterDestroy(trivia.removePoints);
 
     mysequelize.sync().complete(callback);
     //mysequelize.sync({force: true}).complete(callback);
