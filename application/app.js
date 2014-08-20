@@ -94,6 +94,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/events', pages.events);
             app.get('/tech', pages.tech);
             app.get('/trivia', isLoggedIn, pages.trivia);
+            app.get('/trivia/leaderboard', isLoggedIn, pages.leaderboard);
             app.get('/trivia/:id', isLoggedIn, pages.triviaQuestion);
             app.get('/connect', isLoggedIn, pages.connect);
             app.get('/profile', isLoggedIn, pages.profile);
