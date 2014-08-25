@@ -132,6 +132,20 @@ h1, h2 {
   padding-top: 4px;
 }
 
+.events-header {
+  float: left;
+}
+
+.new-post {
+  float: right;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.cancel-post {
+  margin-left: 10px;
+}
+
 @media(max-width:768px) {
   .header {
     height: 50px;
