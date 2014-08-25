@@ -65,32 +65,36 @@
 
 <% if (user && user.type == "admin") { %>
   <div id="editForm" class="col-xs-12 hidden">
-    <div class="panel panel-primary">
-      <h2>Edit Post</h2>
-      <br>
-      <form action="/updatePost" method="post" role="form">
-        <div class="form-group hidden">
-          <label class="control-label" for="editId">Id</label>
-          <input class="form-control" id="editId" name="id">
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="editTitleInput">Title</label>
-          <input class="form-control" id="editTitleInput" name="title" placeholder="Post title">
-        </div>
-        <div class="form-group">
-          <label class="control-label" for="editTextInput">Post Body</label>
-          <textarea class="form-control" id="editTextInput" name="text" placeholder="Type your post..." rows="3"></textarea>
-        </div>
-        <div class="btn-group">
-          <button type="submit" class="btn btn-primary">Update Post</button>
-          <button type="button" id="cancelEdit" class="btn btn-default">Cancel</button>
-        </div>
-        <div class="form-group" id="alerts">
-          <% if (message) { %>
-            <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
-          <% } %>
-        </div>
-      </form>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Edit Post</h3>
+      </div>
+
+      <div class="panel-body">
+        <form action="/updatePost" method="post" role="form">
+          <div class="form-group hidden">
+            <label class="control-label" for="editId">Id</label>
+            <input class="form-control" id="editId" name="id">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="editTitleInput">Title</label>
+            <input class="form-control" id="editTitleInput" name="title" placeholder="Post title">
+          </div>
+          <div class="form-group">
+            <label class="control-label" for="editTextInput">Post Body</label>
+            <textarea class="form-control" id="editTextInput" name="text" placeholder="Type your post..." rows="3"></textarea>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary">Update Post</button>
+            <button type="button" id="cancelEdit" class="btn btn-default">Cancel</button>
+          </div>
+          <div class="form-group" id="alerts">
+            <% if (message) { %>
+              <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+            <% } %>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 <% } %>
@@ -113,6 +117,7 @@
     $("#createForm").addClass("hidden");
     var postId = "#post-" + id;
     $(postId).addClass("hidden");
+    $("#editForm")
   }
 
   // cancel edit
