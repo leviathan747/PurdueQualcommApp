@@ -64,6 +64,26 @@ exports.trivia = function(req, res){
     });
 }
 
+// return leaderboard object
+exports.getLeaderboard = function(req, res) {
+    triviaUtils.getLeaderboard(req.session.user, function(users, rank, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.write(JSON.stringify(err));
+            res.end();
+            return;
+        }
+
+        var leaderboard = {
+            users: users,
+            rank: rank
+        }
+
+        res.write(JSON.stringify(leaderboard));
+        res.end();
+    });
+}
+
 // render a trivia question page
 exports.triviaQuestion = function(req, res){
     // "/trivia/<id>

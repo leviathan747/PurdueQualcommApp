@@ -230,7 +230,31 @@ var getPoints = function(user, callback) {
         callback(user.points, null);
     })
     .error(function(err) {
-        calback(null, err);
+        callback(null, err);
+    });
+}
+
+// get leaderboard returns all users who are students ranked in order of points
+// also returns the current user's ranking
+var getLeaderboard = function(user, callback) {
+    db.User.findAll({where: {type: "student"}, order: "`points` DESC"})
+    .success(function(users) {
+        var rank = 1;
+        var tied = false;
+        var i = 0;
+        while (users[i].id != user.id && user.type == "student") {
+            tied = (i > 0 && users[i-1].points == users[i].points) 
+            if (!tied) rank++;
+            i++;
+        }
+
+        // add tie
+        if (tied) rank += "T";
+
+        callback(users, rank, null);
+    })
+    .error(function(err) {
+        callback(null, null, err);
     });
 }
 
@@ -247,5 +271,6 @@ module.exports = {
     checkAnswer: checkAnswer,
     formatQuestion: formatQuestion,
     formatQuestions: formatQuestions,
-    getPoints: getPoints
+    getPoints: getPoints,
+    getLeaderboard: getLeaderboard
 }
