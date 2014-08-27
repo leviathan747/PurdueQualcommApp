@@ -158,3 +158,9 @@ exports.login = function(req, res){
     res.render('login.ejs', context);
     res.end();
 }
+
+// render the video wall page
+exports.videoWall = function(req, res) {
+    res.render('videowall.ejs', {layout: false});
+    res.end();
+}
