@@ -23,9 +23,9 @@ exports.register = function(req, res) {
                         } else {
                           res.redirect('/profile');                  // redirect to profile page
                         }
-                        // TODO send an email with this link
-                        // 'purduequalcomm.com/validateEmail?token=' + user.email_token;
+                        // Note, order on these next two is very important
                         user.generateEmailToken();
+                        user.sendRegistrationEmail();
                         req.session.originalTarget = null;
                         res.end();
                     })

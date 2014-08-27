@@ -1,21 +1,22 @@
-var express = require('express');
-var partials = require('express-partials');
-var path = require('path');
-var fs = require('fs');
-var db = require('./models');
-var Encoder = require('node-html-encoder').Encoder;
+var express    = require('express');
+var partials   = require('express-partials');
+var path       = require('path');
+var fs         = require('fs');
+var db         = require('./models');
+var Encoder    = require('node-html-encoder').Encoder;
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var http = require('http');
-var logger = require('morgan');
+var session    = require('express-session');
+var http       = require('http');
+var logger     = require('morgan');
+var sendgrid   = require('sendgrid')('kirbyk', 'DYP*mYL&i1');
 
 var pages      = require('./routes/index');
 var controller = require('./routes/controller');
-var register = require('./routes/register');
-var posts = require('./routes/posts');
+var register   = require('./routes/register');
+var posts      = require('./routes/posts');
 
-var config = null;
-var app = express();
+var config     = null;
+var app        = express();
 
 // check if logged in
 function isLoggedIn(req, res, next) {
