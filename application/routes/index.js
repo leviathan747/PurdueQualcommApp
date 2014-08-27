@@ -64,6 +64,16 @@ exports.trivia = function(req, res){
     });
 }
 
+// render the trivia leaderboard page
+exports.leaderboard = function(req, res){
+    var context = {
+        user: req.session.user
+    }
+
+    res.render('trivia_leaderboard.ejs', context);
+    res.end();
+}
+
 // render a trivia question page
 exports.triviaQuestion = function(req, res){
     // "/trivia/<id>
