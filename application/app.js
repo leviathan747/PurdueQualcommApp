@@ -13,6 +13,7 @@ var pages      = require('./routes/index');
 var controller = require('./routes/controller');
 var register = require('./routes/register');
 var posts = require('./routes/posts');
+var trivia = require('./routes/triviaUtils');
 
 var config = null;
 var app = express();
@@ -105,6 +106,8 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/getPosts', posts.getPosts);
             app.get('/deletePosts', posts.deletePosts);
 
+            app.get('/getLeaderboard', trivia.getLeaderboardRequest);
+            app.get('/videoWall', pages.videoWall);
 
             // post requests
             app.post('/login', register.login);

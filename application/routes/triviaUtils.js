@@ -230,7 +230,45 @@ var getPoints = function(user, callback) {
         callback(user.points, null);
     })
     .error(function(err) {
-        calback(null, err);
+        callback(null, err);
+    });
+}
+
+// get leaderboard returns all users who are students ranked in order of points
+var getLeaderboard = function(limit, callback) {
+    if (!limit) limit = 1000;
+    db.User.findAll({where: {type: "student"}, order: "`points` DESC", limit: limit})
+    .success(function(users) {
+        var rank = 1;
+        var tied = false;
+        for (var i = 0; i < users.length; i++) {
+            tied = (i > 0 && users[i-1].points == users[i].points) 
+            if (!tied) users[i].dataValues.rank = rank++;
+            else {
+                users[i].dataValues.rank = users[i-1].dataValues.rank + "T";
+                users[i-1].dataValues.rank += "T";
+            }
+        }
+
+        callback(users, null);
+    })
+    .error(function(err) {
+        callback(null, err);
+    });
+}
+
+var getLeaderboardRequest = function(req, res) {
+    var limit = req.query.limit;
+    getLeaderboard(limit, function(leaders, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.write(JSON.stringify(err));
+            res.end();
+            return;
+        }
+
+        res.write(JSON.stringify(leaders));
+        res.end();
     });
 }
 
@@ -247,5 +285,7 @@ module.exports = {
     checkAnswer: checkAnswer,
     formatQuestion: formatQuestion,
     formatQuestions: formatQuestions,
-    getPoints: getPoints
+    getPoints: getPoints,
+    getLeaderboard: getLeaderboard,
+    getLeaderboardRequest: getLeaderboardRequest
 }
