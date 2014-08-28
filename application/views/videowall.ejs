@@ -59,31 +59,6 @@
                             </tr>
                         </thead>
                         <tbody id="table_body" class="table-hover">
-                            <tr>
-                                <td>1</td>
-                                <td>Levi Starrett</td>
-                                <td>10</td>
-                            </tr>
-                            <tr>
-                                <td>2T</td>
-                                <td>Clyde Byrd III</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>2T</td>
-                                <td>Scott Opell</td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Andres Bravo</td>
-                                <td>7</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>Jake Stevens</td>
-                                <td>5</td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -112,4 +87,25 @@
     </div>
     </div>
   </body>
+
+  <script>
+    $(document).ready(function() {
+
+        function refreshLeaderboard() {
+            $.get("/getLeaderboard", {limit: 5}, function(leaders) {
+                $("#table_body").empty();       // clear table
+                for (var i = 0; i < leaders.length; i++) {
+                    $("#table_body").append("<tr><td>" + leaders[i].rank + "</td><td>" + leaders[i].name + "</td><td>" + leaders[i].points + "</td></tr>");
+                }
+            }, "json");
+        }
+
+        refreshLeaderboard();
+        // refresh leaderboard every 10 minutes
+        setInterval(function() {
+            refreshLeaderboard();
+        }, 600000);
+
+    });
+  </script>
 </html>

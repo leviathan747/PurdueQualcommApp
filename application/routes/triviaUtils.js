@@ -243,10 +243,10 @@ var getLeaderboard = function(limit, callback) {
         var tied = false;
         for (var i = 0; i < users.length; i++) {
             tied = (i > 0 && users[i-1].points == users[i].points) 
-            if (!tied) users[i].rank = rank++;
+            if (!tied) users[i].dataValues.rank = rank++;
             else {
-                users[i].rank = users[i-1].rank + "T";
-                users[i-1].rank += "T";
+                users[i].dataValues.rank = users[i-1].dataValues.rank + "T";
+                users[i-1].dataValues.rank += "T";
             }
         }
 
@@ -254,6 +254,21 @@ var getLeaderboard = function(limit, callback) {
     })
     .error(function(err) {
         callback(null, err);
+    });
+}
+
+var getLeaderboardRequest = function(req, res) {
+    var limit = req.query.limit;
+    getLeaderboard(limit, function(leaders, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.write(JSON.stringify(err));
+            res.end();
+            return;
+        }
+
+        res.write(JSON.stringify(leaders));
+        res.end();
     });
 }
 
@@ -271,5 +286,6 @@ module.exports = {
     formatQuestion: formatQuestion,
     formatQuestions: formatQuestions,
     getPoints: getPoints,
-    getLeaderboard: getLeaderboard
+    getLeaderboard: getLeaderboard,
+    getLeaderboardRequest: getLeaderboardRequest
 }
