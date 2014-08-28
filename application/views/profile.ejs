@@ -5,6 +5,16 @@
       <h2>Welcome, <%= user.name %></h2>
       <p class="page-description">Points: <%= points %></p>
       <p class="page-description">Edit your profile and stuff.</p>
+      <button type="button" class="btn btn-primary" id="btn">Get Leaderboard</button>
     </div>
 </div>
+<script>
+
+    $("#btn").click(function() {
+        $.get("/getLeaderboard", null, function(leaderboard) {
+            console.log(leaderboard.users, leaderboard.rank);
+        }, "json");
+    });
+
+</script>
 <% } %>

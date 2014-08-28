@@ -107,7 +107,6 @@ fs.readFile("config.json", 'utf8', function(err, data) {
 
             app.get('/videoWall', pages.videoWall);
 
-
             // post requests
             app.post('/login', register.login);
             app.post('/register', register.register);
