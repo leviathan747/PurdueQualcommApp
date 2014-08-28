@@ -66,12 +66,21 @@ exports.trivia = function(req, res){
 
 // render the trivia leaderboard page
 exports.leaderboard = function(req, res){
-    var context = {
-        user: req.session.user
-    }
+    triviaUtils.getLeaderboard(null, function(users, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.redirect("/trivia");
+            return;
+        }
 
-    res.render('trivia_leaderboard.ejs', context);
-    res.end();
+        var context = {
+            user: req.session.user,
+            users: users
+        }
+
+        res.render('trivia_leaderboard.ejs', context);
+        res.end();
+    });
 }
 
 // render a trivia question page

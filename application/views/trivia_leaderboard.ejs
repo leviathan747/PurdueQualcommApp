@@ -2,31 +2,15 @@
 <a href="/trivia">Back</a>
 <h2>Leaderboard</h2>
 <table class="table table-striped">
+  <th>Rank</th>
   <th>Name</th>
   <th>Score</th>
 
-  <tr>
-    <td>Kirby Kohlmorgen</td>
-    <td>23</td>
-  </tr>
-  <tr>
-    <td>Kirby Kohlmorgen</td>
-    <td>23</td>
-  </tr>
-  <tr>
-    <td>Kirby Kohlmorgen</td>
-    <td>23</td>
-  </tr>
-  <tr>
-    <td>Kirby Kohlmorgen</td>
-    <td>23</td>
-  </tr>
-  <tr>
-    <td>Kirby Kohlmorgen</td>
-    <td>23</td>
-  </tr>
-  <tr>
-    <td>Kirby Kohlmorgen</td>
-    <td>23</td>
-  </tr>
+  <% for (var i = 0; i < users.length; i++) { %>
+    <tr>
+      <td><%=users[i].dataValues.rank%></td>
+      <td><%=users[i].name%></td>
+      <td><%=users[i].points%></td>
+    </tr>
+  <% } %>
 </table>
