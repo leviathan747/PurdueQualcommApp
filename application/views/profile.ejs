@@ -1,10 +1,35 @@
-<% include navigation.ejs %>
 <% if (user) { %>
-<div id="container">
-    <div id="page-profile" class="page">
-      <h2>Welcome, <%= user.name %></h2>
-      <p class="page-description">Points: <%= points %></p>
-      <p class="page-description">Edit your profile and stuff.</p>
+<h2>Your Profile</h2>
+<div class="col-xs-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <form action="#" method="post" role="form">
+        <div class="form-group">
+          <label class="control-label" for="nameInput">Name</label>
+          <input class="form-control" id="nameInput" name="name" placeholder="<%= user.name %>">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="emailInput">Email</label>
+          <input class="form-control" id="emailInput" name="email" type="email" disabled="disabled" placeholder="<%= user.email %>">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="pointsInput">Trivia Points</label>
+          <input class="form-control" id="triviaInput" name="points" disabled="disabled" placeholder="<%= points %>">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="passwordInput">New Password</label>
+          <input class="form-control" id="passwordInput" name="password" type="password" placeholder="password">
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="passwordConfirmInput">Password Confirm</label>
+          <input class="form-control" id="passwordConfirmInput" name="passwordConfirm" type="password" placeholder="password">
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Update Profile</button>
+          <button type="submit" class="btn btn-default">Cancel</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
 <% } %>

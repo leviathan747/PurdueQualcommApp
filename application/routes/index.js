@@ -64,6 +64,25 @@ exports.trivia = function(req, res){
     });
 }
 
+// render the trivia leaderboard page
+exports.leaderboard = function(req, res){
+    triviaUtils.getLeaderboard(null, function(users, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.redirect("/trivia");
+            return;
+        }
+
+        var context = {
+            user: req.session.user,
+            users: users
+        }
+
+        res.render('trivia_leaderboard.ejs', context);
+        res.end();
+    });
+}
+
 // render a trivia question page
 exports.triviaQuestion = function(req, res){
     // "/trivia/<id>
@@ -156,5 +175,11 @@ exports.login = function(req, res){
     req.session.message = null;
 
     res.render('login.ejs', context);
+    res.end();
+}
+
+// render the video wall page
+exports.videoWall = function(req, res) {
+    res.render('videowall.ejs', {layout: false});
     res.end();
 }
