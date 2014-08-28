@@ -104,9 +104,6 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/getPosts', posts.getPosts);
             app.get('/deletePosts', posts.deletePosts);
 
-            app.get('/getLeaderboard', pages.getLeaderboard);
-
-
             // post requests
             app.post('/login', register.login);
             app.post('/register', register.register);
