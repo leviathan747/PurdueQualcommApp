@@ -148,3 +148,34 @@ exports.login = function(req, res){
     res.render('login.ejs', context);
     res.end();
 }
+
+// render the forgotPassword page
+// GET '/forgotPassword'
+exports.forgotPassword = function(req, res){
+    var context = {
+        user: req.session.user,
+        message: req.session.message
+    }
+
+    req.session.message = null;
+
+    res.render('forgotpassword.ejs', context);
+    res.end();
+}
+
+// render the forgotPassword page
+exports.resetPassword = function(req, res){
+    var token = req.query.token.trim();
+    var context = {
+        user:          req.session.user,
+        message:       req.session.message,
+        target_email:  PasswordReset.find( {where: { token: token} }).user.email,
+        token:         token
+    }
+
+
+    req.session.message = null;
+
+    res.render('resetpassword.ejs', context);
+    res.end();
+}

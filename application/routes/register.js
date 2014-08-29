@@ -105,3 +105,50 @@ exports.logout = function(req, res) {
     req.session.user = null;
     res.redirect('/');
 }
+
+// POST '/forgotPassword'
+exports.genPasswordReset = function(req, res) {
+    var email_requested = req.body.email.trim();
+
+    db.User.find({where: {email: email_requested}})
+      .success(function(user){
+          var crypto = require('crypto');
+          var token;
+          var tryResetToken = function(){
+              token = crypto.randomBytes(48).toString('hex');
+              PasswordReset.find( {where: { token: token} })
+                .success( function(){
+                    // we found a password reset with this token, so try again
+                    tryResetToken();
+                })
+                .error( function(){
+                    // an error in this case actually means that this
+                    // token doesn't exist in the DB, so this is the one we use
+                    // this return acts as a continue into the function
+                    return;
+                });
+          }();
+
+          PasswordReset.create( {user_id: user.id, token: token} )
+            .success(function(password_reset){
+                user.dataValues.password_reset_id = password_reset.id;
+                password_reset.sendEmail();
+                user.save();
+            });
+          req.session.message = 'Password reset sent, please check your email';
+          res.redirect('/');
+          res.end();
+      })
+}
+
+// POST '/passwordReset'
+exports.setNewPassword = function(req, res) {
+    PasswordReset.find( {where: { token: token} })
+      .success( function(passwordReset){
+          var user = db.User.find({where: {id: passwordReset.user_id}});
+          ;// do more shit
+      })
+      req.session.message = 'Password Reset, try logging in again';
+      res.redirect('/login');
+      res.end();
+}

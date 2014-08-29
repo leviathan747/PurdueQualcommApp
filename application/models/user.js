@@ -18,7 +18,7 @@ module.exports = function(sequelize, DataTypes) {
                 timestamps:       false,
                 underscored:      true,
                 instanceMethods:  {
-                    sendRegistrationEmail: function(){
+                    sendRegistrationEmail: function(req, res){
                         var token     = this.dataValues.email_token;
                         var url       = 'http://' + req.headers.host + '/';
                         var path      = url + 'validateEmail?token=' + token;

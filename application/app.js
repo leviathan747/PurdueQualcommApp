@@ -106,7 +106,6 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/getPosts'        , posts.getPosts);
             app.get('/deletePosts'     , posts.deletePosts);
 
-
             // post requests
             app.post('/login'          , register.login);
             app.post('/register'       , register.register);
@@ -115,6 +114,19 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.post('/createPost'     , posts.createPost);
             app.post('/updatePost'     , posts.updatePost);
             app.post('/answerQuestion' , isLoggedIn              , controller.answerQuestion);
+
+            // initial page in forgot password flow, they enter emails here
+            app.get('/forgotPassword'  , pages.forgotPassword);
+
+            // the email form submits to here, this generates a token
+            // and sends the email
+            app.post('/forgotPassword' , register.genPasswordReset);
+
+            // the email link sends them here
+            app.get('/passwordReset'   , pages.resetPassword);
+
+            // the email reset form (above) posts to here
+            app.post('/passwordReset'  , register.setNewPassword);
 
             http.createServer(app).listen(app.get('port'), function(){
                 console.log('Express server listening on port ' + app.get('port'))
