@@ -1,3 +1,5 @@
+var sendgrid  = require('sendgrid')('kirbyk', 'DYP*mYL&i1');
+
 module.exports = function(sequelize, DataTypes) {
     var PasswordReset = sequelize.define('PasswordReset',
             {
@@ -11,7 +13,7 @@ module.exports = function(sequelize, DataTypes) {
                 timestamps:       false,
                 underscored:      true,
                 instanceMethods:  {
-                    sendEmail: function(){
+                    sendEmail: function(req, res){
                         var token     = this.dataValues.token;
                         var url       = 'http://' + req.headers.host + '/';
                         var path      = url + 'passwordReset?token=' + token;

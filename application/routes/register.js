@@ -25,7 +25,7 @@ exports.register = function(req, res) {
                         }
                         // Note, order on these next two is very important
                         user.generateEmailToken();
-                        user.sendRegistrationEmail();
+                        user.sendRegistrationEmail(req, res);
                         req.session.originalTarget = null;
                         res.end();
                     })
@@ -116,23 +116,22 @@ exports.genPasswordReset = function(req, res) {
           var token;
           var tryResetToken = function(){
               token = crypto.randomBytes(48).toString('hex');
-              PasswordReset.find( {where: { token: token} })
-                .success( function(){
+              db.PasswordReset.find( {where: { token: token} })
+                .success( function(reset){
+                    if (!reset) return;
+
                     // we found a password reset with this token, so try again
                     tryResetToken();
                 })
-                .error( function(){
-                    // an error in this case actually means that this
-                    // token doesn't exist in the DB, so this is the one we use
-                    // this return acts as a continue into the function
-                    return;
+                .error( function(err){
+                    console.log(JSON.stringify(err));
                 });
           }();
 
-          PasswordReset.create( {user_id: user.id, token: token} )
+          db.PasswordReset.create( {user_id: user.id, token: token} )
             .success(function(password_reset){
                 user.dataValues.password_reset_id = password_reset.id;
-                password_reset.sendEmail();
+                password_reset.sendEmail(req, res);
                 user.save();
             });
           req.session.message = 'Password reset sent, please check your email';
@@ -143,7 +142,7 @@ exports.genPasswordReset = function(req, res) {
 
 // POST '/passwordReset'
 exports.setNewPassword = function(req, res) {
-    PasswordReset.find( {where: { token: token} })
+    db.PasswordReset.find( {where: { token: token} })
       .success( function(passwordReset){
           var user = db.User.find({where: {id: passwordReset.user_id}});
           ;// do more shit
