@@ -204,28 +204,19 @@ exports.forgotPassword = function(req, res){
 // render the resetPassword page
 exports.resetPassword = function(req, res){
     var token = req.query.token.trim();
-    db.PasswordReset.find( {where: {token: token} })
-      .success(function(password_reset){
-          password_reset.getUser()
-            .success(function(user){
-                var context = {
-                    user:          req.session.user,
-                    infoMessage:   req.session.infoMessage,
-                    message:       req.session.message,
-                    target_email:  user.dataValues.email,
-                    token:         token
-                }
+    var context = {
+        user:          req.session.user,
+        infoMessage:   req.session.infoMessage,
+        message:       req.session.message,
+        token:         token
+    }
 
 
-                req.session.message = null;
-                req.session.infoMessage = null;
+    req.session.message = null;
+    req.session.infoMessage = null;
 
-                res.render('resetpassword.ejs', context);
-                res.end();
-
-            });
-
-      });
+    res.render('resetpassword.ejs', context);
+    res.end();
 }
 
 // render the video wall page

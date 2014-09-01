@@ -157,44 +157,64 @@ exports.genPasswordReset = function(req, res) {
     var email_requested = req.body.email.trim();
 
     db.User.find({where: {email: email_requested}})
-      .success(function(user){
-          var crypto     = require('crypto');
-          var token      = crypto.randomBytes(48).toString('hex');
-          var unusedToken = false;
-          while(!unusedToken){
-              db.PasswordReset.find( {where: { token: token} })
-                .success( function(reset){
-                    // we found a password reset with this token, so try again
-                    token = crypto.randomBytes(48).toString('hex');
-                    unusedToken = false;
-                })
-                .error( function(){
-                    // an error in this case actually means that this
-                    // token doesn't exist in the DB, so this is the one we use
-                    unusedToken = true;
-                });
-                // don't know how to get this loop properly working with
-                // the callback hell going on here
-                // TODO figure out a good way to remove the below line
-                unusedToken = true;
-          }
+    .success(function(user) {
+        db.PasswordReset.findAll()
+        .success(function(resets) {
+            var crypto     = require('crypto');
+            var token      = crypto.randomBytes(48).toString('hex');
+            var unusedToken = false;
+            while (!unusedToken) {
+                unusedToken = true;                           // assume that the token will be unused
+                for (var i = 0; i < resets.length; i++) {
+                    if (resets.token == token) {
+                        unusedToken = false;                  // if we see it in the resets, mark it as used
+                        break;                                // break out of for loop
+                    }
+                }
+                token = crypto.randomBytes(48).toString('hex');
+            }
 
-          db.PasswordReset.create( {userId: user.dataValues.id, token: token} )
-          // couldn't figure out how to get a Promise object, so I chained them
-          // its gross and there's a better way to do this
-            .success(function(password_reset){
+            db.PasswordReset.create( {userId: user.dataValues.id, token: token} )
+            .success(function(password_reset) {
                 user.setPasswordReset(password_reset)
-                  .success(function(){
-                      password_reset.setUser(user)
-                        .success(function(){
-                            password_reset.sendEmail(req, res);
-                        });
-                  });
+                .success(function() {
+                    password_reset.setUser(user)
+                    .success(function(){
+                        console.log('here');
+                        password_reset.sendEmail(req, res);
+                        req.session.infoMessage = 'Password reset sent, please check your email';
+                        res.redirect('/');
+                        res.end();
+                    })
+                    .error(function(err) {
+                        console.log(JSON.stringify(err));
+                        res.write(JSON.stringify(err));
+                        res.end();
+                    });
+                })
+                .error(function(err) {
+                    console.log(JSON.stringify(err));
+                    res.write(JSON.stringify(err));
+                    res.end();
+                });
+            })
+            .error(function(err) {
+                console.log(JSON.stringify(err));
+                res.write(JSON.stringify(err));
+                res.end();
             });
-          req.session.infoMessage = 'Password reset sent, please check your email';
-          res.redirect('/');
-          res.end();
-      })
+        })
+        .error(function(err) {
+            console.log(JSON.stringify(err));
+            res.write(JSON.stringify(err));
+            res.end();
+        });
+    })
+    .error(function(err) {
+        console.log(JSON.stringify(err));
+        res.write(JSON.stringify(err));
+        res.end();
+    });
 }
 
 // POST '/passwordReset'
