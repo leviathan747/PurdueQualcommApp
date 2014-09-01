@@ -118,13 +118,14 @@ exports.genPasswordReset = function(req, res) {
               token = crypto.randomBytes(48).toString('hex');
               db.PasswordReset.find( {where: { token: token} })
                 .success( function(reset){
-                    if (!reset) return;
-
                     // we found a password reset with this token, so try again
                     tryResetToken();
                 })
-                .error( function(err){
-                    console.log(JSON.stringify(err));
+                .error( function(){
+                    // an error in this case actually means that this
+                    // token doesn't exist in the DB, so this is the one we use
+                    // this return acts as a continue into the function
+                    return;
                 });
           }();
 
