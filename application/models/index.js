@@ -29,6 +29,9 @@ var sequelize = function(config, callback) {
 
     db.Post.belongsTo(db.User, {as: "Author"});
 
+    db.User.hasOne(db.PasswordReset);
+    db.PasswordReset.belongsTo(db.User);
+
     mysequelize.sync().complete(callback);
     //mysequelize.sync({force: true}).complete(callback);
 }

@@ -163,19 +163,27 @@ exports.forgotPassword = function(req, res){
     res.end();
 }
 
-// render the forgotPassword page
+// render the resetPassword page
 exports.resetPassword = function(req, res){
     var token = req.query.token.trim();
-    var context = {
-        user:          req.session.user,
-        message:       req.session.message,
-        target_email:  PasswordReset.find( {where: { token: token} }).user.email,
-        token:         token
-    }
+    db.PasswordReset.find( {where: {token: token} })
+      .success(function(password_reset){
+          password_reset.getUser()
+            .success(function(user){
+                var context = {
+                    user:          req.session.user,
+                    message:       req.session.message,
+                    target_email:  user.dataValues.email,
+                    token:         token
+                }
 
 
-    req.session.message = null;
+                req.session.message = null;
 
-    res.render('resetpassword.ejs', context);
-    res.end();
+                res.render('resetpassword.ejs', context);
+                res.end();
+
+            });
+
+      });
 }

@@ -85,9 +85,9 @@ exports.login = function(req, res) {
                 else {
                     req.session.user = user.dataValues;          // set session user
                     if (req.session.originalTarget){
-                      res.redirect(req.session.originalTarget);  // redirect to where they wanted to go
+                        res.redirect(req.session.originalTarget);  // redirect to where they wanted to go
                     } else {
-                      res.redirect('/profile');                  // redirect to profile page
+                        res.redirect('/profile');                  // redirect to profile page
                     }
                     req.session.originalTarget = null;
                     res.end();
@@ -112,28 +112,38 @@ exports.genPasswordReset = function(req, res) {
 
     db.User.find({where: {email: email_requested}})
       .success(function(user){
-          var crypto = require('crypto');
-          var token;
-          var tryResetToken = function(){
-              token = crypto.randomBytes(48).toString('hex');
+          var crypto     = require('crypto');
+          var token      = crypto.randomBytes(48).toString('hex');
+          var unusedToken = false;
+          while(!unusedToken){
               db.PasswordReset.find( {where: { token: token} })
                 .success( function(reset){
                     // we found a password reset with this token, so try again
-                    tryResetToken();
+                    token = crypto.randomBytes(48).toString('hex');
+                    unusedToken = false;
                 })
                 .error( function(){
                     // an error in this case actually means that this
                     // token doesn't exist in the DB, so this is the one we use
-                    // this return acts as a continue into the function
-                    return;
+                    unusedToken = true;
                 });
-          }();
+                // don't know how to get this loop properly working with
+                // the callback hell going on here
+                // TODO figure out a good way to remove the below line
+                unusedToken = true;
+          }
 
-          db.PasswordReset.create( {user_id: user.id, token: token} )
+          db.PasswordReset.create( {userId: user.dataValues.id, token: token} )
+          // couldn't figure out how to get a Promise object, so I chained them
+          // its gross and there's a better way to do this
             .success(function(password_reset){
-                user.dataValues.password_reset_id = password_reset.id;
-                password_reset.sendEmail(req, res);
-                user.save();
+                user.setPasswordReset(password_reset)
+                  .success(function(){
+                      password_reset.setUser(user)
+                        .success(function(){
+                            password_reset.sendEmail(req, res);
+                        });
+                  });
             });
           req.session.message = 'Password reset sent, please check your email';
           res.redirect('/');
@@ -143,11 +153,33 @@ exports.genPasswordReset = function(req, res) {
 
 // POST '/passwordReset'
 exports.setNewPassword = function(req, res) {
+    console.log(req.body);
+    var token                 = req.body.token.trim();
+    var password              = req.body.password.trim();
+    var password_confirmation = req.body.password_confirmation.trim();
+
+    if (password !== password_confirmation){
+      req.session.message = "Passwords did not match, try again";
+      res.redirect(req.header('Referer') || '/');
+      res.end();
+    }
+
     db.PasswordReset.find( {where: { token: token} })
       .success( function(passwordReset){
-          var user = db.User.find({where: {id: passwordReset.user_id}});
-          ;// do more shit
-      })
+          passwordReset.getUser()
+            .success(function(user){
+                bcrypt.genSalt(10, function(err, salt) {
+                    bcrypt.hash(password, salt, function(err, hash) {
+                        // Store hash in your password DB.
+                        user.dataValues.password = hash;
+                        user.save()
+                          .error(function(err){
+                              console.log(JSON.stringify(err));
+                          });
+                    });
+                });
+            });
+      });
       req.session.message = 'Password Reset, try logging in again';
       res.redirect('/login');
       res.end();
