@@ -11,6 +11,9 @@ module.exports = function(sequelize, DataTypes) {
                 name:            DataTypes.STRING,
                 password:        DataTypes.STRING,
                 type:            DataTypes.STRING,
+                points:
+                  { type:          DataTypes.INTEGER,
+                    defaultValue:  0 },
                 email_verified:  DataTypes.BOOLEAN,
                 email_token:     DataTypes.STRING
             },

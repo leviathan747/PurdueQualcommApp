@@ -25,12 +25,21 @@ var sequelize = function(config, callback) {
 
     // associations
     db.Question.hasMany(db.Answer);
+    db.Answer.belongsTo(db.Question);
+
     db.User.hasMany(db.Answer);
+    db.Answer.belongsTo(db.User);
 
     db.Post.belongsTo(db.User, {as: "Author"});
 
     db.User.hasOne(db.PasswordReset);
     db.PasswordReset.belongsTo(db.User);
+
+    // Hooks
+    var trivia = require('../routes/triviaUtils');
+    db.Answer.afterCreate(trivia.addPoints);
+    db.Answer.afterDestroy(trivia.removePoints);
+
 
     mysequelize.sync().complete(callback);
     //mysequelize.sync({force: true}).complete(callback);
@@ -38,5 +47,5 @@ var sequelize = function(config, callback) {
 
 module.exports = {
     sequelize: sequelize,
-    db: db
+    db:        db
 }

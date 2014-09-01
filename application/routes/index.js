@@ -17,12 +17,14 @@ exports.events = function(req, res){
       }
 
       var context = {
-          user: req.session.user,
-          message: req.session.message,
-          posts: posts
+          user:         req.session.user,
+          message:      req.session.message,
+          infoMessage:  req.session.infoMessage,
+          posts:        posts
       }
 
       req.session.message = null;
+      req.session.infoMessage = null;
 
       res.render('events.ejs', context);
       res.end();
@@ -55,12 +57,31 @@ exports.trivia = function(req, res){
             }
 
             var context = {
-                user: req.session.user,
-                questions: formattedQuestions
+                user:       req.session.user,
+                questions:  formattedQuestions
             }
             res.render('trivia.ejs', context);
             res.end();
         });
+    });
+}
+
+// render the trivia leaderboard page
+exports.leaderboard = function(req, res){
+    triviaUtils.getLeaderboard(null, function(users, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.redirect("/trivia");
+            return;
+        }
+
+        var context = {
+            user:   req.session.user,
+            users:  users
+        }
+
+        res.render('trivia_leaderboard.ejs', context);
+        res.end();
     });
 }
 
@@ -92,9 +113,10 @@ exports.triviaQuestion = function(req, res){
                     res.redirect("/trivia");
                     return;
                 }
+
                 var context = {
-                    user: req.session.user,
-                    question: formattedQuestion
+                    user:      req.session.user,
+                    question:  formattedQuestion
                 }
                 res.render('trivia_question.ejs', context);
                 res.end();
@@ -115,22 +137,34 @@ exports.connect = function(req, res){
 
 // render the profile page
 exports.profile = function(req, res){
-    var context = {
-        user: req.session.user
-    }
+    triviaUtils.getPoints(req.session.user.id, function(points, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.write(JSON.stringify(err));
+            res.end();
+            return;
+        }
 
-    res.render('profile.ejs', context);
-    res.end();
+        var context = {
+            user:    req.session.user,
+            points:  points
+        }
+
+        res.render('profile.ejs', context);
+        res.end();
+    });
 }
 
 // render the register page
 exports.register = function(req, res){
     var context = {
-        user: req.session.user,
-        message: req.session.message
+        user:         req.session.user,
+        infoMessage:  req.session.infoMessage,
+        message:      req.session.message
     }
 
-    req.session.message = null;
+    req.session.message     = null;
+    req.session.infoMessage = null;
 
     res.render('register.ejs', context);
     res.end();
@@ -139,11 +173,13 @@ exports.register = function(req, res){
 // render the login page
 exports.login = function(req, res){
     var context = {
-        user: req.session.user,
-        message: req.session.message
+        user:         req.session.user,
+        infoMessage:  req.session.infoMessage,
+        message:      req.session.message
     }
 
-    req.session.message = null;
+    req.session.message     = null;
+    req.session.infoMessage = null;
 
     res.render('login.ejs', context);
     res.end();
@@ -153,11 +189,13 @@ exports.login = function(req, res){
 // GET '/forgotPassword'
 exports.forgotPassword = function(req, res){
     var context = {
-        user: req.session.user,
-        message: req.session.message
+        user:         req.session.user,
+        infoMessage:  req.session.infoMessage,
+        message:      req.session.message
     }
 
-    req.session.message = null;
+    req.session.message     = null;
+    req.session.infoMessage = null;
 
     res.render('forgotpassword.ejs', context);
     res.end();
@@ -172,6 +210,7 @@ exports.resetPassword = function(req, res){
             .success(function(user){
                 var context = {
                     user:          req.session.user,
+                    infoMessage:   req.session.infoMessage,
                     message:       req.session.message,
                     target_email:  user.dataValues.email,
                     token:         token
@@ -179,6 +218,7 @@ exports.resetPassword = function(req, res){
 
 
                 req.session.message = null;
+                req.session.infoMessage = null;
 
                 res.render('resetpassword.ejs', context);
                 res.end();
@@ -186,4 +226,10 @@ exports.resetPassword = function(req, res){
             });
 
       });
+}
+
+// render the video wall page
+exports.videoWall = function(req, res) {
+    res.render('videowall.ejs', {layout: false});
+    res.end();
 }
