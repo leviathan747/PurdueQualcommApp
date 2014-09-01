@@ -3,6 +3,12 @@
   <a href="#" onclick="newPost()"><span class="fa fa-pencil-square-o new-post"> New Post</span></a>
 <% } %>
 <div class="clearfix"></div>
+<% if (infoMessage) { %>
+<div class='alert alert-info' style='padding: 5px 10px; margin: 5px 0px'><%= infoMessage %></div>
+<% } %>
+<% if (message) { %>
+<div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+<% } %>
 <p class="page-description">What and where is going on!</p>
 
 <% if (user && user.type == "admin") { %>
