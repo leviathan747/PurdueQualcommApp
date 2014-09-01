@@ -204,19 +204,41 @@ exports.forgotPassword = function(req, res){
 // render the resetPassword page
 exports.resetPassword = function(req, res){
     var token = req.query.token.trim();
-    var context = {
-        user:          req.session.user,
-        infoMessage:   req.session.infoMessage,
-        message:       req.session.message,
-        token:         token
-    }
+
+    db.PasswordReset.find( {where: { token: token} })
+      .success( function(passwordReset){
+          var two_hours = 1000 * 60 * 60 * 2; // 1000 ms * 60 secs * 60 mins * 2hrs
+          var created   = Date.parse(passwordReset.dataValues.created_at);
+
+          if(created < Date.now() - two_hours){
+              console.log("too old");
+              req.session.message = "Password reset is no longer valid";
+              res.redirect('/forgotPassword');
+              res.end();
+              return;
+          }
+
+          if(passwordReset.dataValues.used){
+              console.log("already been used");
+              req.session.message = "Password reset has already been used";
+              res.redirect('/forgotPassword');
+              res.send();
+              return;
+          }
+          var context = {
+              user:          req.session.user,
+              infoMessage:   req.session.infoMessage,
+              message:       req.session.message,
+              token:         token
+          }
 
 
-    req.session.message = null;
-    req.session.infoMessage = null;
+          req.session.message = null;
+          req.session.infoMessage = null;
 
-    res.render('resetpassword.ejs', context);
-    res.end();
+          res.render('resetpassword.ejs', context);
+          res.end();
+      });
 }
 
 // render the video wall page

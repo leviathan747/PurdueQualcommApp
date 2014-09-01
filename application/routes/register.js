@@ -180,7 +180,6 @@ exports.genPasswordReset = function(req, res) {
                 .success(function() {
                     password_reset.setUser(user)
                     .success(function(){
-                        console.log('here');
                         password_reset.sendEmail(req, res);
                         req.session.infoMessage = 'Password reset sent, please check your email';
                         res.redirect('/');
@@ -219,15 +218,16 @@ exports.genPasswordReset = function(req, res) {
 
 // POST '/passwordReset'
 exports.setNewPassword = function(req, res) {
-    console.log(req.body);
     var token                 = req.body.token.trim();
     var password              = req.body.password.trim();
     var password_confirmation = req.body.password_confirmation.trim();
 
+
     if (password !== password_confirmation){
-      req.session.message = "Passwords did not match, try again";
-      res.redirect(req.header('Referer') || '/');
-      res.end();
+        req.session.message = "Passwords did not match, try again";
+        res.redirect(req.header('Referer') || '/');
+        res.end();
+        return;
     }
 
     db.PasswordReset.find( {where: { token: token} })
@@ -239,6 +239,13 @@ exports.setNewPassword = function(req, res) {
                         // Store hash in your password DB.
                         user.dataValues.password = hash;
                         user.save()
+                          .success(function(){
+                              passwordReset.dataValues.used = true;
+                              passwordReset.save()
+                                .error(function(err){
+                                    console.log(JSON.stringify(err));
+                                });
+                          })
                           .error(function(err){
                               console.log(JSON.stringify(err));
                           });

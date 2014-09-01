@@ -7,10 +7,14 @@ module.exports = function(sequelize, DataTypes) {
                   { type:           DataTypes.INTEGER,
                     primaryKey:     true,
                     autoIncrement:  true},
-                token:     DataTypes.STRING
+                used:
+                  {
+                      type:         DataTypes.BOOLEAN,
+                      defaultValue: false},
+                token:  DataTypes.STRING
             },
             {
-                timestamps:       false,
+                timestamps:       true,
                 underscored:      true,
                 instanceMethods:  {
                     sendEmail: function(req, res){
