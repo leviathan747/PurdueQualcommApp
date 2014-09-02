@@ -104,13 +104,6 @@ exports.login = function(req, res) {
     var email    = req.body.email && req.body.email.trim();
     var password = req.body.password && req.body.password.trim();
 
-    var errorMessage = validInput({email: email, password: password});
-    if(errorMessage !== '') {
-        req.session.loginMessage = errorMessage;
-        res.redirect('/login');
-        res.end();
-        return;
-    }
     // find user
     db.User.find({where: {email: email}})
     .success(function(user) {
