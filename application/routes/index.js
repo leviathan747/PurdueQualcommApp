@@ -17,12 +17,14 @@ exports.events = function(req, res){
       }
 
       var context = {
-          user: req.session.user,
-          message: req.session.message,
-          posts: posts
+          user:         req.session.user,
+          message:      req.session.message,
+          infoMessage:  req.session.infoMessage,
+          posts:        posts
       }
 
       req.session.message = null;
+      req.session.infoMessage = null;
 
       res.render('events.ejs', context);
       res.end();
@@ -55,8 +57,8 @@ exports.trivia = function(req, res){
             }
 
             var context = {
-                user: req.session.user,
-                questions: formattedQuestions
+                user:       req.session.user,
+                questions:  formattedQuestions
             }
             res.render('trivia.ejs', context);
             res.end();
@@ -66,12 +68,21 @@ exports.trivia = function(req, res){
 
 // render the trivia leaderboard page
 exports.leaderboard = function(req, res){
-    var context = {
-        user: req.session.user
-    }
+    triviaUtils.getLeaderboard(null, function(users, err) {
+        if (err) {
+            console.log(JSON.stringify(err));
+            res.redirect("/trivia");
+            return;
+        }
 
-    res.render('trivia_leaderboard.ejs', context);
-    res.end();
+        var context = {
+            user:   req.session.user,
+            users:  users
+        }
+
+        res.render('trivia_leaderboard.ejs', context);
+        res.end();
+    });
 }
 
 // render a trivia question page
@@ -102,9 +113,10 @@ exports.triviaQuestion = function(req, res){
                     res.redirect("/trivia");
                     return;
                 }
+
                 var context = {
-                    user: req.session.user,
-                    question: formattedQuestion
+                    user:      req.session.user,
+                    question:  formattedQuestion
                 }
                 res.render('trivia_question.ejs', context);
                 res.end();
@@ -134,8 +146,8 @@ exports.profile = function(req, res){
         }
 
         var context = {
-            user: req.session.user,
-            points: points
+            user:    req.session.user,
+            points:  points
         }
 
         res.render('profile.ejs', context);
@@ -146,11 +158,13 @@ exports.profile = function(req, res){
 // render the register page
 exports.register = function(req, res){
     var context = {
-        user: req.session.user,
-        message: req.session.message
+        user:         req.session.user,
+        infoMessage:  req.session.infoMessage,
+        message:      req.session.message
     }
 
-    req.session.message = null;
+    req.session.message     = null;
+    req.session.infoMessage = null;
 
     res.render('register.ejs', context);
     res.end();
@@ -159,12 +173,76 @@ exports.register = function(req, res){
 // render the login page
 exports.login = function(req, res){
     var context = {
-        user: req.session.user,
-        message: req.session.message
+        user:         req.session.user,
+        infoMessage:  req.session.infoMessage,
+        message:      req.session.message
     }
 
-    req.session.message = null;
+    req.session.message     = null;
+    req.session.infoMessage = null;
 
     res.render('login.ejs', context);
+    res.end();
+}
+
+// render the forgotPassword page
+// GET '/forgotPassword'
+exports.forgotPassword = function(req, res){
+    var context = {
+        user:         req.session.user,
+        infoMessage:  req.session.infoMessage,
+        message:      req.session.message
+    }
+
+    req.session.message     = null;
+    req.session.infoMessage = null;
+
+    res.render('forgotpassword.ejs', context);
+    res.end();
+}
+
+// render the resetPassword page
+exports.resetPassword = function(req, res){
+    var token = req.query.token.trim();
+
+    db.PasswordReset.find( {where: { token: token} })
+      .success( function(passwordReset){
+          var two_hours = 1000 * 60 * 60 * 2; // 1000 ms * 60 secs * 60 mins * 2hrs
+          var created   = Date.parse(passwordReset.dataValues.created_at);
+
+          if(created < Date.now() - two_hours){
+              console.log("too old");
+              req.session.message = "Password reset is no longer valid";
+              res.redirect('/forgotPassword');
+              res.end();
+              return;
+          }
+
+          if(passwordReset.dataValues.used){
+              console.log("already been used");
+              req.session.message = "Password reset has already been used";
+              res.redirect('/forgotPassword');
+              res.send();
+              return;
+          }
+          var context = {
+              user:          req.session.user,
+              infoMessage:   req.session.infoMessage,
+              message:       req.session.message,
+              token:         token
+          }
+
+
+          req.session.message = null;
+          req.session.infoMessage = null;
+
+          res.render('resetpassword.ejs', context);
+          res.end();
+      });
+}
+
+// render the video wall page
+exports.videoWall = function(req, res) {
+    res.render('videowall.ejs', {layout: false});
     res.end();
 }

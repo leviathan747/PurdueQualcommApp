@@ -15,19 +15,25 @@
     <div class="form-group">
         <div>Don't have an account? <a href="/register">Register</a></div>
     </div>
+    <div class="form-group">
+        <div><a href="/forgotpassword">Forgot your password?</a></div>
+    </div>
     <div class="form-group" id="alerts">
         <% if (message) { %>
         <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+        <% } %>
+        <% if (infoMessage) { %>
+        <div class='alert alert-info' style='padding: 5px 10px; margin: 5px 0px'><%= infoMessage %></div>
         <% } %>
     </div>
 </form>
 
 <script>
 
-    var email = /^[a-zA-Z0-9_]+@purdue\.edu$/;
+    var email = /^[a-zA-Z0-9_+.]+@purdue\.edu$/;
     var pass_len = 0;
     var errors = [];
-    
+
     $("#loginForm").submit(function(e) {
         // VALIDATION
         var valid = true;
