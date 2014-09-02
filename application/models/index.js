@@ -42,7 +42,7 @@ var sequelize = function(config, callback) {
 
 
     mysequelize.sync().complete(callback);
-    //mysequelize.sync({force: true}).complete(callback);
+    // mysequelize.sync({force: true}).complete(callback);
 }
 
 module.exports = {

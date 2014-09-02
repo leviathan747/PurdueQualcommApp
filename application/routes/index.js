@@ -135,6 +135,16 @@ exports.connect = function(req, res){
     res.end();
 }
 
+// render the careers page
+exports.careers = function(req, res){
+    var context = {
+        user: req.session.user
+    }
+
+    res.render('careers.ejs', context);
+    res.end();
+}
+
 // render the profile page
 exports.profile = function(req, res){
     triviaUtils.getPoints(req.session.user.id, function(points, err) {

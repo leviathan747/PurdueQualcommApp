@@ -98,6 +98,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/trivia'          , isLoggedIn              , pages.trivia);
             app.get('/trivia/:id'      , isLoggedIn              , pages.triviaQuestion);
             app.get('/connect'         , isLoggedIn              , pages.connect);
+            app.get('/careers'         , isLoggedIn              , pages.careers);
             app.get('/profile'         , isLoggedIn              , pages.profile);
             app.get('/register'        , pages.register);
             app.get('/login'           , pages.login);

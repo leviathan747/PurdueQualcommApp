@@ -146,6 +146,14 @@ h1, h2 {
   margin-left: 10px;
 }
 
+.no-top-margin {
+  margin-top: 0;
+}
+
+.panel-left-margin {
+  margin-left: 15px;
+}
+
 @media(max-width:768px) {
   .header {
     height: 50px;
