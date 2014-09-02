@@ -59,7 +59,7 @@ exports.register = function(req, res) {
                         if (req.session.originalTarget){
                           res.redirect(req.session.originalTarget);  // redirect to where they wanted to go
                         } else {
-                          res.redirect('/profile');                  // redirect to profile page
+                          res.redirect('/events');                  // redirect to events page
                         }
                         // Note, order on these next two is very important
                         user.generateEmailToken();
@@ -133,7 +133,7 @@ exports.login = function(req, res) {
                     if (req.session.originalTarget){
                         res.redirect(req.session.originalTarget);  // redirect to where they wanted to go
                     } else {
-                        res.redirect('/profile');                  // redirect to profile page
+                        res.redirect('/events');                  // redirect to events page
                     }
                     req.session.originalTarget = null;
                     res.end();

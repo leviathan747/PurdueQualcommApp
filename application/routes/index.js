@@ -145,26 +145,6 @@ exports.careers = function(req, res){
     res.end();
 }
 
-// render the profile page
-exports.profile = function(req, res){
-    triviaUtils.getPoints(req.session.user.id, function(points, err) {
-        if (err) {
-            console.log(JSON.stringify(err));
-            res.write(JSON.stringify(err));
-            res.end();
-            return;
-        }
-
-        var context = {
-            user:    req.session.user,
-            points:  points
-        }
-
-        res.render('profile.ejs', context);
-        res.end();
-    });
-}
-
 // render the register page
 exports.register = function(req, res){
     var context = {
