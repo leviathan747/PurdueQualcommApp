@@ -132,11 +132,11 @@ h1, h2 {
   padding-top: 4px;
 }
 
-.events-header {
+.header-left {
   float: left;
 }
 
-.new-post {
+.header-right {
   float: right;
   margin-top: 20px;
   margin-bottom: 10px;

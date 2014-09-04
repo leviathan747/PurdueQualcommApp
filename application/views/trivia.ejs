@@ -1,26 +1,25 @@
 <% if (user) { %>
-<div id="container">
-    <div id="page-trivia" class="page">
-      <a href="/trivia/leaderboard">Leaderboard</a>
-      <div id="questions" class="row" style="padding-right: 15px; padding-left: 15px">
-          <% if (questions) { %>
-              <% for (var i = 0; i < questions.length; i++) { %>
-                  <div id="question_col<%= i %>" class="col-xs-3" style="padding-top: 15px; padding-bottom: 15px">
-                      <div class="square">
-                          <% if (questions[i].answered && questions[i].correct) { %>
-                          <div id="question<%= i %>" class="trivia-tile" style="background: green">
-                          <% } else if (questions[i].answered && !questions[i].correct) { %>
-                          <div id="question<%= i %>" class="trivia-tile" style="background: red">
-                          <% } else { %>
-                          <div id="question<%= i %>" class="trivia-tile">
-                          <% } %>
-                              <a href="/trivia/<%= questions[i].id %>"><%= i+1 %></a>
-                          </div>
-                      </div>
-                  </div>
-              <% } %>
+  <h2 class="header-left">Connect</h2>
+  <a href="/trivia/leaderboard" class="header-right">Leaderboard</a>
+  <div class="clearfix"></div>
+  <div id="page-trivia" class="col-xs-12">
+    <div class="panel panel-default">
+      <ul class="list-group">
+        <% if (questions) { %>
+          <% for (var i = 0; i < questions.length; i++) { %>
+          <% var question = questions[i].question.length > 10 ? questions[i].question.substring(0,40) + ". . ." : questions[i].question; %>
+          <% var realQuestion = i+1 + " - " + question %>
+
+            <% if (questions[i].answered && questions[i].correct) { %>
+              <a class="list-group-item list-group-item-success" href="/trivia/<%= questions[i].id %>"><%= realQuestion %></a>
+            <% } else if (questions[i].answered && !questions[i].correct) { %>
+              <a class="list-group-item list-group-item-danger" href="/trivia/<%= questions[i].id %>"><%= realQuestion %></a>
+            <% } else { %>
+              <a class="list-group-item" href="/trivia/<%= questions[i].id %>"><%= realQuestion %></a>
+            <% } %>
           <% } %>
-      </div>
+        <% } %>
+      </ul>
     </div>
-</div>
+  </div>
 <% } %>
