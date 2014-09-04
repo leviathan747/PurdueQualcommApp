@@ -18,12 +18,12 @@ exports.events = function(req, res){
 
       var context = {
           user:         req.session.user,
-          message:      req.session.message,
+          errorMessage:      req.session.errorMessage,
           infoMessage:  req.session.infoMessage,
           posts:        posts
       }
 
-      req.session.message = null;
+      req.session.errorMessage = null;
       req.session.infoMessage = null;
 
       res.render('events.ejs', context);
@@ -155,10 +155,10 @@ exports.register = function(req, res){
     var context = {
         user:         req.session.user,
         infoMessage:  req.session.infoMessage,
-        message:      req.session.message
+        errorMessage:      req.session.errorMessage
     }
 
-    req.session.message     = null;
+    req.session.errorMessage = null;
     req.session.infoMessage = null;
 
     res.render('register.ejs', context);
@@ -170,13 +170,23 @@ exports.login = function(req, res){
     var context = {
         user:         req.session.user,
         infoMessage:  req.session.infoMessage,
-        message:      req.session.message
+        errorMessage:      req.session.errorMessage
     }
 
-    req.session.message     = null;
+    req.session.errorMessage = null;
     req.session.infoMessage = null;
 
     res.render('login.ejs', context);
+    res.end();
+}
+
+// render the verfify email page
+exports.verifyEmail = function(req, res){
+    var context = {
+        user: req.session.user
+    }
+
+    res.render('verifyemail.ejs', context);
     res.end();
 }
 
@@ -186,10 +196,10 @@ exports.forgotPassword = function(req, res){
     var context = {
         user:         req.session.user,
         infoMessage:  req.session.infoMessage,
-        message:      req.session.message
+        errorMessage:      req.session.errorMessage
     }
 
-    req.session.message     = null;
+    req.session.errorMessage = null;
     req.session.infoMessage = null;
 
     res.render('forgotpassword.ejs', context);
@@ -207,7 +217,7 @@ exports.resetPassword = function(req, res){
 
           if(created < Date.now() - two_hours){
               console.log("too old");
-              req.session.message = "Password reset is no longer valid";
+              req.session.errorMessage = "Password reset is no longer valid";
               res.redirect('/forgotPassword');
               res.end();
               return;
@@ -215,7 +225,7 @@ exports.resetPassword = function(req, res){
 
           if(passwordReset.dataValues.used){
               console.log("already been used");
-              req.session.message = "Password reset has already been used";
+              req.session.errorMessage = "Password reset has already been used";
               res.redirect('/forgotPassword');
               res.send();
               return;
@@ -223,12 +233,12 @@ exports.resetPassword = function(req, res){
           var context = {
               user:          req.session.user,
               infoMessage:   req.session.infoMessage,
-              message:       req.session.message,
+              errorMessage:       req.session.errorMessage,
               token:         token
           }
 
 
-          req.session.message = null;
+          req.session.errorMessage = null;
           req.session.infoMessage = null;
 
           res.render('resetpassword.ejs', context);

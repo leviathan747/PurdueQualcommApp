@@ -6,8 +6,8 @@
 <% if (infoMessage) { %>
 <div class='alert alert-info' style='padding: 5px 10px; margin: 5px 0px'><%= infoMessage %></div>
 <% } %>
-<% if (message) { %>
-<div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+<% if (errorMessage) { %>
+<div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= errorMessage %></div>
 <% } %>
 
 <% if (user && user.type == "admin") { %>
@@ -30,11 +30,6 @@
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Create Post</button>
             <a href="#" onclick="cancelPost()" class="cancel-post">Cancel</a>
-          </div>
-          <div class="form-group" id="alerts">
-            <% if (message) { %>
-            <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
-            <% } %>
           </div>
         </form>
       </div>
@@ -92,11 +87,6 @@
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Update Post</button>
             <a href="#" onclick="cancelEdit()" class="cancel-post">Cancel</a>
-          </div>
-          <div class="form-group" id="alerts">
-            <% if (message) { %>
-              <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
-            <% } %>
           </div>
         </form>
       </div>

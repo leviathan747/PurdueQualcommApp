@@ -56,14 +56,15 @@ exports.register = function(req, res) {
                     db.User.create({email: email, name:name, password: hash, type: type})
                     .success(function(user) {
                         req.session.user = user.dataValues;          // set session user
+                        // Note, order on these next two is very important
+                        user.generateEmailToken();
+                        user.sendRegistrationEmail(req, res);
+                        req.session.infoMessage = "Verification message sent. Check your email";
                         if (req.session.originalTarget){
                           res.redirect(req.session.originalTarget);  // redirect to where they wanted to go
                         } else {
                           res.redirect('/events');                  // redirect to events page
                         }
-                        // Note, order on these next two is very important
-                        user.generateEmailToken();
-                        user.sendRegistrationEmail(req, res);
                         req.session.originalTarget = null;
                         res.end();
                     })
@@ -73,7 +74,7 @@ exports.register = function(req, res) {
                 });
             });
         } else {
-          req.session.message = 'Oops! User already exists!';
+          req.session.errorMessage = 'Oops! User already exists!';
           res.redirect('/register');
           res.end();
         }
@@ -88,11 +89,12 @@ exports.validate_email = function(req, res){
     db.User.find({where: {id: req.session.user.id}})
       .success( function(user){
           if (unique_token === user.email_token){
-              req.session.message = 'Successfully validated email';
+              req.session.infoMessage = 'Successfully validated email';
               user.dataValues.email_verified = true;
               user.save();
+              req.session.user = user;
           } else {
-              req.session.message = 'Failed to validate email';
+              req.session.errorMessage = 'Failed to validate email';
           }
           res.redirect('/');
           res.end();
@@ -108,7 +110,7 @@ exports.login = function(req, res) {
     db.User.find({where: {email: email}})
     .success(function(user) {
         if (!user) {
-            req.session.message = 'User does not exist';
+            req.session.errorMessage = 'User does not exist';
             res.redirect('/login');
             res.end();
         }
@@ -117,7 +119,7 @@ exports.login = function(req, res) {
             // check password
             bcrypt.compare(password, user.dataValues.password, function(err, resp) {
                 if(resp != true) {
-                    req.session.message = 'Oops! Wrong password';
+                    req.session.errorMessage = 'Oops! Wrong password';
                     res.redirect('/login');
                     res.end();
                 }
@@ -217,7 +219,7 @@ exports.setNewPassword = function(req, res) {
 
 
     if (password !== password_confirmation){
-        req.session.message = "Passwords did not match, try again";
+        req.session.errorMessage = "Passwords did not match, try again";
         res.redirect(req.header('Referer') || '/');
         res.end();
         return;
@@ -246,7 +248,7 @@ exports.setNewPassword = function(req, res) {
                 });
             });
       });
-      req.session.infoMessage = 'Password Reset, try logging in again';
+      req.session.infoMessage = 'Password reset, try logging in again';
       res.redirect('/login');
       res.end();
 }

@@ -32,12 +32,12 @@ exports.createPost = function(req, res) {
   text = text.trim();
 
   if (title.length > 255) {
-    req.session.message = "The title is too long";
+    req.session.errorMessage = "The title is too long";
     res.redirect("/events");
     return;
   }
   if (text.length > 1024) {
-    req.session.message = "The post is too long";
+    req.session.errorMessage = "The post is too long";
     res.redirect("/events");
     return;
   }
@@ -85,12 +85,12 @@ exports.updatePost = function(req, res) {
   text = text.trim();
 
   if (title.length > 255) {
-    req.session.message = "The title is too long";
+    req.session.errorMessage = "The title is too long";
     res.redirect("/events");
     return;
   }
   if (text.length > 1024) {
-    req.session.message = "The post is too long";
+    req.session.errorMessage = "The post is too long";
     res.redirect("/events");
     return;
   }
