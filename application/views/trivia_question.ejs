@@ -42,21 +42,16 @@
                             </div>
                         </div>
                         <button class="btn btn-primary btn-block">Submit</button>
+                        <div class="btn-group">
+                          <button class="btn btn-primary btn-block">Submit</button>
+                          <button class="btn btn-primary btn-block">Submit</button>
+                        </div>
                     </form>
                     <% if (question.answered) { %>
                     <script>
                         $("#questionForm *").attr("disabled", "disabled");
                     </script>
                     <% } %>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="/trivia/<%= question.id - 1 %>" class="btn btn-primary btn-block">Previous</a>
-                </div>
-                <div class="col-xs-6">
-                    <a href="/trivia/<%= question.id + 1 %>" class="btn btn-primary btn-block">Next</a>
                 </div>
             </div>
         </div>
