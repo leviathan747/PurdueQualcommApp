@@ -132,11 +132,11 @@ h1, h2 {
   padding-top: 4px;
 }
 
-.events-header {
+.header-left {
   float: left;
 }
 
-.new-post {
+.header-right {
   float: right;
   margin-top: 20px;
   margin-bottom: 10px;
@@ -144,6 +144,14 @@ h1, h2 {
 
 .cancel-post {
   margin-left: 10px;
+}
+
+.no-top-margin {
+  margin-top: 0;
+}
+
+.panel-left-margin {
+  margin-left: 15px;
 }
 
 @media(max-width:768px) {

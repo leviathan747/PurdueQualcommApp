@@ -25,7 +25,7 @@ module.exports = function(sequelize, DataTypes) {
                         var token     = this.dataValues.email_token;
                         var url       = 'http://' + req.headers.host + '/';
                         var path      = url + 'validateEmail?token=' + token;
-                        var fromEmail = 'jlewis@qualcomm.com';
+                        var fromEmail = 'jalewis@qualcomm.com';
 
                         var email     = new sendgrid.Email();
                         email.to      = this.dataValues.email;

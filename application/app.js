@@ -23,7 +23,24 @@ var app        = express();
 function isLoggedIn(req, res, next) {
     if (!req.session.user) {
         req.session.originalTarget = req.url;
-        res.redirect('/login');
+        res.redirect('/');
+    }
+    else next();
+}
+
+// check if email verified
+function isVerified(req, res, next) {
+    if (!req.session.user.email_verified) {
+        req.session.originalTarget = req.url;
+        res.redirect('/verifyEmail');
+    }
+    else next();
+}
+
+// check if trivia active
+function triviaActive(req, res, next) {
+    if (!req.triviaActive) {
+        res.redirect('/');
     }
     else next();
 }
@@ -70,6 +87,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.use(function(req, res, next) {
                 req.db = db.db;
                 req.configName = configName;
+                req.triviaActive = config[configName].trivia;
                 req.encoder = new Encoder('entity');
                 next();
             });
@@ -95,28 +113,31 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/'                , pages.index);
             app.get('/events'          , pages.events);
             app.get('/tech'            , pages.tech);
-            app.get('/trivia'          , isLoggedIn              , pages.trivia);
-            app.get('/trivia/:id'      , isLoggedIn              , pages.triviaQuestion);
-            app.get('/connect'         , isLoggedIn              , pages.connect);
-            app.get('/profile'         , isLoggedIn              , pages.profile);
+            app.get('/trivia'          , triviaActive            , isLoggedIn       , isVerified                 , pages.trivia);
+            app.get('/trivia/leaderboard', triviaActive          , isLoggedIn       , isVerified                 , pages.leaderboard);
+            app.get('/trivia/:id'      , triviaActive            , isLoggedIn       , isVerified                 , pages.triviaQuestion);
+            app.get('/connect'         , isLoggedIn              , isVerified       , pages.connect);
+            app.get('/careers'         , isLoggedIn              , isVerified       , pages.careers);
             app.get('/register'        , pages.register);
             app.get('/login'           , pages.login);
             app.get('/logout'          , register.logout);
             app.get('/validateEmail'   , isLoggedIn              , register.validate_email);
 
-            app.get('/getPosts'        , posts.getPosts);
-            app.get('/deletePosts'     , posts.deletePosts);
+            app.get('/verifyEmail'     , pages.verifyEmail);
 
-            app.get('/getLeaderboard'  , trivia.getLeaderboardRequest);
-            app.get('/videoWall'       , pages.videoWall);
+            app.get('/getPosts'        , posts.getPosts);
+            app.get('/deletePosts'     , isLoggedIn              , isVerified                 , posts.deletePosts);
+
+            app.get('/getLeaderboard'  , triviaActive            , trivia.getLeaderboardRequest);
+            app.get('/videoWall'       , triviaActive            , pages.videoWall);
 
             // post requests
             app.post('/login'          , register.login);
             app.post('/register'       , register.register);
             app.post('/stopServer'     , controller.stopServer);
 
-            app.post('/createPost'     , posts.createPost);
-            app.post('/updatePost'     , posts.updatePost);
+            app.post('/createPost'     , isLoggedIn              , isVerified                 , posts.createPost);
+            app.post('/updatePost'     , isLoggedIn              , isVerified                 , posts.updatePost);
             app.post('/answerQuestion' , isLoggedIn              , controller.answerQuestion);
 
             // initial page in forgot password flow, they enter emails here

@@ -25,12 +25,14 @@
 
     <% if (user) { %>
 
+      <% if (triviaActive) { %>
       <li class="sidebar-nav-link">
         <a href="/trivia">
           <span class="fa fa-question circle"></span>
           <p>QC Trivia</p>
         </a>
       </li>
+      <% } %>
       <li class="sidebar-nav-link">
         <a href="/connect">
           <span class="fa fa-envelope circle"></span>
@@ -38,9 +40,9 @@
         </a>
       </li>
       <li class="sidebar-nav-link">
-        <a href="/profile">
-          <span class="fa fa-user circle"></span>
-          <p>Profile</p>
+        <a href="/careers">
+          <span class="fa fa-briefcase circle"></span>
+          <p>Careers</p>
         </a>
       </li>
       <li class="sidebar-nav-link">

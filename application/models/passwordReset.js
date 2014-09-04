@@ -21,7 +21,7 @@ module.exports = function(sequelize, DataTypes) {
                         var token     = this.dataValues.token;
                         var url       = 'http://' + req.headers.host + '/';
                         var path      = url + 'passwordReset?token=' + token;
-                        var fromEmail = 'jlewis@qualcomm.com';
+                        var fromEmail = 'jalewis@qualcomm.com';
 
                         var email     = new sendgrid.Email();
                         email.to      = this.getUser()

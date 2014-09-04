@@ -19,8 +19,8 @@
         <div><a href="/forgotpassword">Forgot your password?</a></div>
     </div>
     <div class="form-group" id="alerts">
-        <% if (message) { %>
-        <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
+        <% if (errorMessage) { %>
+        <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= errorMessage %></div>
         <% } %>
         <% if (infoMessage) { %>
         <div class='alert alert-info' style='padding: 5px 10px; margin: 5px 0px'><%= infoMessage %></div>
@@ -30,7 +30,6 @@
 
 <script>
 
-    var email = /^[a-zA-Z0-9_+.]+@purdue\.edu$/;
     var pass_len = 0;
     var errors = [];
 
@@ -46,12 +45,6 @@
         // validate username
         if ($("#email").val().trim() == "") {
             var msg = "Please enter your email";
-            addError($("#emailGroup"));
-            addAlert(msg);
-            valid = false;
-        }
-        else if (!email.test($("#email").val().trim())) {
-            var msg = "Invalid email";
             addError($("#emailGroup"));
             addAlert(msg);
             valid = false;
