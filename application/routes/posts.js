@@ -84,9 +84,7 @@ exports.updatePost = function(req, res) {
   title = title.trim();
   text = text.trim();
 
-  console.log(title.length);
   if (title.length > 255) {
-    console.log('here');
     req.session.message = "The title is too long";
     res.redirect("/events");
     return;

@@ -9,7 +9,6 @@
 <% if (message) { %>
 <div class='alert alert-danger' style='padding: 5px 10px; margin: 5px 0px'><%= message %></div>
 <% } %>
-<p class="page-description">What and where is going on!</p>
 
 <% if (user && user.type == "admin") { %>
   <div id="createForm" class="col-xs-12 hidden">
@@ -61,7 +60,7 @@
         <% var date = new Date(posts[i].created_at); %>
         Posted by <%=posts[i].author.name%> on <%=date.toDateString()%> at <%=date.toLocaleTimeString().slice(0, -3)%>.
         <% if (user && user.type == "admin") { %>
-          <p><a onclick="editPost(<%=posts[i].id%>)">edit post</a> | 
+          <p><a href="#" onclick="editPost(<%=posts[i].id%>)">edit post</a> | 
           <a href="/deletePosts?ids=<%=posts[i].id%>">delete post</a></p>
         <% } %>
       </div>
@@ -92,7 +91,7 @@
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Update Post</button>
-            <button type="button" id="cancelEdit" class="btn btn-default">Cancel</button>
+            <a href="#" onclick="cancelEdit()" class="cancel-post">Cancel</a>
           </div>
           <div class="form-group" id="alerts">
             <% if (message) { %>
@@ -107,6 +106,7 @@
 
 <script>
   var newPost = function() {
+    cancelEdit();
     $("#createForm").removeClass("hidden");
   };
 
@@ -116,7 +116,7 @@
 
   // fill form for edit
   var editPost = function(id) {
-    $("#editId").attr("data-id", id);
+    $("#editId").val(id);
     $("#editTitleInput").val($("#title" + id).text().trim());
     $("#editTextInput").val($("#text" + id).text().trim());
     $("#editForm").removeClass("hidden");
@@ -126,8 +126,8 @@
   }
 
   // cancel edit
-  $("#cancelEdit").click(function(e) {
-    var id = $("#editId").attr("data-id");
+  var cancelEdit = function() {
+    var id = $("#editId").val();
     $("#editId").val("");
     $("#editId").val("");
     $("#editTitleInput").val("");
@@ -135,5 +135,5 @@
     $("#editForm").addClass("hidden");
     var postId = "#post-" + id;
     $(postId).removeClass("hidden");
-  });
+  }
 </script>
