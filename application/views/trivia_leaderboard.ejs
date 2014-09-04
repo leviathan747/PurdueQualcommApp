@@ -6,6 +6,16 @@
   <th>Name</th>
   <th>Score</th>
 
+    <tr style="font-family: 'QualcommBold'">
+      <% if (user.type == "student") { %>
+      <td><%=user.rank%></td>
+      <% } else { %>
+      <td>N/A</td>
+      <% } %>
+      <td><%=user.name%></td>
+      <td><%=user.points%></td>
+    </tr>
+
   <% for (var i = 0; i < users.length; i++) { %>
     <tr>
       <td><%=users[i].dataValues.rank%></td>

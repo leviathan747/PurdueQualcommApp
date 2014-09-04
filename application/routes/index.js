@@ -75,6 +75,11 @@ exports.leaderboard = function(req, res){
             return;
         }
 
+        // add rank to current user
+        for (var i = 0; i < users.length; i++) {
+            if (users[i].id == req.session.user.id) req.session.user.rank = users[i].dataValues.rank;
+        }
+
         var context = {
             user:   req.session.user,
             users:  users
