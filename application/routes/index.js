@@ -17,6 +17,7 @@ exports.events = function(req, res){
       }
 
       var context = {
+          triviaActive: req.triviaActive,
           user:         req.session.user,
           errorMessage:      req.session.errorMessage,
           infoMessage:  req.session.infoMessage,
@@ -34,6 +35,7 @@ exports.events = function(req, res){
 // render the tech page
 exports.tech = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user: req.session.user
     }
 
@@ -57,6 +59,7 @@ exports.trivia = function(req, res){
             }
 
             var context = {
+                triviaActive: req.triviaActive,
                 user:       req.session.user,
                 questions:  formattedQuestions
             }
@@ -81,6 +84,7 @@ exports.leaderboard = function(req, res){
         }
 
         var context = {
+            triviaActive: req.triviaActive,
             user:   req.session.user,
             users:  users
         }
@@ -120,6 +124,7 @@ exports.triviaQuestion = function(req, res){
                 }
 
                 var context = {
+                    triviaActive: req.triviaActive,
                     user:      req.session.user,
                     question:  formattedQuestion
                 }
@@ -133,6 +138,7 @@ exports.triviaQuestion = function(req, res){
 // render the connect page
 exports.connect = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user: req.session.user
     }
 
@@ -143,6 +149,7 @@ exports.connect = function(req, res){
 // render the careers page
 exports.careers = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user: req.session.user
     }
 
@@ -153,6 +160,7 @@ exports.careers = function(req, res){
 // render the register page
 exports.register = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user:         req.session.user,
         infoMessage:  req.session.infoMessage,
         errorMessage:      req.session.errorMessage
@@ -168,6 +176,7 @@ exports.register = function(req, res){
 // render the login page
 exports.login = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user:         req.session.user,
         infoMessage:  req.session.infoMessage,
         errorMessage:      req.session.errorMessage
@@ -183,6 +192,7 @@ exports.login = function(req, res){
 // render the verfify email page
 exports.verifyEmail = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user: req.session.user
     }
 
@@ -194,6 +204,7 @@ exports.verifyEmail = function(req, res){
 // GET '/forgotPassword'
 exports.forgotPassword = function(req, res){
     var context = {
+        triviaActive: req.triviaActive,
         user:         req.session.user,
         infoMessage:  req.session.infoMessage,
         errorMessage:      req.session.errorMessage
@@ -231,6 +242,7 @@ exports.resetPassword = function(req, res){
               return;
           }
           var context = {
+              triviaActive: req.triviaActive,
               user:          req.session.user,
               infoMessage:   req.session.infoMessage,
               errorMessage:       req.session.errorMessage,

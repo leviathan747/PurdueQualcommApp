@@ -37,6 +37,14 @@ function isVerified(req, res, next) {
     else next();
 }
 
+// check if trivia active
+function triviaActive(req, res, next) {
+    if (!req.triviaActive) {
+        res.redirect('/');
+    }
+    else next();
+}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 
@@ -79,6 +87,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.use(function(req, res, next) {
                 req.db = db.db;
                 req.configName = configName;
+                req.triviaActive = config[configName].trivia;
                 req.encoder = new Encoder('entity');
                 next();
             });
@@ -104,11 +113,11 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/'                , pages.index);
             app.get('/events'          , pages.events);
             app.get('/tech'            , pages.tech);
-            app.get('/trivia'          , isLoggedIn              , isVerified                 , pages.trivia);
-            app.get('/trivia/leaderboard', isLoggedIn            , isVerified                 , pages.leaderboard);
-            app.get('/trivia/:id'      , isLoggedIn              , isVerified                 , pages.triviaQuestion);
-            app.get('/connect'         , isLoggedIn              , isVerified                 , pages.connect);
-            app.get('/careers'         , isLoggedIn              , isVerified                 , pages.careers);
+            app.get('/trivia'          , triviaActive            , isLoggedIn       , isVerified                 , pages.trivia);
+            app.get('/trivia/leaderboard', triviaActive          , isLoggedIn       , isVerified                 , pages.leaderboard);
+            app.get('/trivia/:id'      , triviaActive            , isLoggedIn       , isVerified                 , pages.triviaQuestion);
+            app.get('/connect'         , isLoggedIn              , isVerified       , pages.connect);
+            app.get('/careers'         , isLoggedIn              , isVerified       , pages.careers);
             app.get('/register'        , pages.register);
             app.get('/login'           , pages.login);
             app.get('/logout'          , register.logout);
@@ -119,8 +128,8 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/getPosts'        , posts.getPosts);
             app.get('/deletePosts'     , isLoggedIn              , isVerified                 , posts.deletePosts);
 
-            app.get('/getLeaderboard'  , trivia.getLeaderboardRequest);
-            app.get('/videoWall'       , pages.videoWall);
+            app.get('/getLeaderboard'  , triviaActive            , trivia.getLeaderboardRequest);
+            app.get('/videoWall'       , triviaActive            , pages.videoWall);
 
             // post requests
             app.post('/login'          , register.login);
