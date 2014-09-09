@@ -142,6 +142,10 @@ h1, h2 {
   margin-bottom: 10px;
 }
 
+.event-tabs {
+  margin-bottom: 15px;
+}
+
 .cancel-post {
   margin-left: 10px;
 }
