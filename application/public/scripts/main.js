@@ -4,4 +4,11 @@ $(function() {
     $('.sidebar').toggleClass('sidebar-toggled');
     $('.content').toggleClass('sidebar-toggled');
   });
+
+  $('#tech').imagesLoaded(function() {
+    $('#tech').masonry({
+      itemSelector: '.tech-thumbnail',
+      isFitWidth: true
+    });
+  });
 });
