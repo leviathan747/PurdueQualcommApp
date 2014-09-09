@@ -211,4 +211,8 @@ h1, h2 {
     font-size: 1.3em;
     padding-top: 1.5px;
   }
+
+  .tech-thumbnail {
+    width: 87%;
+  }
 }
