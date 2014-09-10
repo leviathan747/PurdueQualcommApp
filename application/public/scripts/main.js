@@ -11,4 +11,11 @@ $(function() {
       isFitWidth: true
     });
   });
+
+  $('#connect').imagesLoaded(function() {
+    $('#connect').masonry({
+      itemSelector: '.tech-thumbnail',
+      isFitWidth: true
+    });
+  });
 });
