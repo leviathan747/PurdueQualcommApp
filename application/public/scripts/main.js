@@ -18,4 +18,6 @@ $(function() {
       isFitWidth: true
     });
   });
+
+  $('#agendaEventContainer1').height(500);
 });
