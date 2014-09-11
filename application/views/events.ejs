@@ -9,16 +9,16 @@
 
 <!-- Nav tabs -->
 <ul class="nav nav-pills event-tabs" role="tablist">
-  <li class="active"><a href="#news-feed" role="tab" data-toggle="tab">News Feed</a></li>
-  <li><a href="#calendar" role="tab" data-toggle="tab">Calendar</a></li>
+  <li class="active"><a href="#news-feed" id="feed" role="tab" data-toggle="tab">News Feed</a></li>
+  <li><a href="#calendar" id="cal" role="tab" data-toggle="tab">Calendar</a></li>
+    <% if (user && user.type == "admin") { %>
+      <a href="#" onclick="newPost()" id="new-post-button" class="btn btn-primary header-right"><span class='fa fa-pencil-square-o'></span> New Post</a>
+    <% } %>
 </ul>
 
 <!-- Tab panes -->
 <div class="tab-content">
   <div class="tab-pane fade in active" id="news-feed">
-    <% if (user && user.type == "admin") { %>
-      <a href="#" onclick="newPost()"><span class="fa fa-pencil-square-o header-right"> New Post</span></a>
-    <% } %>
     <% if (user && user.type == "admin") { %>
       <div id="createForm" class="col-xs-12 hidden">
         <div class="panel panel-default">
@@ -104,6 +104,16 @@
     <% } %>
 
     <script>
+      $('#cal').on('click', function() {
+          console.log("cal");
+        $('#new-post-button').addClass("hidden");
+      });
+
+      $('#feed').on('click', function() {
+          console.log("feed");
+        $('#new-post-button').removeClass("hidden");
+      });
+
       var newPost = function() {
         cancelEdit();
         $("#createForm").removeClass("hidden");

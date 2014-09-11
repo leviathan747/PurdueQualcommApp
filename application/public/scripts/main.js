@@ -11,4 +11,13 @@ $(function() {
       isFitWidth: true
     });
   });
+
+  $('#connect').imagesLoaded(function() {
+    $('#connect').masonry({
+      itemSelector: '.tech-thumbnail',
+      isFitWidth: true
+    });
+  });
+
+  $('#agendaEventContainer1').height(500);
 });
