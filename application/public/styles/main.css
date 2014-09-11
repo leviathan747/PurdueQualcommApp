@@ -138,8 +138,11 @@ h1, h2 {
 
 .header-right {
   float: right;
-  margin-top: 20px;
   margin-bottom: 10px;
+}
+
+.event-tabs {
+  margin-bottom: 15px;
 }
 
 .cancel-post {
@@ -152,6 +155,11 @@ h1, h2 {
 
 .panel-left-margin {
   margin-left: 15px;
+}
+
+.tech-thumbnail {
+  margin: 5px;
+  width: 300px;
 }
 
 @media(max-width:768px) {
@@ -201,5 +209,9 @@ h1, h2 {
   .fa-question, .fa-mobile {
     font-size: 1.3em;
     padding-top: 1.5px;
+  }
+
+  .tech-thumbnail {
+    width: 87%;
   }
 }
