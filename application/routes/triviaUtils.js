@@ -245,8 +245,8 @@ var getLeaderboard = function(limit, callback) {
             tied = (i > 0 && users[i-1].points == users[i].points) 
             if (!tied) users[i].dataValues.rank = rank++;
             else {
-                users[i].dataValues.rank = users[i-1].dataValues.rank + "T";
-                users[i-1].dataValues.rank += "T";
+                users[i].dataValues.rank = rank + "T";
+                users[i-1].dataValues.rank = rank + "T";
             }
         }
 
