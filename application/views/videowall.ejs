@@ -76,21 +76,26 @@
 
         var scroll_interval;
 
+        var TABLE_LENGTH = 9;
+        var LIMIT = 1000;
+
         function scrollLeaderboard() {
             // fade out
             $("#table_body").fadeOut(1000, function() {
                 $("#table_body").empty();       // clear table
-                for (var i = current; i < leaders.length && i - current < 7; i++) {
-                    $("#table_body").append("<tr><td>" + leaders[i].rank + "</td><td>" + leaders[i].name + "</td><td>" + leaders[i].points + "</td></tr>");
+                for (var i = current; i < leaders.length && i - current < TABLE_LENGTH; i++) {
+                    if (leaders[i].points > 0) {
+                        $("#table_body").append("<tr><td>" + leaders[i].rank + "</td><td>" + leaders[i].name + "</td><td>" + leaders[i].points + "</td></tr>");
+                    }
                 }
-                current += 7;
+                current += TABLE_LENGTH;
                 if (current >= leaders.length) current = 0;
                 $("#table_body").fadeIn(1000);
             });
         }
 
         function refreshLeaderboard() {
-            $.get("/getLeaderboard", {limit: 1000}, function(leaderboard) {
+            $.get("/getLeaderboard", {limit: LIMIT}, function(leaderboard) {
                 leaders = leaderboard;
 
                 clearInterval(scroll_interval);
