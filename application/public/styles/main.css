@@ -71,8 +71,19 @@ h1, h2 {
 }
 
 .content {
+  position: absolute;
+  height: calc(100% - 100px);
+  width: calc(100% - 135px);
   margin-top: 100px;
   margin-left: 135px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.inner-content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }
 
 .navbar-toggle {
@@ -80,7 +91,7 @@ h1, h2 {
   margin-left: 15px;
 }
 
-.sidebar, .content {
+.sidebar, .content, .inner-content {
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -182,6 +193,8 @@ h1, h2 {
   .content {
     margin-top: 50px;
     margin-left: 0;
+    height: calc(100% - 50px);
+    width: 100%;
   }
 
   .sidebar.sidebar-toggled {
@@ -190,6 +203,11 @@ h1, h2 {
 
   .content.sidebar-toggled {
     margin-left: 90px;
+    width: calc(100% - 90px);
+  }
+
+  .inner-content.sidebar-toggled {
+      width: calc(100% + 90px);
   }
 
   .sidebar-nav-link {
