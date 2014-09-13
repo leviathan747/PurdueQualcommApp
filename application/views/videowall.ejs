@@ -80,8 +80,13 @@
         var LIMIT = 1000;
 
         function scrollLeaderboard() {
+            // refresh after a full loop through
+            if (current == 0) refreshLeaderboard();
+
             // fade out
             $("#table_body").fadeOut(1000, function() {
+
+                // update table
                 $("#table_body").empty();       // clear table
                 for (var i = current; i < leaders.length && i - current < TABLE_LENGTH; i++) {
                     if (leaders[i].points > 0) {
@@ -90,29 +95,24 @@
                 }
                 current += TABLE_LENGTH;
                 if (current >= leaders.length) current = 0;
+
+                // fade in
                 $("#table_body").fadeIn(1000);
             });
         }
 
         function refreshLeaderboard() {
             $.get("/getLeaderboard", {limit: LIMIT}, function(leaderboard) {
+                console.log('refresh');
                 leaders = leaderboard;
-
-                clearInterval(scroll_interval);
-
-                // scroll leaderboard every 10 second
-                scrollLeaderboard();
-                scroll_interval = setInterval(function() {
-                    scrollLeaderboard();
-                }, 10000);
             }, "json");
         }
 
-        // refresh leaderboard every 10 minutes
-        refreshLeaderboard();
-        setInterval(function() {
-            refreshLeaderboard();
-        }, 600000);
+        // scroll leaderboard every 10 seconds
+        scrollLeaderboard();
+        scroll_interval = setInterval(function() {
+            scrollLeaderboard();
+        }, 10000);
 
     });
   </script>
