@@ -35,21 +35,11 @@ body {
     font-size: 48pt;
 }
 
-.display-top {
+.display-all {
     position: absolute;
     left: 0;
     top: 20%;
-    height: 50%;
-    width: 100%;
-    overflow: hidden;
-    padding: 20px;
-}
-
-.display-bottom {
-    position: absolute;
-    left: 0;
-    top: 70%;
-    height: 30%;
+    height: 80%;
     width: 100%;
     overflow: hidden;
     padding: 20px;
