@@ -1,25 +1,27 @@
-<a href="/trivia" class="btn btn-primary h2 header-right">Back</a>
-<h2>Leaderboard</h2>
-<table class="table table-striped">
-  <th>Rank</th>
-  <th>Name</th>
-  <th>Score</th>
+<div class="col-xs-12">
+    <a href="/trivia" class="btn btn-primary h2 header-right">Back</a>
+    <h2>Leaderboard</h2>
+    <table class="table table-striped">
+      <th>Rank</th>
+      <th>Name</th>
+      <th>Score</th>
 
-    <tr style="font-family: 'QualcommBold'">
-      <% if (user.type == "student") { %>
-      <td><%=user.rank%></td>
-      <% } else { %>
-      <td>N/A</td>
+        <tr style="font-family: 'QualcommBold'">
+          <% if (user.type == "student") { %>
+          <td><%=user.rank%></td>
+          <% } else { %>
+          <td>N/A</td>
+          <% } %>
+          <td><%=user.name%></td>
+          <td><%=user.points%></td>
+        </tr>
+
+      <% for (var i = 0; i < users.length; i++) { %>
+        <tr>
+          <td><%=users[i].dataValues.rank%></td>
+          <td><%=users[i].name%></td>
+          <td><%=users[i].points%></td>
+        </tr>
       <% } %>
-      <td><%=user.name%></td>
-      <td><%=user.points%></td>
-    </tr>
-
-  <% for (var i = 0; i < users.length; i++) { %>
-    <tr>
-      <td><%=users[i].dataValues.rank%></td>
-      <td><%=users[i].name%></td>
-      <td><%=users[i].points%></td>
-    </tr>
-  <% } %>
-</table>
+    </table>
+</div>
