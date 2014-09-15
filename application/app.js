@@ -40,7 +40,7 @@ function isVerified(req, res, next) {
 // check if trivia active
 function triviaActive(req, res, next) {
     if (!req.triviaActive) {
-        res.redirect('/');
+        res.redirect('/countdown');
     }
     else next();
 }
@@ -116,6 +116,7 @@ fs.readFile("config.json", 'utf8', function(err, data) {
             app.get('/trivia'          , triviaActive            , isLoggedIn       , isVerified                 , pages.trivia);
             app.get('/trivia/leaderboard', triviaActive          , isLoggedIn       , isVerified                 , pages.leaderboard);
             app.get('/trivia/:id'      , triviaActive            , isLoggedIn       , isVerified                 , pages.triviaQuestion);
+            app.get('/countdown'       , isLoggedIn              , isVerified       , pages.countdown);
             app.get('/connect'         , isLoggedIn              , isVerified       , pages.connect);
             app.get('/careers'         , isLoggedIn              , isVerified       , pages.careers);
             app.get('/register'        , pages.register);

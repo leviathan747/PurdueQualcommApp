@@ -63,8 +63,7 @@
           </div>
 
           <div class="panel-footer">
-            <% var date = new Date(posts[i].created_at); %>
-            Posted by <%=posts[i].author.name%> on <%=date.toDateString()%> at <%=date.toLocaleTimeString().slice(0, -3)%>.
+            Posted by <%=posts[i].author.name%> on <%=posts[i].date%>.
             <% if (user && user.type == "admin") { %>
               <p><a href="#" onclick="editPost(<%=posts[i].id%>)">edit post</a> | 
               <a href="/deletePosts?ids=<%=posts[i].id%>">delete post</a></p>
