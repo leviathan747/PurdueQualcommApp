@@ -152,6 +152,18 @@ exports.triviaQuestion = function(req, res){
     });
 }
 
+// render the trivia countdown page
+exports.countdown = function(req, res){
+
+    var context = {
+        triviaActive: req.triviaActive,
+        user:       req.session.user,
+    }
+
+    res.render('countdown.ejs', context);
+    res.end();
+}
+
 // render the connect page
 exports.connect = function(req, res){
     var context = {
