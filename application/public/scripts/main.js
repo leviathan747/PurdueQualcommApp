@@ -3,6 +3,7 @@ $(function() {
     e.preventDefault();
     $('.sidebar').toggleClass('sidebar-toggled');
     $('.content').toggleClass('sidebar-toggled');
+    $('.inner-content').toggleClass('sidebar-toggled');
   });
 
   $('#tech').imagesLoaded(function() {
