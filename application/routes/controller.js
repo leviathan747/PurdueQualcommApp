@@ -22,7 +22,7 @@ exports.answerQuestion = function(req, res) {
     var answer = "";
     if (req.body.a) answer = "a";
     else if (req.body.b) answer = "b";
-    else if (req.body.b) answer = "c";
+    else if (req.body.c) answer = "c";
     else answer = "d";
 
     var user = Number(req.session.user.id);
