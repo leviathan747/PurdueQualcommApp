@@ -2,7 +2,7 @@ var db = require('../models').db;
 
 // get all posts
 exports.getPosts = function(callback) {
-  db.Post.findAll()
+  db.Post.findAll({include: [{model: db.User, as: "Author"}], order: "`created_at` DESC"})
   .success(function(posts) {
     callback(posts, null);
   })
@@ -32,23 +32,30 @@ exports.createPost = function(req, res) {
   text = text.trim();
 
   if (title.length > 255) {
-    req.session.message = "The title is too long";
+    req.session.errorMessage = "The title is too long";
     res.redirect("/events");
     return;
   }
   if (text.length > 1024) {
-    req.session.message = "The post is too long";
+    req.session.errorMessage = "The post is too long";
     res.redirect("/events");
     return;
   }
 
+  // create post
   db.Post.create({
-    author: author,
     title: title,
     text: text
   })
-  .success(function() {
-    res.redirect("/events");
+  .success(function(post) {
+    post.setAuthor(req.session.user)
+   .success(function() {
+      res.redirect("/events");
+    })
+    .error(function(err) {
+      console.log(JSON.stringify(err));
+      res.redirect("/events");
+    });
   })
   .error(function(err) {
     console.log(JSON.stringify(err));
@@ -77,15 +84,13 @@ exports.updatePost = function(req, res) {
   title = title.trim();
   text = text.trim();
 
-  console.log(title.length);
   if (title.length > 255) {
-    console.log('here');
-    req.session.message = "The title is too long";
+    req.session.errorMessage = "The title is too long";
     res.redirect("/events");
     return;
   }
   if (text.length > 1024) {
-    req.session.message = "The post is too long";
+    req.session.errorMessage = "The post is too long";
     res.redirect("/events");
     return;
   }

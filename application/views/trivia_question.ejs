@@ -1,6 +1,6 @@
-<% include navigation.ejs %>
 <% if (user) { %>
 <div id="container">
+    <a href="/trivia" class="btn btn-primary h2 header-right">See all questions</a>
     <div id="page-trivia-question" class="page">
         <div class="container-fluid">
             <div class="row text-center">
@@ -42,21 +42,17 @@
                             </div>
                         </div>
                         <button class="btn btn-primary btn-block">Submit</button>
+                        <br>
                     </form>
+                        <div class="btn-group btn-group-justified">
+                          <a href="/trivia/<%= question.id - 1 %>" class="btn btn-default">Previous</a>
+                          <a href="/trivia/<%= question.id + 1 %>" class="btn btn-default">Next</a>
+                        </div>
                     <% if (question.answered) { %>
                     <script>
                         $("#questionForm *").attr("disabled", "disabled");
                     </script>
                     <% } %>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-xs-6">
-                    <a href="/trivia/<%= question.id - 1 %>" class="btn btn-primary btn-block">Previous</a>
-                </div>
-                <div class="col-xs-6">
-                    <a href="/trivia/<%= question.id + 1 %>" class="btn btn-primary btn-block">Next</a>
                 </div>
             </div>
         </div>
