@@ -16,6 +16,25 @@ exports.events = function(req, res){
         return;
       }
 
+      // format date for posts
+      var OFFSET = -4;                  // Eastern time
+      function formatAMPM(date) {
+        var hours = date.getUTCHours();
+        var minutes = date.getUTCMinutes();
+        var ampm = hours >= 12 ? 'pm' : 'am';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0'+minutes : minutes;
+        var strTime = hours + ':' + minutes + ' ' + ampm;
+        return strTime;
+      }
+      for (var i = 0; i < posts.length; i++) {
+          var d = new Date(posts[i].created_at);
+          var d2 = new Date(d.getTime() + OFFSET * 3600000);
+          var date = d2.toDateString() + " at " + formatAMPM(d2);
+          posts[i].date = date;
+      }
+
       var context = {
           triviaActive: req.triviaActive,
           user:         req.session.user,
@@ -133,6 +152,18 @@ exports.triviaQuestion = function(req, res){
             });
         }
     });
+}
+
+// render the trivia countdown page
+exports.countdown = function(req, res){
+
+    var context = {
+        triviaActive: req.triviaActive,
+        user:       req.session.user,
+    }
+
+    res.render('countdown.ejs', context);
+    res.end();
 }
 
 // render the connect page
