@@ -153,6 +153,11 @@ exports.genPasswordReset = function(req, res) {
 
     db.User.find({where: {email: email_requested}})
     .success(function(user) {
+        if (!user) {                // password reset on a non-registered email
+            res.redirect('/');
+            res.end();
+            return;
+        }
         db.PasswordReset.findAll()
         .success(function(resets) {
             var crypto     = require('crypto');
