@@ -1,4 +1,4 @@
-var sendgrid  = require('sendgrid')('kirbyk', 'DYP*mYL&i1');
+var sendgrid  = require('sendgrid')('qatpurdue', 'qua1commBoilers');
 
 module.exports = function(sequelize, DataTypes) {
     var User = sequelize.define('User',
