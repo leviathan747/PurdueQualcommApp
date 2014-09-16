@@ -37,7 +37,8 @@
 }
 
 body {
-  background-color: #f0f1f2;
+  /* background-color: #f0f1f2; */
+  background-image: url('/images/bg.png');
   font-family: 'QualcommLight';
 }
 
@@ -171,6 +172,17 @@ h1, h2 {
 .tech-thumbnail {
   margin: 5px;
   width: 300px;
+}
+
+.nav > li > a,
+.nav > li > a {
+  text-decoration: none;
+  background-color: #eee;
+}
+
+.nav > li > a:hover,
+.nav > li > a:hover {
+  background-color: #FFF;
 }
 
 @media(max-width:768px) {
