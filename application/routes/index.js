@@ -17,9 +17,10 @@ exports.events = function(req, res){
       }
 
       // format date for posts
+      var OFFSET = -4;                  // Eastern time
       function formatAMPM(date) {
-        var hours = date.getHours();
-        var minutes = date.getMinutes();
+        var hours = date.getUTCHours();
+        var minutes = date.getUTCMinutes();
         var ampm = hours >= 12 ? 'pm' : 'am';
         hours = hours % 12;
         hours = hours ? hours : 12; // the hour '0' should be '12'
@@ -29,7 +30,8 @@ exports.events = function(req, res){
       }
       for (var i = 0; i < posts.length; i++) {
           var d = new Date(posts[i].created_at);
-          var date = d.toDateString() + " at " + formatAMPM(d);
+          var d2 = new Date(d.getTime() + OFFSET * 3600000);
+          var date = d2.toDateString() + " at " + formatAMPM(d2);
           posts[i].date = date;
       }
 
