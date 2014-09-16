@@ -39,7 +39,7 @@ exports.register = function(req, res) {
 
     var errorMessage = validInput({email: email, password: password, name: name, type:type});
     if(errorMessage !== '') {
-        req.session.registerMessage = errorMessage;
+        req.session.message = errorMessage;
         res.redirect('/register');
         res.end();
         return;

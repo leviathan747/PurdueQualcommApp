@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var session    = require('express-session');
 var http       = require('http');
 var logger     = require('morgan');
-var sendgrid   = require('sendgrid')('kirbyk', 'DYP*mYL&i1');
+var sendgrid   = require('sendgrid')('qatpurdue', 'qua1commBoilers');
 
 var pages      = require('./routes/index');
 var controller = require('./routes/controller');
