@@ -4,7 +4,13 @@ var postUtils = require('./posts');
 
 // render the index page
 exports.index = function(req, res){
-    res.redirect('/events');
+    var context = {
+        triviaActive: req.triviaActive,
+        user: req.session.user
+    }
+
+    res.render('start.ejs', context);
+    res.end();
 }
 
 // render the events page
