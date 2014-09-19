@@ -157,15 +157,15 @@ exports.triviaQuestion = function(req, res){
     });
 }
 
-// render the trivia countdown page
-exports.countdown = function(req, res){
+// render the trivia about page
+exports.trivia_about = function(req, res){
 
     var context = {
         triviaActive: req.triviaActive,
         user:       req.session.user,
     }
 
-    res.render('countdown.ejs', context);
+    res.render('trivia_about.ejs', context);
     res.end();
 }
 

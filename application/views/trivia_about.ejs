@@ -1,0 +1,93 @@
+<% if (user) { %>
+  <div class="col-xs-12">
+      <h2 class="header-left">About Trivia</h2>
+  </div>
+  <div id="page-trivia" class="col-xs-12">
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            <b>Trivia goes live in</b><div id="countdown" style="font-family:'QualcommRegular';font-size:18pt;color:red"></div>
+        </h3></div>
+        <div class="panel-body">
+            Play Qualcomm Trivia to win cool swag! On Wednesday, September 24 at 10am, QC Trivia will go live!<br><br>
+            Answer questions about Qualcomm culture, technology, and programs to rack up points. Compete with friends
+            and check your standing on the <a href="/trivia/leaderboard">leaderboard page</a>.<br><br>
+            Prizes include Qualcomm hoodies, jerseys, t-shirts, and even an exclusive dinner with the Qualcomm campus team!
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            <b style="font-family: 'QualcommBold'">Platinum Prize</b> (Top three winners)
+        </h3></div>
+        <div class="panel-body">
+            Dinner with the campus team (location TBD).<br>
+            First place - bring two friends<br>
+            Second place - bring one friend
+            Third place - just you!
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            <b style="font-family: 'QualcommBold'">Gold Prize</b> (Top five winners)
+        </h3></div>
+        <div class="panel-body">
+            Qualcomm hoodie + Qualcomm jersey + Qualcomm t-shirt
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            <b style="font-family: 'QualcommBold'">Gold Prize</b> (Top five winners)
+            <b style="font-family: 'QualcommBold'">Silver Prize</b> (Top twenty-five winners)
+        </h3></div>
+        <div class="panel-body">
+            Qualcomm jersey + Qualcomm t-shirt
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading"><h3 class="panel-title">
+            <b style="font-family: 'QualcommBold'">Bronze Prize</b> (Top fifty winners)
+        </h3></div>
+        <div class="panel-body">
+            Qualcomm t-shirt
+        </div>
+    </div>
+    <br><br>
+  </div>
+
+  <script>
+  startCounter = function() {
+    // change for the desired end date
+    // var target_date = new Date(<year> <month (0-11)>, <day>, <hours>, <minutes>, <seconds>);
+    var target_date = new Date(2014, 8, 24, 10, 0, 0);      // September 24, 2014 10:00am
+
+    updateTime(target_date);
+
+    setInterval(function() {
+        updateTime(target_date);
+    }, 1000);
+  }
+
+  updateTime = function(target) {
+    // get current time
+    var current_date = new Date();
+
+    // get countdown date
+    time = Math.floor((target.getTime() - current_date.getTime()) / 1000);
+
+    // assign values
+    var days = Math.floor(time / 86400);
+    time -= days * 86400;
+
+    var hours = Math.floor(time / 3600);
+    time -= hours * 3600;
+
+    var minutes = Math.floor(time / 60);
+    time -= minutes * 60;
+
+    var seconds = time;
+
+    var output = days + " days " + hours + " hours " + minutes + " minutes " + seconds + " seconds.";
+    $("#countdown").html(output);
+  }
+  startCounter();
+  </script>
+<% } %>
