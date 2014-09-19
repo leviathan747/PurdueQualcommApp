@@ -99,7 +99,10 @@ exports.leaderboard = function(req, res){
 
         // add rank to current user
         for (var i = 0; i < users.length; i++) {
-            if (users[i].id == req.session.user.id) req.session.user.rank = users[i].dataValues.rank;
+            if (users[i].id == req.session.user.id) {
+                req.session.user = users[i];
+                req.session.user.rank = users[i].dataValues.rank;
+            }
         }
 
         var context = {
@@ -154,15 +157,15 @@ exports.triviaQuestion = function(req, res){
     });
 }
 
-// render the trivia countdown page
-exports.countdown = function(req, res){
+// render the trivia about page
+exports.trivia_about = function(req, res){
 
     var context = {
         triviaActive: req.triviaActive,
         user:       req.session.user,
     }
 
-    res.render('countdown.ejs', context);
+    res.render('trivia_about.ejs', context);
     res.end();
 }
 
